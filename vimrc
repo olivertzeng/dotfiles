@@ -7,8 +7,8 @@ language C
 syntax on
 
 set encoding=utf-8
-set langmenu=en_US
-let $LANG = 'en_US'
+set langmenu=zh_TW
+let $LANG = 'zh_TW'
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
