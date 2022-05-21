@@ -1,0 +1,68 @@
+#!/bin/sh
+
+DEFAULT_CHIPS="nic 6715b0 43684c0 4368b0"
+
+if [ $# -eq 0 ]; then
+  echo "Usage: $0 [all|6715b0|43684c0|43684b0]"
+  exit -1
+else
+  for CHIP in ${@,,}; do
+    if [ "${CHIP}" = "nic" -o "${CHIP}" = "6715b0" -o "${CHIP}" = "43684c0" -o "${CHIP}" = "43684b0" ]; then
+      CHIPS="${CHIPS} ${CHIP}"
+    elif [ "${CHIP}" = "6715" ]; then
+      CHIPS="${CHIPS} 6715b0"
+    elif [ "${CHIP}" = "43684" ]; then
+      CHIPS="${CHIPS} 43684c0"
+    elif [ "${CHIP}" = "all" ]; then
+      CHIPS=${DEFAULT_CHIPS}
+      break
+    else
+      echo ">>>> Invalid option \"${CHIP}\""
+    fi
+  done
+fi
+
+OLD_PATH=${PWD}
+PATH_FOUND=0
+
+while [ "${PWD}" != "/" ]; do
+  if [ -d "main" ]; then
+    PATH_FOUND=1
+    cd main
+    break
+  else
+    cd ..
+  fi
+done
+
+if [ "${PATH_FOUND}" -eq 0 ]; then
+  echo "Fail to locate clm files."
+  cd $OLD_PATH
+  exit -1
+fi
+
+for CHIP in $CHIPS; do
+  if [ "${CHIP}" = "nic" ]; then
+    echo ">>>> Generating ${PWD}/components/clm-api/src/wlc_clm_data_nic.c"
+    ./components/clm-bin/ClmCompiler.py \
+    --clmapi_include_dir ${PWD}/components/clm-api/include/ \
+    --print_options \
+    --bcmwifi_include_dir ${PWD}/src/shared/bcmwifi/include \
+    --config_file ${PWD}/src/wl/clm/types/router.clm \
+    --obfuscate ${PWD}/components/clm-private/wlc_clm_data.xml \
+    ${PWD}/components/clm-api/src/wlc_clm_data_nic.c
+  elif [ "${CHIP}" = "6715b0" -o "${CHIP}" = "43684c0" -o "${CHIP}" = "43684b0" ]; then
+    echo ">>>> Generating ${PWD}/components/clm-api/src/wlc_clm_data_${CHIP}.c"
+    ./components/clm-bin/ClmCompiler.py \
+    --clmapi_include_dir ${PWD}/components/clm-api/include/ \
+    --print_options \
+    --bcmwifi_include_dir ${PWD}/src/shared/bcmwifi/include \
+    --config_file ${PWD}/src/wl/clm/types/${CHIP}_access.clm \
+    --obfuscate ${PWD}/components/clm-private/wlc_clm_data.xml \
+    ${PWD}/components/clm-api/src/wlc_clm_data_${CHIP}.c
+  else
+    echo ">>>> Invalid chip \"${CHIP}\""
+  fi
+done
+
+cd $OLD_PATH

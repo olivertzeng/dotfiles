@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# ref: https://hwnbu-twiki.lvn.broadcom.net/bin/view/Mwgroup/UcodeDebugOnRouterBuild
+#
+
+if [ "$#" -lt 1 ]; then
+  echo "Usage: $0 <psmwd.log>"
+  exit 2
+fi
+
+if [ ! -f "$1" ]; then
+  echo "PSMWD log \"$1\" not exist."
+  exit 2
+fi
+
+DUMP_FILE=$1
+
+PSMWD_MSG=$(grep -m1 " at [[:digit:]]\+ seconds. corerev " ${DUMP_FILE})
+PSMWD_MSG=${PSMWD_MSG%^M}
+#echo $PSMWD_MSG
+
+# Example 1: wlc_dump_ucode_fatal()
+# CONSOLE[wl2]: 135804.893 wl2: reason = txfifo susp/flush at 93 seconds. corerev 132.2 ucode revision 1659.250 features 0x9106
+#
+# Example 2: wlc_dump_psmx_fatal()
+# [2022-04-11 08:21:03.918724]CONSOLE: 464323.303 wl0: PSMx dump at 322030 seconds. corerev 129.2 reason:watchdog ucode revision 1626.2821 features 0x9106
+
+if [[ "${PSMWD_MSG}" == *"psmx watchdog"* || "${PSMWD_MSG}" == *"PSMx dump"* ]]; then
+  PTYPE="psmx"
+else
+  PTYPE="psm"
+fi
+#echo $PTYPE
+
+COREREV=${PSMWD_MSG#*corerev }
+COREREV=${COREREV%% *}
+#echo $COREREV
+
+UCODEREV=${PSMWD_MSG#*ucode revision }
+UCODEREV=${UCODEREV%% *}
+UCODEREV=${UCODEREV/./_}
+#echo $UCODEREV
+
+FEATURES=${PSMWD_MSG#*features }
+FEATURES=${FEATURES%% *}
+#echo $FEATURES
+
+# test bit12 - on: mu; off main
+case "$(((${FEATURES} & 0x1000) != 0))" in
+  1) UTYPE="mu" ;;
+  *) UTYPE="main" ;;
+esac
+#echo $UTYPE
+
+# try branch pcode first
+PCODE_PATH="/projects/dot11_firmware/regression/bcatot_${UCODEREV}/build/${UTYPE}/ucode/revid_${COREREV}/${PTYPE}_ucode.pcode"
+if [ ! -f "${PCODE_PATH}" ]; then
+  # then try tag pcode
+  PCODE_PATH=${PCODE_PATH/bcatot_/tag_}
+  if [ ! -f "${PCODE_PATH}" ]; then
+    echo "Pcode \"${PCODE_PATH}\" not exist."
+    exit 2
+  fi
+fi
+#echo $PCODE_PATH
+
+/projects/dot11_firmware/uctools/upcvals ${DUMP_FILE} ${PCODE_PATH} 2>/dev/null
