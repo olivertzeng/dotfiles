@@ -1,191 +1,115 @@
-# Options
-# --------------------------------------------------------------------
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
-### Check the window size after each command ($LINES, $COLUMNS)
-shopt -s checkwinsize
-
-### Disable CTRL-S and CTRL-Q
-[[ $- =~ i ]] && stty -ixoff -ixon
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 ### Setup backspace key (for vim)
 # https://stackoverflow.com/questions/9701366/vim-backspace-leaves
 # https://stackoverflow.com/questions/15285461/how-can-find-what-and-correspond-to-on-a-keyboard-in-linux
 [[ $- =~ i ]] && stty erase "^?"
 
-### Disable matching hidden files for tab completion
-[[ $- =~ i ]] && bind 'set match-hidden-files off'
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
+# append to the history file, don't overwrite it
+shopt -s histappend
 
-# Environment variables
-# --------------------------------------------------------------------
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
 
-### Path update utility
-# Usage: updpath VARNAME /new/path [append]
-updpath() {
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
-  # Two parameters at least
-  if [ "$#" -lt 2 ]; then
-    return
-  fi
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
 
-  # Expand VARNAME to $orig_dirlist
-  # https://unix.stackexchange.com/questions/68035/foo-and-zsh
-  eval "orig_dirlist=\"\${$1}\""
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-  # VARNAME is not set. Assign new path to VARNAME directly
-  if [ -z "${orig_dirlist}" ]; then
-    eval $1="$2"
-    return
-  fi
-
-  if [[ "x$3" == "xappend" ]]; then
-    is_append=1
-  else
-    is_append=0
-  fi
-
-  if [[ $is_append -eq 1 ]]; then
-    new_dirlist=$(echo $2 | tr ':' '\n')
-  else
-    new_dirlist=
-    for dir in $(echo $2 | tr ':' ' '); do
-      new_dirlist="$dir $new_dirlist"
-    done
-  fi
-
-  for dir in $new_dirlist; do
-    orig_dirlist=${orig_dirlist/:$dir:/:}
-    orig_dirlist=${orig_dirlist/$dir:/}
-    orig_dirlist=${orig_dirlist/:$dir/}
-
-    if [[ -d $dir ]]; then
-      if [[ $is_append -eq 1 ]]; then
-        orig_dirlist=$orig_dirlist:$dir
-      else
-        orig_dirlist=$dir:$orig_dirlist
-      fi
-    fi
-  done
-
-  eval $1=$orig_dirlist
-}
-
-chbuild () {
-  case ${1} in
-    "" )
-      echo $BUILD_PLATFORM
-      ;;
-    "-h" )
-      echo "chbuild [ 504L0x | 502L0x | 502L0x_cache | 502L0x_old | 470x ]"
-      echo "  504L0x - 504L01/L02/devel"
-      echo "  502L0x - 502L05/L07/L07p1"
-      echo "  502L0x_cache - 502L0x ccache build"
-      echo "  502L0x_old - 502L04"
-      echo "  470x - 470x platforms"
-      ;;
-    "504L0x" | "devel")
-      updpath LD_LIBRARY_PATH /projects/bca/tools/linux/BCG/crosstools-arm-gcc-9.2-linux-4.19-glibc-2.30-binutils-2.32/usr/lib
-      updpath PATH /projects/bca/tools/linux/hndtools-armeabi-2013.11/bin
-      TOOLCHAIN_BASE=/projects/bca/tools/linux/BCG; export TOOLCHAIN_BASE
-      BUILD_PLATFORM=${1}; export BUILD_PLATFORM
-      ;;
-    "502L0x" | "502L0x_cache")
-      updpath LD_LIBRARY_PATH /projects/bca/tools/linux/BCG/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/lib
-      updpath PATH /projects/bca/tools/linux/hndtools-armeabi-2013.11/bin
-      TOOLCHAIN_BASE=/projects/bca/tools/linux/BCG; export TOOLCHAIN_BASE
-      BUILD_PLATFORM=${1}; export BUILD_PLATFORM
-
-      if [ ${BUILD_PLATFORM} == "502L0x_cache" ]; then
-        # setup ccache
-        CCACHE_DIR=/tmp/${LOGNAME}_ccache; export CCACHE_DIR
-        if [ ! -d "$CCACHE_DIR" ]; then
-          mkdir $CCACHE_DIR
-        fi
-        if [ -f /tools/bin/ccache ]; then
-          /tools/bin/ccache -M 5G >/dev/null
-        fi
-      fi
-      ;;
-    "502L0x_old")
-      updpath LD_LIBRARY_PATH /projects/hnd/tools/linux/BCG/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/lib
-      updpath PATH /projects/hnd/tools/linux/hndtools-armeabi-2013.11/bin
-      TOOLCHAIN_BASE=/projects/hnd/tools/linux/BCG; export TOOLCHAIN_BASE
-      BUILD_PLATFORM=${1}; export BUILD_PLATFORM
-      ;;
-    "470x" | "4708" | "4709")
-      updpath LD_LIBRARY_PATH /projects/bca/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/lib
-      updpath PATH /projects/bca/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3/bin:/projects/bca/tools/linux/hndtools-armeabi-2011.09/bin
-      BUILD_PLATFORM=${1}; export BUILD_PLATFORM
-      ;;
-    *) ;;
-  esac;
-}
-
-sendfile() {
-  tar -cf - -C `dirname ${1}` `basename ${1}` | pv -s `du -b ${1} | cut -f 1` | nc -vv `echo $SSH_CLIENT | cut -f 1 -d ' '` 8888
-}
-
-recvfile() {
-  while true; do nc -l 8888 -w1 | tar -xf -; done
-}
-
-
-### PATH Configuration on Linux
-OSRel=`uname -r`
-STUFF=/projects/bca/tools/linux-$OSRel/bin:/projects/bca/tools/linux/bin
-updpath PATH $STUFF append
-
-### setup build path for 490x
-chbuild 502L0x
-
-### local bin
-updpath PATH $HOME/bin
-
-### for github TLSv1.2 support
-updpath LD_LIBRARY_PATH /tools/oss/packages/x86_64-${OSid2}/firefox/default/lib
-
-SUBVERSIONVER=1.9.2; export SUBVERSIONVER
-
-export P4PORT=ssl:pf-sgn-bca-proxy.devops.broadcom.net:3240
-export P4VER=2018.4
-export P4USER=mt952679
-export P4CLIENT=mt952679
-export P4EDITOR=vi
-
-GIT_SSL_NO_VERIFY=true; export GIT_SSL_NO_VERIFY
-export HISTCONTROL=ignorespace:erasedups
-
-export SSH_CLIENT_IP=$(echo $SSH_CLIENT | cut -f 1 -d ' ')
-
-# Avoiding a popup window for asking password
-# https://superuser.com/questions/758039/git-push-pull-keeps-on-trying-to-produce-gui-window
-export SSH_ASKPASS=
-
-# Hide shell deprecated warning on macos after catalina
-# https://scriptingosx.com/2019/06/moving-to-zsh/
-export BASH_SILENCE_DEPRECATION_WARNING=1
-
-#
-export VIMVER=8.2-p1
-export LLVMVER=11.0.0
-#export GCCVER=11.2.0
-#updpath LD_LIBRARY_PATH /tools/oss/packages/x86_64-rhel6/gcc/${GCCVER}/lib:/tools/oss/packages/x86_64-rhel6/gcc/${GCCVER}/lib64
-#export CMAKEVER=3.20.2
-#export BINUTILSVER=2.30
-
-
-# Aliases
-# --------------------------------------------------------------------
-
-ls_version="$(ls --version 2>/dev/null)"
-if [[ "$ls_version" == *"GNU coreutils"* ]]; then
-  alias ls='ls --color=auto'
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
 fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias la='ls -A'
 alias l='ls'
 alias l.='ls -d .*'
 alias ll.='ls -ld .*'
 alias ll='ls -l'
 alias lh='ls -lh'
+alias update='sudo apt-fast --allow-unauthenticated update -yy && sudo apt-fast full-upgrade -yy && sudo updatedb && sudo update-initramfs -u && sudo apt-fast autoclean -yy && sudo apt-fast remove -yy && sudo apt-fast install -yy && sudo apt-fast clean -yy && sudo apt-fast dist-upgrade -yy && sudo apt-fast purge -yy'
+alias plymouth='sudo update-alternatives --config default.plymouth && sudo update-initramfs -u'
+alias f='fortune | cowsay | lolcat'
+alias sudo='sudo '
+alias brew='apt-fast'
+alias apt='apt-fast'
+alias apt-get='apt-fast'
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 # alias grep
 if command -v rg >/dev/null 2>&1; then
   alias grep='rg --ignore-file ~/.ignore --no-heading'
@@ -194,6 +118,7 @@ elif command -v ag >/dev/null 2>&1; then
 else
   alias grep='grep --color --exclude={cscope.*,tags} --exclude-dir={.svn,builds} --binary-files=without-match'
 fi
+
 # alias tmux
 if command -v tmux >/dev/null 2>&1; then
   alias tmux='tmux -2 -u'
@@ -201,11 +126,137 @@ fi
 alias vi='vim -X'
 alias bd=". bd -si"
 
-# alias gdb_python
-GDB_PATH=$HOME/bin/gdb_python
-updpath LD_LIBRARY_PATH /tools/oss/packages/x86_64-${OSid2}/python/2.7.5/lib append
-alias gdb_dbg="$GDB_PATH/gdb-python --data-directory=$GDB_PATH/data-directory"
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+#!/bin/bash
+
+# NAME: now
+# PATH: $HOME/bin
+# DESC: Display current weather, calendar and time
+# CALL: Called from terminal or ~/.bashrc
+# DATE: Apr 6, 2017. Modified: May 24, 2019.
+
+# UPDT: 2019-05-24 If Weather unavailable nicely formatted error message.
+
+# NOTE: To display all available toilet fonts use this one-liner:
+#       for i in ${TOILET_FONT_PATH:=/usr/share/figlet}/*.{t,f}lf; do j=${i##*/}; toilet -d "${i%/*}" -f "$j" "${j%.*}"; done
+
+# Setup for 92 character wide terminal
+DateColumn=34 # Default is 27 for 80 character line, 34 for 92 character line
+TimeColumn=61 # Default is 49 for   "   "   "   "    61 "   "   "   "
+
+# Replace Edmonton with your city name, GPS, etc. See: curl wttr.in/:help
+curl wttr.in/Hsinchu?0 --silent --max-time 3 > /tmp/now-weather
+# Timeout #. Increase for slow connection---^
+
+readarray aWeather < /tmp/now-weather
+rm -f /tmp/now-weather
+
+# Was valid weather report found or an error message?
+if [[ "${aWeather[0]}" == "Weather report:"* ]] ; then
+    WeatherSuccess=true
+    echo "${aWeather[@]}"
+else
+    WeatherSuccess=false
+    echo "+============================+"
+    echo "| Weather unavailable now!!! |"
+    echo "| Check reason with command: |"
+    echo "|                            |"
+    echo "| curl wttr.in/Hsinchu?0     |" # Replace  with your city
+    echo "|   --silent --max-time 3    |"
+    echo "+============================+"
+    echo " "
+fi
+echo " "                # Pad blank lines for calendar & time to fit
+
+#--------- DATE -------------------------------------------------------------
+
+# calendar current month with today highlighted.
+# colors 00=bright white, 31=red, 32=green, 33=yellow, 34=blue, 35=purple,
+#        36=cyan, 37=white
+
+tput sc                 # Save cursor position.
+# Move up 9 lines
+i=0
+while [ $((++i)) -lt 10 ]; do tput cuu1; done
+
+if [[ "$WeatherSuccess" == true ]] ; then
+    # Depending on length of your city name and country name you will:
+    #   1. Comment out next three lines of code. Uncomment fourth code line.
+    #   2. Change subtraction value and set number of print spaces to match
+    #      subtraction value. Then place comment on fourth code line.
+    Column=$((DateColumn - 10))
+    tput cuf $Column        # Move x column number
+    # Blank out ", country" with x spaces
+    printf "          "
+else
+    tput cuf $DateColumn    # Position to column 27 for date display
+fi
+
+# -h needed to turn off formating: https://askubuntu.com/questions/1013954/bash-substring-stringoffsetlength-error/1013960#1013960
+cal > /tmp/terminal1
+# -h not supported in Ubuntu 18.04. Use second answer: https://askubuntu.com/a/1028566/307523
+tr -cd '\11\12\15\40\60-\136\140-\176' < /tmp/terminal1  > /tmp/terminal
+
+CalLineCnt=1
+Today=$(date +"%e")
+
+printf "\033[32m"   # color green -- see list above.
+
+while IFS= read -r Cal; do
+    printf "%s" "$Cal"
+    if [[ $CalLineCnt -gt 2 ]] ; then
+        # See if today is on current line & invert background
+        tput cub 22
+        for (( j=0 ; j <= 18 ; j += 3 )) ; do
+            Test=${Cal:$j:2}            # Current day on calendar line
+            if [[ "$Test" == "$Today" ]] ; then
+                printf "\033[7m"        # Reverse: [ 7 m
+                printf "%s" "$Today"
+                printf "\033[0m"        # Normal: [ 0 m
+                printf "\033[32m"       # color green -- see list above.
+                tput cuf 1
+            else
+                tput cuf 3
+            fi
+        done
+    fi
+
+    tput cud1               # Down one line
+    tput cuf $DateColumn    # Move 27 columns right
+    CalLineCnt=$((++CalLineCnt))
+done < /tmp/terminal
+
+printf "\033[00m"           # color -- bright white (default)
+echo ""
+
+tput rc                     # Restore saved cursor position.
+neofetch 
+f
+### Prompt style
+export PS1='\u@\h \w % '
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Functions
 # --------------------------------------------------------------------
@@ -232,4 +283,3 @@ if command -v fd >/dev/null 2>&1; then
 fi
 export FZF_DEFAULT_OPTS="--reverse"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
