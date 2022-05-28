@@ -1,9 +1,9 @@
 #!/bin/sh
 
-DEFAULT_CHIPS="nic 6715b0 43684c0 4368b0"
+DEFAULT_CHIPS="nic 6715b0 43684c0 43684b0"
 
 if [ $# -eq 0 ]; then
-  echo "Usage: $0 [all|6715b0|43684c0|43684b0]"
+  echo "Usage: $0 [all|nic|6715b0|43684c0|43684b0]"
   exit -1
 else
   for CHIP in ${@,,}; do
