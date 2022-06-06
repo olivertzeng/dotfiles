@@ -70,7 +70,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git coffee cp colored-man-pages command-not-found vim-interaction colorize emoji emoji-clock fzf gh git-lfs git-prompt history lol python repo sudo)
+plugins=(archlinux git coffee cp colored-man-pages command-not-found vim-interaction colorize emoji emoji-clock fzf gh git-lfs git-prompt history lol python repo sudo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -78,7 +78,7 @@ source $ZSH/oh-my-zsh.sh
 export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-export LANG=zh_TW.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -120,12 +120,9 @@ alias l.='ls -d .*'
 alias ll.='ls -ld .*'
 alias ll='ls -l'
 alias lh='ls -lh'
-alias update='sudo apt-fast update -yy && sudo apt-fast full-upgrade -yy && sudo updatedb && sudo update-initramfs -u && sudo apt-fast autoclean -yy && sudo apt-fast remove -yy && sudo apt-fast install -yy && sudo apt-fast clean -yy && sudo apt-fast dist-upgrade -yy && sudo apt-fast purge -yy'
 alias plymouth='sudo update-alternatives --config default.plymouth && sudo update-initramfs -u'
 alias f='fortune | cowsay | lolcat'
 alias sudo='sudo '
-alias apt='apt-fast'
-alias apt-get='apt-fast'
 alias rm=' trash'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -168,7 +165,7 @@ fi
 DateColumn=34 # Default is 27 for 80 character line, 34 for 92 character line
 TimeColumn=61 # Default is 49 for   "   "   "   "    61 "   "   "   "
 
-weather
+weather -c Hsinchu -C Hsinchu
 #--------- DATE -------------------------------------------------------------
 
 # calendar current month with today highlighted.
@@ -231,7 +228,7 @@ printf "\033[00m"           # color -- bright white (default)
 echo ""
 
 tput rc                     # Restore saved cursor position.
-neofetch 
+neofetch
 f
 ### Prompt style
 
@@ -255,3 +252,7 @@ if command -v fd >/dev/null 2>&1; then
 fi
 export FZF_DEFAULT_OPTS="--reverse"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -f /etc/bash.command-not-found ]; then
+    . /etc/bash.command-not-found
+fi
