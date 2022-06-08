@@ -10,7 +10,7 @@ makepkg -si
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 yay -Syu
-yay -Sy tuxmath scratch-desktop checkra1n-gui checkra1n-cli zstd citra-canary-bin debtap google-chrome spotify spotify-adblock stacer-bin timeshift yakyak-git pamac-nosnap xscreensaver-aerial xscreensaver-arch-logo xmountains aerial-2k-videos aerial-4k-videos altserver-bin altserver-gui backintime appimagelauncher
+yay -Sy kalu tuxmath scratch-desktop checkra1n-gui checkra1n-cli zstd citra-canary-bin debtap google-chrome spotify spotify-adblock stacer-bin timeshift yakyak-git pamac-nosnap xscreensaver-aerial xscreensaver-arch-logo xmountains aerial-2k-videos aerial-4k-videos altserver-bin altserver-gui backintime appimagelauncher
 git clone https://github.com/hkbakke/bash-insulter.git bash-insulter
 cp bash-insulter/src/bash.command-not-found /etc/
 gh auth login

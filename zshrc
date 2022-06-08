@@ -256,3 +256,4 @@ export FZF_DEFAULT_OPTS="--reverse"
 if [ -f /etc/bash.command-not-found ]; then
     . /etc/bash.command-not-found
 fi
+alias pineapple="curl https://raw.githubusercontent.com/pineappleEA/Pineapple-Linux/master/pineapple.sh | sh -s --"
