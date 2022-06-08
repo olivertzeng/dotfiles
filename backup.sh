@@ -1,5 +1,5 @@
 sudo su
-pacman -Sy  --needed rmlint ncdu bleachbit cowsay lolcat fortune-mod spectacle samba qemu libvirt virt-manager bridge-utils bison ebtables edk2-ovmf locate docker trash-cli npm nodejs rsync perl unzip base-devel pacman-contrib git svn openssh gettext lokalize libnautilus-extension gimp retroarch telegram-desktop vlc mpv sl xboard nautilus wget discord-canary handbrake arduino virtualbox ibus ibus-chewing ibus-typing-booster vim vi virtualbox-guest-iso virtualbox-guest-utils virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk curl flatpak netctl dialog
+pacman -Sy  --needed obs-studio rmlint ncdu bleachbit cowsay lolcat fortune-mod spectacle samba qemu libvirt virt-manager bridge-utils bison ebtables edk2-ovmf locate docker trash-cli npm nodejs rsync perl unzip base-devel pacman-contrib git svn openssh gettext lokalize libnautilus-extension gimp retroarch telegram-desktop vlc mpv sl xboard nautilus wget discord-canary handbrake arduino virtualbox ibus ibus-chewing ibus-typing-booster vim vi virtualbox-guest-iso virtualbox-guest-utils virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk curl flatpak netctl dialog
 pacman -Syu
 pacman -R gnome-software-packagekit-plugin gnome-software
 npm install -g weather-cli
@@ -22,7 +22,8 @@ cp s.sh ~/s.sh
 cp sh.sh ~/sh.sh
 cp zshrc ~/.zshrc
 cp paccache.timer /dotfiles /etc/systemd/system/paccache.timer
-cp paccache.hook /usr/share/libalpm/hooks/paccache.hook 
+cp paccache.hook /usr/share/libalpm/hooks/paccache.hook
+gconftool-2 --load terminal-color-scheme.xml
 cd
 echo "export THEOS=~/theos" >> ~/.profile
 git clone --recursive https://github.com/theos/theos.git $THEOS
