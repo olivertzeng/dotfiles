@@ -1,8 +1,9 @@
-sudo pacman -Sy  --needed cowsay lolcat fortune-mod spectacle samba qemu libvirt virt-manager bridge-utils bison ebtables edk2-ovmf locate docker trash-cli npm nodejs rsync perl unzip base-devel pacman-contrib git svn openssh gettext lokalize libnautilus-extension gimp retroarch telegram-desktop vlc mpv sl xboard nautilus wget discord-canary handbrake arduino virtualbox ibus ibus-chewing ibus-typing-booster vim vi virtualbox-guest-iso virtualbox-guest-utils virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk curl flatpak netctl dialog
-sudo pacman -Syu
-sudo pacman -Ry gnome-software-packagekit-plugin gnome-software
-sudo npm install -g weather-cli
-sudo debtap -u
+sudo su
+pacman -Sy  --needed rmlint ncdu bleachbit cowsay lolcat fortune-mod spectacle samba qemu libvirt virt-manager bridge-utils bison ebtables edk2-ovmf locate docker trash-cli npm nodejs rsync perl unzip base-devel pacman-contrib git svn openssh gettext lokalize libnautilus-extension gimp retroarch telegram-desktop vlc mpv sl xboard nautilus wget discord-canary handbrake arduino virtualbox ibus ibus-chewing ibus-typing-booster vim vi virtualbox-guest-iso virtualbox-guest-utils virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk curl flatpak netctl dialog
+pacman -Syu
+pacman -R gnome-software-packagekit-plugin gnome-software
+npm install -g weather-cli
+debtap -u
 git clone https://aur.archlinux.org/yay-git.git
 cd yay-git
 makepkg -si      
@@ -11,7 +12,7 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 yay -Syu
 yay -Sy tuxmath scratch-desktop checkra1n-gui checkra1n-cli zstd citra-canary-bin debtap google-chrome spotify spotify-adblock stacer-bin timeshift yakyak-git pamac-nosnap xscreensaver-aerial xscreensaver-arch-logo xmountains aerial-2k-videos aerial-4k-videos altserver-bin altserver-gui backintime appimagelauncher
 git clone https://github.com/hkbakke/bash-insulter.git bash-insulter
-sudo cp bash-insulter/src/bash.command-not-found /etc/
+cp bash-insulter/src/bash.command-not-found /etc/
 gh auth login
 git clone git@github.com:olivertzeng/Silica.git
 git clone git@github.com:olivertzeng/dotfiles.git
@@ -20,6 +21,8 @@ cp vimrc ~/.vimrc
 cp s.sh ~/s.sh
 cp sh.sh ~/sh.sh
 cp zshrc ~/.zshrc
+cp paccache.timer /dotfiles /etc/systemd/system/paccache.timer
+cp paccache.hook /usr/share/libalpm/hooks/paccache.hook 
 cd
 echo "export THEOS=~/theos" >> ~/.profile
 git clone --recursive https://github.com/theos/theos.git $THEOS
@@ -37,11 +40,12 @@ TMP=$(mktemp -d)
 unzip master.zip -d $TMP
 mv $TMP/sdks-master/*.sdk $THEOS/sdks
 rm -r master.zip $TMP
-sudo pacman -Sc
-sudo pacman -Scc
-sudo yay -Sc
-sudo yay -Scc
-sudo pacman -Rns $(pacman -Qtdq)
+pacman -Sc
+pacman -Scc
+yay -Sc
+yay -Scc
+pacman -Rns $(pacman -Qtdq)
 rmlint
+rm -rf ~/.cache/*
 sh -c /home/olivertzeng/rmlint.sh
 yay -S  proton yuzu darling

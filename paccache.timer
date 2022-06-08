@@ -1,0 +1,9 @@
+[Unit]
+Description=用來清理pacman垃圾
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target
