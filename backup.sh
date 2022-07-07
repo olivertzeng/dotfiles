@@ -1,7 +1,6 @@
-sudo su
-pacman -Sy  --needed obs-studio rmlint ncdu bleachbit cowsay lolcat fortune-mod spectacle samba qemu libvirt virt-manager bridge-utils bison ebtables edk2-ovmf locate docker trash-cli npm nodejs rsync perl unzip base-devel pacman-contrib git svn openssh gettext lokalize libnautilus-extension gimp retroarch telegram-desktop vlc mpv sl xboard nautilus wget discord-canary handbrake arduino virtualbox ibus ibus-chewing ibus-typing-booster vim vi virtualbox-guest-iso virtualbox-guest-utils virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk curl flatpak netctl dialog
-pacman -Syu
-pacman -R gnome-software-packagekit-plugin gnome-software
+sudo pacman -Sy  --needed obs-studio rmlint ncdu bleachbit cowsay lolcat fortune-mod spectacle samba qemu libvirt virt-manager bridge-utils bison ebtables edk2-ovmf locate docker trash-cli npm nodejs rsync perl unzip base-devel pacman-contrib git svn openssh gettext lokalize libnautilus-extension gimp retroarch telegram-desktop vlc mpv sl xboard nautilus wget discord-canary handbrake arduino virtualbox ibus ibus-chewing ibus-typing-booster vim vi virtualbox-guest-iso virtualbox-guest-utils virtualbox-guest-utils virtualbox-host-dkms virtualbox-sdk curl flatpak netctl dialog
+sudo pacman -Syu
+sudo pacman -R dolphin
 npm install -g weather-cli
 debtap -u
 git clone https://aur.archlinux.org/yay-git.git
@@ -16,13 +15,13 @@ cp bash-insulter/src/bash.command-not-found /etc/
 gh auth login
 git clone git@github.com:olivertzeng/Silica.git
 git clone git@github.com:olivertzeng/dotfiles.git
-cd dotfiles
-cp vimrc ~/.vimrc
+sudo cd dotfiles
+sudo cp vimrc ~/.vimrc
 cp s.sh ~/s.sh
 cp sh.sh ~/sh.sh
 cp zshrc ~/.zshrc
-cp paccache.timer /dotfiles /etc/systemd/system/paccache.timer
-cp paccache.hook /usr/share/libalpm/hooks/paccache.hook
+sudo cp paccache.timer /dotfiles /etc/systemd/system/paccache.timer
+sudo cp paccache.hook /usr/share/libalpm/hooks/paccache.hook
 gconftool-2 --load terminal-color-scheme.xml
 cd
 echo "export THEOS=~/theos" >> ~/.profile
@@ -41,12 +40,12 @@ TMP=$(mktemp -d)
 unzip master.zip -d $TMP
 mv $TMP/sdks-master/*.sdk $THEOS/sdks
 rm -r master.zip $TMP
-pacman -Sc
-pacman -Scc
+sudo pacman -Sc
+sudo pacman -Scc
 yay -Sc
 yay -Scc
-pacman -Rns $(pacman -Qtdq)
+sudo pacman -Rns $(pacman -Qtdq)
 rmlint
-rm -rf ~/.cache/*
+sudo rm -rf ~/.cache/*
 sh -c /home/olivertzeng/rmlint.sh
 yay -S  proton yuzu darling
