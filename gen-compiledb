@@ -12,12 +12,21 @@ fi
 
 BUILD_LOG="$1"
 
-PROFILE=$(grep -m1 "make -f build/Makefile -j[[:digit:]]\+ PROFILE=" "${BUILD_LOG}"); PROFILE=${PROFILE#*PROFILE=}
-PROFILE=${PROFILE%% *}  # trim tail spaces
+# PROFILE=$(grep -m1 "make -f build/Makefile -j[[:digit:]]\+ PROFILE=" "${BUILD_LOG}"); PROFILE=${PROFILE#*PROFILE=}
+# PROFILE=${PROFILE%% *}  # trim tail spaces
+PROFILE=$(grep -m1 "echo \".*\" > .*\.last_profile" "${BUILD_LOG}")
+PROFILE=${PROFILE#*echo \"}
+PROFILE=${PROFILE%%\"*}
+
+if [ -z "${PROFILE}" ]; then
+  echo "No profile found!"
+  exit
+fi
+
 echo "generating compile_commands.json.${PROFILE}.nic"
-BUILD_DIR=$(grep -m1 "LINUXDIR=" "${BUILD_LOG}"); BUILD_DIR=${BUILD_DIR#*LINUXDIR=}
 CC=$(grep -m1 "\-o init/main\.o" "${BUILD_LOG}" | sed "s/^.* \([[:alnum:]/._-]*gcc\) .*$/\1/")
 grep "${CC}" "${BUILD_LOG}" > "${BUILD_LOG}".nic
+BUILD_DIR=$(grep -m1 "LINUXDIR=" "${BUILD_LOG}"); BUILD_DIR=${BUILD_DIR#*LINUXDIR=}
 compiledb -f -d "${BUILD_DIR}" -p "${BUILD_LOG}".nic -o compile_commands.json."${PROFILE}".nic
 
 # May need to remove below gcc options
@@ -31,15 +40,21 @@ grep "hostapd" "${BUILD_LOG}".nic | compiledb -d "${BUILD_DIR}" -o compile_comma
 # example of BUILD_STR
 #-------- Building: config_pcie_fdap_release_airiq from /projects/wlan_sw_ae3/mtzengc/504L02/188.25020/bcmdrivers/broadcom/net/wl/impl83/main/build/dongle/43684b0-ram --------
 
-grep "^-------- Building: config_pcie_fdap" "${BUILD_LOG}" | while read BUILD_STR; do
-  BUILD_DIR=$(echo "${BUILD_STR}" | cut -f5 -d' ')
-  CHIP=${BUILD_DIR##*/}
-  BUILD_DIR="${BUILD_DIR}"/$(echo "${BUILD_STR}" | cut -f3 -d' ')
+grep "^-------- Building: " "${BUILD_LOG}" | while read PREFIX BUILDING BUILD_TARGET FROM BUILD_BASE POSTFIX; do
+  if [ ! -d "${BUILD_BASE}"/"${BUILD_TARGET}" ]; then
+	  continue
+  fi
+
+  CHIP=${BUILD_BASE##*/}
+  CHIP=${CHIP%-*} # remove '-ram' or '-roml'
+  CHIP=${CHIP^^}
+
+  CHIP=${CHIP/43684B0/43684B1}
+
   echo "generating compile_commands.json.${PROFILE}.${CHIP}"
-  sed -n "/^-------- Building: config_pcie_fdap.*${CHIP}/,/^-------- Done: config_pcie_fdap.*${CHIP}/p" "${BUILD_LOG}" > "${BUILD_LOG}"."${CHIP}".tmp
-  CC=$(grep -m1 "\-o wlc\.o" "${BUILD_LOG}"."${CHIP}".tmp | cut -f1 -d' ')
-  grep "^${CC}" "${BUILD_LOG}"."${CHIP}".tmp > "${BUILD_LOG}"."${CHIP}"
-  rm "${BUILD_LOG}"."${CHIP}".tmp
+  CC=$(grep "\-o wlc\.o" "${BUILD_LOG}" | grep "${CHIP}" | cut -f1 -d' ')
+  grep "^${CC}" "${BUILD_LOG}" | grep "${CHIP}" > "${BUILD_LOG}"."${CHIP}"
   cp -f compile_commands.json."${PROFILE}".nic compile_commands.json."${PROFILE}"."${CHIP}"
+  BUILD_DIR="${BUILD_BASE}"/"${BUILD_TARGET}"
   compiledb -d "${BUILD_DIR}" -p "${BUILD_LOG}"."${CHIP}" -o compile_commands.json."${PROFILE}"."${CHIP}"
 done
