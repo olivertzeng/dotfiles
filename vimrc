@@ -26,11 +26,6 @@ endif
 
 set lazyredraw
 set ttyfast
-
-" disable sounds
-set noerrorbells visualbell t_vb=
-autocmd GUIEnter * set visualbell t_vb=
-
 set nobackup cursorline ruler showcmd nowrap hlsearch incsearch
 set nu rnu cindent ts=4 sw=4
 set completeopt=menu
@@ -82,10 +77,10 @@ command! -bang -nargs=* Rg
 Plug 'easymotion/vim-easymotion'
 
 Plug 'mhinz/vim-signify'
-"Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-"Plug 'gregsexton/gitv'
+Plug 'gregsexton/gitv'
 
 Plug 'majutsushi/tagbar'
 " {{{
@@ -102,19 +97,19 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 let NERDTreeQuitOnOpen = 1
 let NERDTreeShowBookmarks = 1
 " }}}
-"Plug 'scrooloose/nerdcommenter'
-"Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
 " {{{
 let g:syntastic_auto_loc_list = 0           " location-list not be opened or closed automatically
 " }}}
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 Plug 'Valloric/ListToggle'
 " {{{
 let g:lt_location_list_toggle_map = '<f9>'
 let g:lt_quickfix_list_toggle_map = '<s-f9>'
 let g:lt_height = 12
 " }}}
-"Plug 'bling/vim-airline'
+Plug 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
 " {{{
 let g:lightline = {
@@ -129,7 +124,7 @@ let g:lightline = {
 \}
 " }}}
 Plug 'dimasg/vim-mark'
-"Plug 'sjl/gundo.vim'
+Plug 'sjl/gundo.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-scripts/a.vim'
 " {{{
@@ -174,14 +169,10 @@ function! s:vcs_vertical_annotate()
 endfunction
 command! VCSVerticalAnnotate call s:vcs_vertical_annotate()
 " }}}
-"Plug 'ZoomWin'
+Plug 'markstory/ZoomWin'
 Plug 'vim-scripts/LargeFile'
 
-"Plug 'tomasr/molokai'
-Plug 'sk1418/last256'
-"Plug 'w0ng/vim-hybrid'
-"Plug 'chriskempson/base16-vim/'
-"Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'arzg/vim-colors-xcode'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " {{{
@@ -339,7 +330,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 let g:coc_enable_locationlist = 0
 autocmd User CocLocationsChange call setloclist(0, g:coc_jump_locations) | lwindow
 " }}}
-"Plug 'antoinemadec/coc-fzf'
+Plug 'antoinemadec/coc-fzf'
 " {{{
 let g:coc_fzf_preview = 'right'
 let g:coc_fzf_opts = ['--layout=reverse']
@@ -353,8 +344,7 @@ endif
 " ============================================================================
 " COLOR SCHEME {{{
 " ============================================================================
-colorscheme last256
-
+colorscheme xcodewwdc
 " }}}
 " ============================================================================
 " AUTOCMD {{{
