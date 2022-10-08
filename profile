@@ -20,3 +20,4 @@ else
     PS1='$ '
   fi
 fi
+. "$HOME/.cargo/env"

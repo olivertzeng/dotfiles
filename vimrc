@@ -81,7 +81,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'gregsexton/gitv'
-
+Plug 'rust-lang/rust.vim'
 Plug 'majutsushi/tagbar'
 " {{{
 let g:tagbar_sort = 0
@@ -559,3 +559,4 @@ noremap ts :tab split <bar> if &diff != '' <bar> diffoff <bar> endif<cr>
 
 " }}}
 " ============================================================================
+
