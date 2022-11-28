@@ -9,6 +9,7 @@ discord
 dust
 exa
 fakeroot
+fd
 flatpak 
 fortune-mod 
 git 
@@ -38,7 +39,8 @@ unrar
 unzip
 unzip
 usbutils
-vim 
+vim
+xplr
 zsh-autosuggestions
 zsh-completions
 zsh-syntax-highlighting
