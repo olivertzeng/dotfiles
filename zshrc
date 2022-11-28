@@ -1,76 +1,40 @@
-# If you come from zsh you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
+PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
+export PATH="/usr/local/bin:$PATH"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="amuse"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
+ZSH_THEME="powerlevel10k/powerlevel10k"
 zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="%F{yellow}請稍候...%f"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
 HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(archlinux git coffee cp colored-man-pages command-not-found vim-interaction colorize emoji emoji-clock fzf gh git-lfs git-prompt history lol python repo sudo)
+# Plugins
+plugins=(
+	colored-man-pages 
+	colorize 
+	git-prompt 
+	history 
+    history-substring-search	
+	man
+	sudo
+    zsh-autosuggestions
+	zsh-interactive-cd
+	zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,29 +44,13 @@ export MANPATH="/usr/local/man:$MANPATH"
 # You may need to manually set your language environment
 export LANG=zh_TW.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
-
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='exa --icons --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
     alias grep='grep --color=auto'
@@ -114,16 +62,20 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias la='ls -A'
-alias l='ls'
-alias l.='ls -d .*'
-alias ll.='ls -ld .*'
-alias ll='ls -l'
-alias lh='ls -lh'
-alias plymouth='sudo update-alternatives --config default.plymouth && sudo update-initramfs -u'
+alias jb='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/coolstar/Odyssey-bootstrap/master/procursus-deploy-linux-macos.sh)"'
+alias cp='cp -v'
+alias la='exa --icons -a'
+alias l='exa --icons'
+alias l.='exa --icons -d .*'
+alias ll.='exa --icons -ld .*'
+alias ll='exa --icons -l'
+alias lh='exa -icons -lh'
 alias f='fortune | cowsay | lolcat'
-alias sudo='sudo '
-alias rm=' trash'
+alias sudo='nocorrect sudo'
+alias du='dust'
+alias rm='rip --graveyard ~/.local/share/Trash'
+alias neofetch='macchina'
+alias topgrade='topgrade  -y --no-retry -c'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -137,27 +89,11 @@ else
   alias grep='grep --color --exclude={cscope.*,tags} --exclude-dir={.svn,builds} --binary-files=without-match'
 fi
 
-
-alias vi='vim -X'
-alias bd=". bd -si"
-
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.zsh_aliases, instead of adding them here directly.
-# See /usr/share/doc/zsh-doc/examples in the zsh-doc package.
-
 if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
-
 neofetch
-f
-### Prompt style
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/zsh_completion" ] && \. "$NVM_DIR/zsh_completion"  # This loads nvm zsh_completion
 
 # Functions
 # --------------------------------------------------------------------
@@ -175,6 +111,9 @@ fi
 export FZF_DEFAULT_OPTS="--reverse"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f /etc/bash.command-not-found ]; then
-    . /etc/bash.command-not-found
-fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

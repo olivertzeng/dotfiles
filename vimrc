@@ -24,6 +24,10 @@ else
   set mouse=
 endif
 
+if (has("termguicolors"))
+    set termguicolors
+  endif
+
 set lazyredraw
 set ttyfast
 set nobackup cursorline ruler showcmd nowrap hlsearch incsearch
@@ -35,7 +39,6 @@ set laststatus=2
 " eliminating delays on ESC in vim and zsh
 set timeout timeoutlen=1000 ttimeoutlen=0
 set backspace=indent,eol,start
-
 set listchars=tab:»·,trail:·
 "set list
 "hi SpecialKey ctermbg=red guibg=red
@@ -80,7 +83,6 @@ Plug 'mhinz/vim-signify'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'gregsexton/gitv'
 Plug 'rust-lang/rust.vim'
 Plug 'majutsushi/tagbar'
 " {{{
@@ -102,7 +104,6 @@ Plug 'scrooloose/syntastic'
 " {{{
 let g:syntastic_auto_loc_list = 0           " location-list not be opened or closed automatically
 " }}}
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 Plug 'Valloric/ListToggle'
 " {{{
 let g:lt_location_list_toggle_map = '<f9>'
@@ -110,6 +111,10 @@ let g:lt_quickfix_list_toggle_map = '<s-f9>'
 let g:lt_height = 12
 " }}}
 Plug 'bling/vim-airline'
+" {{{
+let g:airline#extensions#tabline#enabled = 1
+" }}}
+Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 " {{{
 let g:lightline = {
@@ -124,6 +129,7 @@ let g:lightline = {
 \}
 " }}}
 Plug 'dimasg/vim-mark'
+Plug 'morhetz/gruvbox'
 Plug 'sjl/gundo.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-scripts/a.vim'
@@ -137,7 +143,7 @@ Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }
 let g:DirDiffExcludes = ".svn,.git,.*.swp,*.o,*.o.cmd,tags,cscope.*,*.rej,*.orig"
 let g:DirDiffIgnore = "Id:,Revision:,Date:"
 " }}}
-
+Plug 'ryanoasis/vim-devicons'
 Plug 'vim-scripts/vcscommand.vim'
 " {{{
 let VCSCommandDisableMappings = 1
@@ -169,11 +175,7 @@ function! s:vcs_vertical_annotate()
 endfunction
 command! VCSVerticalAnnotate call s:vcs_vertical_annotate()
 " }}}
-Plug 'markstory/ZoomWin'
 Plug 'vim-scripts/LargeFile'
-
-Plug 'arzg/vim-colors-xcode'
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " {{{
 " Some servers have issues with backup files, see #649.
@@ -344,7 +346,8 @@ endif
 " ============================================================================
 " COLOR SCHEME {{{
 " ============================================================================
-colorscheme xcodewwdc
+let g:gruvbox_italic=1
+colorscheme gruvbox 
 " }}}
 " ============================================================================
 " AUTOCMD {{{
