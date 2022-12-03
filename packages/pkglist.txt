@@ -1,9 +1,7 @@
 bleachbit 
 bsd-games
-build-essential
 cmatrix
 cowsay 
-curl
 curl 
 discord 
 dust
@@ -18,16 +16,12 @@ grub-customizer
 gum
 ibus 
 libnautilus-extension
-libtinfo5
-libz3-dev
 lolcat 
 nano
 netctl
 nodejs 
 npm 
 perl
-qemu
-rip
 ripgrep
 rmlint 
 rsync 
@@ -36,7 +30,6 @@ sl
 trash-cli 
 ufw
 unrar
-unzip
 unzip
 usbutils
 vim
