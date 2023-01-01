@@ -110,11 +110,6 @@ let g:lt_location_list_toggle_map = '<f9>'
 let g:lt_quickfix_list_toggle_map = '<s-f9>'
 let g:lt_height = 12
 " }}}
-Plug 'bling/vim-airline'
-" {{{
-let g:airline#extensions#tabline#enabled = 1
-" }}}
-Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 " {{{
 let g:lightline = {
