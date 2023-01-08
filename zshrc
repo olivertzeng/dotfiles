@@ -107,10 +107,12 @@ if command -v fd >/dev/null 2>&1; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="fd --type directory"
 fi
-export LC_CTYPE="zh_TW.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
 export FZF_DEFAULT_OPTS="--reverse"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
