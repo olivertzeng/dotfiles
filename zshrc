@@ -16,7 +16,7 @@ ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
-COMPLETION_WAITING_DOTS="%F{yellow}請稍候...%f"
+COMPLETION_WAITING_DOTS="%F{cyan}請稍候...%f"
 
 # see 'man strftime' for details.
 HIST_STAMPS="mm/dd/yyyy"
@@ -42,6 +42,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=zh_TW.UTF-8
+export LC_CTYPE="zh_TW.UTF-8"
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
@@ -50,18 +51,13 @@ export ARCHFLAGS="-arch x86_64"
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='exa --icons --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
     alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias jb='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/coolstar/Odyssey-bootstrap/master/procursus-deploy-linux-macos.sh)"'
 alias cp='cp -v'
 alias la='exa --icons -a'
 alias l='exa --icons'
@@ -71,10 +67,14 @@ alias ll='exa --icons -l'
 alias lh='exa -icons -lh'
 alias f='fortune | cowsay | lolcat'
 alias sudo='nocorrect sudo'
-alias du='dust'
+alias du='duf'
 alias rm='rip --graveyard ~/.local/share/Trash'
 alias neofetch='macchina'
-alias topgrade='topgrade  -y --no-retry -c'
+alias topgrade='topgrade --disable vim -y --no-retry -c'
+alias commit='git commit -m "$(gum input --width 50 --placeholder "Summary of changes")" \
+           -m "$(gum write --width 80 --placeholder "Details of changes (CTRL+D to finish)")"'
+alias en='export LC_CTYPE="en_US.UTF-8"'
+alias tw='export LC_CTYPE="zh_TW.UTF-8"'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -107,7 +107,6 @@ if command -v fd >/dev/null 2>&1; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="fd --type directory"
 fi
-export LC_CTYPE="en_US.UTF-8"
 export FZF_DEFAULT_OPTS="--reverse"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

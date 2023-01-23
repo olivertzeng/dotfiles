@@ -125,6 +125,12 @@ let g:lightline = {
 " }}}
 Plug 'dimasg/vim-mark'
 Plug 'morhetz/gruvbox'
+" {{{
+let g:gruvbox_improved_strings = 1
+let g:gruvbox_improved_warnings = 1
+let g:gruvbox_transparent_bg = 1
+let g:gruvbox_invert_signs = 1
+" }}}
 Plug 'sjl/gundo.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-scripts/a.vim'
