@@ -7,6 +7,8 @@ PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH="/usr/local/bin:$PATH"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export BAT_THEME='gruvbox-dark'
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 zstyle ':omz:update' mode auto      # update automatically without asking
@@ -65,7 +67,7 @@ alias l.='exa --icons -d .*'
 alias ll.='exa --icons -ld .*'
 alias ll='exa --icons -l'
 alias lh='exa -icons -lh'
-alias f='fortune | cowsay | lolcat'
+alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias sudo='nocorrect sudo'
 alias du='duf'
 alias rm='rip --graveyard ~/.local/share/Trash'
