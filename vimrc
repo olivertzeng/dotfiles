@@ -122,9 +122,10 @@ let g:lightline = {
 \   'tagbar': '%{tagbar#currenttag("%s", "", "f")}',
 \ }
 \}
+let g:lightline.colorscheme = 'gruvbox_material'
 " }}}
 Plug 'dimasg/vim-mark'
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 " {{{
 let g:gruvbox_improved_strings = 1
 let g:gruvbox_improved_warnings = 1
@@ -347,8 +348,15 @@ endif
 " ============================================================================
 " COLOR SCHEME {{{
 " ============================================================================
-let g:gruvbox_italic=1
-colorscheme gruvbox 
+" Important!!
+if has('termguicolors')
+  set termguicolors
+endif
+" For dark version.
+set background=dark
+" For better performance
+let g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material
 " }}}
 " ============================================================================
 " AUTOCMD {{{
