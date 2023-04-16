@@ -29,10 +29,10 @@ plugins=(
 	colorize 
 	git-prompt 
 	history 
-    history-substring-search	
+    	history-substring-search	
 	man
 	sudo
-    zsh-autosuggestions
+    	zsh-autosuggestions
 	zsh-interactive-cd
 	zsh-syntax-highlighting
 )
@@ -63,10 +63,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 alias cp='cp -v'
 alias la='exa --icons -a'
 alias l='exa --icons'
-alias l.='exa --icons -d .*'
-alias ll.='exa --icons -ld .*'
 alias ll='exa --icons -l'
-alias lh='exa -icons -lh'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias sudo='nocorrect sudo'
 alias du='duf'
@@ -94,7 +91,7 @@ fi
 if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
-neofetch
+macchina
 
 # Functions
 # --------------------------------------------------------------------
