@@ -29,10 +29,10 @@ plugins=(
 	colorize 
 	git-prompt 
 	history 
-    history-substring-search	
+    	history-substring-search	
 	man
 	sudo
-    zsh-autosuggestions
+    	zsh-autosuggestions
 	zsh-interactive-cd
 	zsh-syntax-highlighting
 )
@@ -64,10 +64,7 @@ alias bat='bat --color=always'
 alias cp='cp -v'
 alias la='exa --icons -a'
 alias l='exa --icons'
-alias l.='exa --icons -d .*'
-alias ll.='exa --icons -ld .*'
 alias ll='exa --icons -l'
-alias lh='exa -icons -lh'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias sudo='nocorrect sudo'
 alias du='duf'
