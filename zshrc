@@ -29,10 +29,10 @@ plugins=(
 	colorize 
 	git-prompt 
 	history 
-    	history-substring-search	
+    history-substring-search	
 	man
 	sudo
-    	zsh-autosuggestions
+    zsh-autosuggestions
 	zsh-interactive-cd
 	zsh-syntax-highlighting
 )
