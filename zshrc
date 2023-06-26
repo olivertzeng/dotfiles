@@ -25,8 +25,11 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins
 plugins=(
+	#archlinux
+	alias-finder
 	colored-man-pages 
-	colorize 
+	colorize
+	git
 	git-prompt 
 	history 
     history-substring-search	
@@ -64,7 +67,6 @@ alias bat='bat --color=always'
 alias cp='cp -v'
 alias la='exa --icons -a'
 alias l='exa --icons'
-alias ll='exa --icons -l'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias sudo='nocorrect sudo'
 alias du='duf'
@@ -76,6 +78,7 @@ alias commit='git commit -m "$(gum input  --prompt.foreground="212" --header.bol
 alias en='export LC_CTYPE="en_US.UTF-8"'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
 alias bgp='batgrep'
+alias vim='vim -X'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
