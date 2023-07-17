@@ -1,6 +1,6 @@
 sudo pacman -Syu
 sudo pacman -Sy - < packages/pkglist.txt
-git clone https://aur.archlinux.org/yay-git.git
+git clone https://aur.archlinux.org/yay
 cd yay-git
 makepkg -si      
 cd
