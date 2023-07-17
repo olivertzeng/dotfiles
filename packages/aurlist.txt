@@ -7,8 +7,8 @@ nerd-fonts-git
 oh-my-zsh-git
 pamac-nosnap 
 plymouth-git
-rtfm
+pop
+rtfrm-improved
 stacer
 taipei-sans-tc
 zstd 
-rm-improved
