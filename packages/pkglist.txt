@@ -1,3 +1,4 @@
+reflector
 gnome
 gnome-extra
 wayland
