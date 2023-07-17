@@ -1,4 +1,5 @@
 gnome
+gnome-extra
 wayland
 bleachbit 
 curl 
