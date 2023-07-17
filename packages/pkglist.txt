@@ -1,3 +1,4 @@
+make
 reflector
 gnome
 gnome-extra
