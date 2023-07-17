@@ -1,3 +1,5 @@
+gnome
+wayland
 bleachbit 
 curl 
 discord 
