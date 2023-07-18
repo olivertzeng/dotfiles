@@ -12,4 +12,5 @@ plymouth
 rm-improved
 stacer
 taipei-sans-tc
-zstd 
+zstd
+macchina
