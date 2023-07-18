@@ -1,3 +1,4 @@
+libgda-sqlite
 wget
 make
 reflector
