@@ -1,3 +1,5 @@
+brave-bin
+blobsaver-bin
 appimagelauncher
 diff-so-fancy
 distrobox
