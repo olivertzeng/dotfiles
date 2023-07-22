@@ -27,15 +27,20 @@ HIST_STAMPS="mm/dd/yyyy"
 plugins=(
 	archlinux
 	alias-finder
+	copybuffer
+	copydir
+	copyfile
 	command-not-found
 	colored-man-pages 
 	colorize
+	dirhistory
 	git
 	git-prompt 
 	history
     	history-substring-search	
 	man
 	sudo
+	web-search
     	zsh-autosuggestions
 	zsh-interactive-cd
 	zsh-syntax-highlighting
