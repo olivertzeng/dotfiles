@@ -15,10 +15,3 @@ cp dotfiles/vimrc ~/.vimrc
 cp dotfiles/zshrc ~/.zshrc
 sudo cp dotfiles/paccache.timer /dotfiles /etc/systemd/system/paccache.timer
 sudo cp dotfiles/paccache.hook /usr/share/libalpm/hooks/paccache.hook
-# Cleaning Up
-sudo pacman -Sc
-sudo pacman -Scc
-yay -Sc
-yay -Scc
-sudo pacman -Rns $(pacman -Qtdq)
-sudo rm ~/.cache/*
