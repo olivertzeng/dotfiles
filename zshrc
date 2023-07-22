@@ -25,17 +25,18 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins
 plugins=(
-	#archlinux
+	archlinux
 	alias-finder
+	command-not-found
 	colored-man-pages 
 	colorize
 	git
 	git-prompt 
-	history 
-    history-substring-search	
+	history
+    	history-substring-search	
 	man
 	sudo
-    zsh-autosuggestions
+    	zsh-autosuggestions
 	zsh-interactive-cd
 	zsh-syntax-highlighting
 )
@@ -92,11 +93,7 @@ else
   alias grep='grep --color --exclude={cscope.*,tags} --exclude-dir={.svn,builds} --binary-files=without-match'
 fi
 
-# Alias definitions.
-if [ -f ~/.zsh_aliases ]; then
-    . ~/.zsh_aliases
-fi
-macchina -t Boron
+neofetch
 
 # Functions
 # --------------------------------------------------------------------
