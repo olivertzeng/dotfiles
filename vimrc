@@ -69,6 +69,14 @@ command! -nargs=+ -bang -complete=file GrepAdd execute 'silent lgrepadd<bang> <a
 
 silent! if plug#begin('~/.vim/plugged')
 
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+Plug 'Valloric/YouCompleteMe'
+Plug 'LunarWatcher/auto-pairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -159,6 +167,7 @@ endif
 " ============================================================================
 " COLOR SCHEME {{{
 " ============================================================================
+colorscheme gruvbox-material
 " Important!!
 if has('termguicolors')
   set termguicolors
@@ -167,7 +176,6 @@ endif
 set background=dark
 " For better performance
 let g:gruvbox_material_better_performance = 1
-colorscheme gruvbox-material
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -243,6 +251,8 @@ nmap t <Plug>(easymotion-t2)
 nmap <leader>vd :VCSVimDiff<cr>
 nmap <leader>va :VCSVerticalAnnotate<cr>
 nmap <leader>vl :VCSLog <c-r>=matchstr(getline('.'), '^\s*\(\x\+\)')<cr><cr>
+" Allows writing to files with root priviledges
+cmap w!! w !sudo tee % > /dev/null
 
 " Setup meta keys
 " {{{

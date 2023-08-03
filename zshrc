@@ -25,9 +25,8 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins
 plugins=(
-	#archlinux
+	archlinux
 	alias-finder
-	colored-man-pages 
 	colorize
 	git
 	git-prompt 
@@ -35,15 +34,14 @@ plugins=(
     history-substring-search	
 	man
 	sudo
-    zsh-autosuggestions
 	zsh-interactive-cd
-	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export MANPATH="/usr/local/man:$MANPATH"
+export PATH="/usr/local/bin:$PATH"
 
 # You may need to manually set your language environment
 export LANG=zh_TW.UTF-8
@@ -71,7 +69,6 @@ alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {
 alias sudo='nocorrect sudo'
 alias du='duf'
 alias rm='rip --graveyard ~/.local/share/Trash'
-alias neofetch='macchina -t Boron'
 alias topgrade='topgrade --disable vim -y --no-retry -c'
 alias commit='git commit -m "$(gum input  --prompt.foreground="212" --header.bold --header.italic --header="Summary" --placeholder "Summary of changes")"\
            -m "$(gum write --header="Details" --placeholder "Details of changes (CTRL+D to finish)" --header.italic --header.bold --show-line-numbers --prompt="▌" --prompt.foreground=212)"'
@@ -96,8 +93,7 @@ fi
 if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
-macchina -t Boron
-
+neofetch
 # Functions
 # --------------------------------------------------------------------
 
@@ -116,6 +112,9 @@ export FZF_DEFAULT_OPTS="--reverse"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /home/olivertzeng/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/olivertzeng/.zprofile
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval $(thefuck --alias)
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
