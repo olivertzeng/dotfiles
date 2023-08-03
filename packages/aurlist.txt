@@ -1,3 +1,7 @@
+GitHub-desktop
+gnome-browser-connector
+brave-bin
+blobsaver-bin
 appimagelauncher
 diff-so-fancy
 distrobox
@@ -9,4 +13,5 @@ plymouth
 rm-improved
 stacer
 taipei-sans-tc
-zstd 
+zstd
+macchina
