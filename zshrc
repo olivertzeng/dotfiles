@@ -65,6 +65,7 @@ alias bat='bat --color=always'
 alias cp='cp -v'
 alias la='exa --icons -a'
 alias l='exa --icons'
+alias brew='brew -v'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias sudo='nocorrect sudo'
 alias du='duf'
