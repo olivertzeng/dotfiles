@@ -25,7 +25,6 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # Plugins
 plugins=(
-	archlinux
 	alias-finder
 	colorize
 	git
@@ -119,3 +118,4 @@ eval "$(/usr/local/bin/brew shellenv)"
 eval $(thefuck --alias)
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
