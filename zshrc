@@ -113,9 +113,9 @@ export FZF_DEFAULT_OPTS="--reverse"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /home/olivertzeng/.oh-my-zsh/custom/plugins/zsh-history-substring-search
-(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/olivertzeng/.zprofile
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+source $HOME/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+(echo; echo 'eval "$(/usr/local/bin/brew shellenv)"') >> $HOME/.zprofile
+eval "$(/usr/local/bin/brew shellenv)"
 eval $(thefuck --alias)
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
