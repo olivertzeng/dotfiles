@@ -3,8 +3,7 @@
 " BASIC SETTINGS {{{
 " ============================================================================
 
-filetype plugin on
-filetype indent on
+filetype indent plugin on
 language C
 syntax on
 
@@ -36,12 +35,13 @@ set foldcolumn=1
 set noshowmode
 set lazyredraw
 set ttyfast
-set nowb noswapfile smartcase nobackup cursorline ruler showcmd nowrap hlsearch incsearch
+set smartindent nobackup ignorecase cursorline ruler showcmd nowrap hlsearch incsearch
 set nu rnu cindent ts=4 sw=4
 set completeopt=menu
 set updatetime=1200
 set shiftwidth=4
-"set diffopt+=vertical
+set tabstop=4
+set softtabstop=4
 set laststatus=2
 " eliminating delays on ESC in vim and zsh
 set timeout timeoutlen=1000 ttimeoutlen=0
@@ -75,7 +75,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-Plug 'Valloric/YouCompleteMe'
+Plug 'valloric/youcompleteme'
 Plug 'LunarWatcher/auto-pairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'airblade/vim-gitgutter'
