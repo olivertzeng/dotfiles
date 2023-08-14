@@ -73,7 +73,7 @@ alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {
 alias sudo='nocorrect sudo'
 alias du='duf'
 alias rm='rip --graveyard ~/.local/share/Trash'
-alias topgrade='topgrade --disable vim -y --no-retry -c'
+alias topgrade='topgrade -y --no-retry -c'
 alias commit='git commit -m "$(gum input  --prompt.foreground="212" --header.bold --header.italic --header="Summary" --placeholder "Summary of changes")"\
            -m "$(gum write --header="Details" --placeholder "Details of changes (CTRL+D to finish)" --header.italic --header.bold --show-line-numbers --prompt="▌" --prompt.foreground=212)"'
 alias en='export LC_CTYPE="en_US.UTF-8"'
