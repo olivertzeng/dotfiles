@@ -1,0 +1,98 @@
+runcharts:
+  - title: 網站回應時間
+    position: [[0, 1], [45, 19]]
+    rate-ms: 500
+    triggers:
+      - title: 已延遲過久
+        condition: echo "$prev < 0.8 && $cur > 0.8" |bc -l
+        actions:
+            terminal-bell: true
+            sound: true
+            visual: true
+            script: 'say alert: ${label} 延遲了 ${cur} 秒'
+    legend:
+        enabled: true
+        details: false
+    scale: 2
+    items:
+      - label: GOOGLE
+        color: 178
+        sample: curl -o /dev/null -s -w '%{time_total}'  https://www.google.com
+      - label: GITHUB
+        sample: curl -o /dev/null -s -w '%{time_total}'  https://github.com
+      - label: YOUTUBE
+        sample: curl -o /dev/null -s -w '%{time_total}'  https://youtube.com
+gauges:
+  - title: 一年進展
+    position: [[45, 0], [35, 2]]
+    cur:
+        sample: date +%j
+    max:
+        sample: echo 365
+    min:
+        sample: echo 0
+  - title: 一天進展
+    position: [[45, 3], [35, 2]]
+    cur:
+        sample: date +%H
+    max:
+        sample: echo 24
+    min:
+        sample: echo 0
+  - title: 一小時進展
+    position: [[45, 6], [35, 2]]
+    cur:
+        sample: date +%M
+    max:
+        sample: echo 60
+    min:
+        sample: echo 0
+  - title: 一分鐘進展
+    position: [[45, 9], [35, 2]]
+    triggers:
+      - title: 每分鐘通知
+        condition: '[ $label == "cur" ] && [ $cur -eq 0 ] && echo 1 || echo 0'
+        actions:
+            sound: true
+            script: notify-send -i calendar `date +%H:%M`
+    cur:
+        sample: date +%S
+    max:
+        sample: echo 60
+    min:
+        sample: echo 0
+sparklines:
+  - title: CPU 用量
+    position: [[0, 20], [22, 8]]
+    rate-ms: 200
+    scale: 0
+    sample: ps -A -o %cpu | awk '{s+=$1} END {print s}'
+  - title: 記憶體
+    position: [[22, 20], [23, 8]]
+    rate-ms: 200
+    scale: 0
+    sample: memory_pressure | grep 'Pages free' | awk '{print $3}'
+textboxes:
+  - title: 此地天氣
+    position: [[69, 21], [13, 8]]
+    rate-ms: 10000
+    sample: curl wttr.in?0ATQF
+    border: false
+  - title: 台北天氣
+    position: [[45, 20], [13, 8]]
+    rate-ms: 10000
+    sample: curl wttr.in/Taipei?0ATQF
+    transform: echo 1
+    border: false
+  - title: 新竹天氣
+    position: [[56, 21], [14, 8]]
+    rate-ms: 10000
+    sample: curl wttr.in/Hsinchu?0ATQF
+    border: false
+asciiboxes:
+  - title: UTC 時間
+    position: [[0, 28], [80, 8]]
+    rate-ms: 1000
+    sample: env TZ=UTC date +%r
+    border: true
+    font: 3d
