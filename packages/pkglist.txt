@@ -11,7 +11,7 @@ rm-improved
 stacer
 taipei-sans-tc
 zstd
-libgda-sqlite
+
 wget
 make
 reflector
@@ -33,8 +33,7 @@ nodejs
 npm 
 perl
 ripgrep
-rsync 
-trash-cli 
+rsync  
 ufw
 unrar
 unzip
