@@ -52,7 +52,7 @@ set listchars=tab:»·,trail:·
 
 " set buffer hidden when unloaded
 set hidden
-
+set fileencodings=ucs-bom,utf-8,big5,gbk,latin1
 set colorcolumn=80
 
 if executable("rg")
