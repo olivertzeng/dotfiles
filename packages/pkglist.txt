@@ -19,7 +19,7 @@ wayland
 bleachbit 
 curl 
 discord 
-dust
+duf
 exa
 fakeroot
 fd
