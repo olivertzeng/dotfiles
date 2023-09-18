@@ -1,12 +1,10 @@
 brave-bin
+pfetch-bin
 blobsaver-bin
 appimagelauncher
 diff-so-fancy
 downgrade
 nerd-fonts
-oh-my-zsh-git
-pamac-nosnap 
-plymouth
 rm-improved
 stacer
 taipei-sans-tc

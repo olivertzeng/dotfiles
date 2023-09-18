@@ -3,42 +3,37 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+autoload -Uz compinit
+compinit
+
+# Set the name of the static .zsh plugins file antidote will generate.
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
+
+# Ensure you have a .zsh_plugins.txt file where you can add plugins.
+[[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
+
+# Lazy-load antidote.
+fpath+=(${ZDOTDIR:-~}/.antidote)
+autoload -Uz $fpath[-1]/antidote
+
+# Generate static file in a subshell when .zsh_plugins.txt is updated.
+if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
+  (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
+fi
+
+# Source your static plugins file.
+source $zsh_plugins
+
+# source antidote
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+
+# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
+antidote load
+
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH="/usr/local/bin:$PATH"
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export BAT_THEME='gruvbox-dark'
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-zstyle ':omz:update' mode auto      # update automatically without asking
-
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-COMPLETION_WAITING_DOTS="%F{cyan}請稍候...%f"
-
-# see 'man strftime' for details.
-HIST_STAMPS="mm/dd/yyyy"
-
-# Plugins
-plugins=(
-	archlinux
-	alias-finder
-	colorize
-	git
-	git-prompt 
-	history 
-    history-substring-search	
-	man
-	sudo
-	web-search
-	zsh-interactive-cd
-)
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export MANPATH="/usr/local/man:$MANPATH"
@@ -51,71 +46,38 @@ export LC_CTYPE="zh_TW.UTF-8"
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='exa --icons --color=auto'
-    alias grep='grep --color=auto'
-fi
-
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias bat='bat --color=always'
 alias cp='cp -v'
-alias la='exa --icons -a'
-alias l='exa --icons'
-alias ls='exa --icons'
-alias ll='exa --icons -l'
-alias lla='exa --icons -la'
+alias la='eza --icons -a'
+alias l='eza --icons'
+alias ls='eza --icons'
+alias ll='eza --icons -l'
+alias lla='eza --icons -la'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias sudo='nocorrect sudo'
 alias du='duf'
-alias rm='rip'
+alias rm='rip --graveyard ~/.local/share/Trash'
 alias topgrade='topgrade -y --no-retry -c'
-alias commit='git commit -m "$(gum input  --prompt.foreground="212" --header.bold --header.italic --header="Summary" --placeholder "Summary of changes")"\
-           -m "$(gum write --header="Details" --placeholder "Details of changes (CTRL+D to finish)" --header.italic --header.bold --show-line-numbers --prompt="▌" --prompt.foreground=212)"'
 alias en='export LC_CTYPE="en_US.UTF-8"'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
 alias bgp='batgrep'
 alias vim='vim -X'
-
-# alias grep
-if command -v rg >/dev/null 2>&1; then
-  alias grep='rg --ignore-file ~/.ignore --no-heading'
-elif command -v ag >/dev/null 2>&1; then
-  alias grep='ag --path-to-ignore ~/.ignore --nogroup -s'
-else
-  alias grep='grep --color --exclude={cscope.*,tags} --exclude-dir={.svn,builds} --binary-files=without-match'
-fi
-
-# Alias definitions.
-if [ -f ~/.zsh_aliases ]; then
-    . ~/.zsh_aliases
-fi
-neofetch
-# Functions
-# --------------------------------------------------------------------
-
-highlight () { grep --color auto "$1|$" $2 ; }
-
-# Fuzzy Finder
-# --------------------------------------------------------------------
-
-if command -v fd >/dev/null 2>&1; then
-  export FZF_DEFAULT_COMMAND="fd --type file"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="fd --type directory"
-fi
-export FZF_DEFAULT_OPTS="--reverse"
+pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source $HOME/.oh-my-zsh/custom/plugins/zsh-history-substring-search
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.zprofile
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval $(thefuck --alias)
 export GOPATH="$HOME/go"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
+source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
+setopt autocd
+
+# The following lines were added by compinstall
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' matcher-list '' '' '' ''
+zstyle :compinstall filename '/home/olivertzeng/.zshrc'
