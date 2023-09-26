@@ -76,6 +76,10 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
 setopt autocd
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
 
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
