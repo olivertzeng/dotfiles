@@ -8,10 +8,8 @@ ohmyzsh/ohmyzsh path:plugins/history
 ohmyzsh/ohmyzsh path:plugins/web-search
 ohmyzsh/ohmyzsh path:plugins/sudo
 
-# prompts
-romkatv/powerlevel10k kind:fpath
-
 # popular fish-like plugins
+Aloxaf/fzf-tab
 johannchangpro/zsh-interactive-cd
 olets/zsh-abbr
 zsh-users/zsh-autosuggestions
