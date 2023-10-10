@@ -11,6 +11,7 @@ fzf
 flatpak
 kdenlive
 handbrake
+noto-fonts-cjk
 git 
 gping
 glow
