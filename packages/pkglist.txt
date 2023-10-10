@@ -7,10 +7,12 @@ curl
 duf
 eza
 fakeroot
+fzf
 flatpak
 kdenlive
 handbrake
 git 
+gping
 glow
 gum
 nano

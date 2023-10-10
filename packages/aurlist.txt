@@ -3,7 +3,9 @@ blobsaver-bin
 appimagelauncher
 nerd-fonts
 rm-improved
-stacer
+stacer-bin
+topgrade
+ttf-jf-openhuninn
+pfetch-rs-bin
 zstd
-pfetch-rs
 vencord-desktop-bin
