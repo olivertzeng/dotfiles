@@ -8,6 +8,8 @@ duf
 eza
 fakeroot
 flatpak
+kdenlive
+handbrake
 git 
 glow
 gum
@@ -15,6 +17,8 @@ nano
 netctl
 nodejs 
 npm 
+mkvtoolnix-cli
+mkvtoolnix-gui
 ripgrep
 rsync  
 ufw
