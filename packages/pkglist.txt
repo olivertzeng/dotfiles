@@ -10,6 +10,9 @@ fakeroot
 fzf
 flatpak
 kdenlive
+plasma-desktop
+konsole
+timeshift
 handbrake
 noto-fonts-cjk
 git 
