@@ -2,7 +2,8 @@ wget
 make
 reflector
 wayland
-bleachbit 
+bleachbit
+bat
 curl 
 duf
 eza
