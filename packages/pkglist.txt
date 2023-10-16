@@ -27,9 +27,10 @@ npm
 mkvtoolnix-cli
 mkvtoolnix-gui
 ripgrep
-rsync  
+rsync
+pacman-contrib
 ufw
 unrar
 unzip
 usbutils
-vim
+neovim
