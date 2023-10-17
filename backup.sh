@@ -7,12 +7,11 @@ rm -rf yay
 git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 yay -Syyu - < ~/dotfiles/packages/aurlist.txt
 git clone https://github.com/olivertzeng/dotfiles.git
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 bash -c  "$(wget -qO- https://git.io/vQgMr)"
 cp ~/dotfiles/vimrc ~/.vimrc
 cp ~/dotfiles/zshrc ~/.zshrc
 cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
+cp ~/dotfiles/init.lua ~/.config/nvim/init.lua 
 sudo cp ~/dotfiles/pacman.conf /etc/
 sudo cp ~/dotfiles/paccache.timer /etc/systemd/system/paccache.timer
 sudo cp ~/dotfiles/paccache.hook /usr/share/libalpm/hooks/paccache.hook
