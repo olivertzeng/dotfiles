@@ -49,7 +49,8 @@ cp ~/dotfiles/templates ~/.config/nvim/templates
 cp ~/dotfiles/pacman.conf /etc/
 cp ~/dotfiles/paccache.timer /etc/systemd/system/paccache.timer
 cp ~/dotfiles/paccache.hook /usr/share/libalpm/hooks/paccache.hook
-exit
+zsh
+exit;exit
 ufw enable
 ufw allow 1714:1764/udp
 ufw allow 1714:1764/tcp
