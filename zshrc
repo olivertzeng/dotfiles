@@ -51,21 +51,21 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # some more ls aliases
 alias bat='bat --color=always'
+alias bgp='batgrep'
 alias cp='cp -v'
-alias la='eza --icons -a'
+alias du='duf'
+alias en='export LC_CTYPE="en_US.UTF-8"'
+alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias l='eza --icons'
-alias ls='eza --icons'
+alias la='eza --icons -a'
 alias ll='eza --icons -l'
 alias lla='eza --icons -la'
-alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-alias sudo='nocorrect sudo'
-alias du='duf'
+alias ls='eza --icons'
 alias rm='rip --graveyard ~/.local/share/Trash'
+alias sudo='nocorrect sudo'
 alias topgrade='topgrade -y --no-retry -c'
-alias en='export LC_CTYPE="en_US.UTF-8"'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
-alias bgp='batgrep'
-alias vim='vim -X'
+alias vim='neovim'
 pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

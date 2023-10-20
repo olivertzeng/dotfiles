@@ -35,6 +35,14 @@ require('lazy').setup({
     },
   },
 
+  {'glepnir/template.nvim', cmd = {'Template','TemProject'}, config = function()
+    require('template').setup({
+      temp_dir = '~/.config/nvim/tempelates',
+      author = 'Oliver Tzeng（曾嘉禾）',
+      email = 'olivertzeng@proton.me',
+    })
+  end},
+
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -91,7 +99,14 @@ require('lazy').setup({
       end,
     },
   },
-
+  {
+    'altermo/ultimate-autopair.nvim',
+    event={'InsertEnter','CmdlineEnter'},
+    branch='main', --recomended as each new version will have breaking changes
+    opts={
+      --Config goes here
+    },
+  },
   {
     'sainnhe/gruvbox-material',
     priority = 1000,
@@ -159,7 +174,6 @@ require('lazy').setup({
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
--- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
 vim.o.hlsearch = false

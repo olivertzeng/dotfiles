@@ -1,11 +1,11 @@
-brave-bin
-blobsaver-bin
 appimagelauncher
+blobsaver-bin
+brave-bin
+freetube-bin
 nerd-fonts
+pfetch-rs-bin
 rm-improved
 stacer-bin
 topgrade
 ttf-jf-openhuninn
-pfetch-rs-bin
-zstd
 vencord-desktop-bin
