@@ -1,5 +1,4 @@
 appimagelauncher
-blobsaver-bin
 brave-bin
 freetube-bin
 nerd-fonts

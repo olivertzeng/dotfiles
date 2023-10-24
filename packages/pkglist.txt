@@ -47,6 +47,7 @@ nvidia
 nvidia-settings
 openssh
 pacman-contrib
+pacman-pb
 pipewire
 pipewire-pulse
 plasma-browser-intergration

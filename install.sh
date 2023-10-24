@@ -50,7 +50,8 @@ cp ~/dotfiles/pacman.conf /etc/
 cp ~/dotfiles/paccache.timer /etc/systemd/system/paccache.timer
 cp ~/dotfiles/paccache.hook /usr/share/libalpm/hooks/paccache.hook
 zsh
-exit;exit
+exit
+curl -s 'https://liquorix.net/install-liquorix.sh' | sh
 ufw enable
 ufw allow 1714:1764/udp
 ufw allow 1714:1764/tcp
