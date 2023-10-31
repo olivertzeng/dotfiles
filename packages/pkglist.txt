@@ -3,7 +3,6 @@ base-devel
 bat
 bleachbit
 curl 
-discover
 dolphin-plugins
 duf
 efibootmgr
@@ -11,7 +10,6 @@ eza
 fakeroot
 fcitx5-chewing
 fcitx5-chinese-addons
-fcitx5-gtk
 fcitx5-gtk
 fcitx5-im
 fcitx5-qt
