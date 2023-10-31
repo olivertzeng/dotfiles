@@ -32,6 +32,7 @@ konsole
 ksystemstats
 linux
 linux-firmware
+linux-headers
 make
 mkvtoolnix-cli
 mkvtoolnix-gui
@@ -40,9 +41,7 @@ netctl
 networkmanager
 nodejs 
 noto-fonts-cjk
-npm 
-nvidia
-nvidia-settings
+yarn
 openssh
 pacman-contrib
 pacman-pb
@@ -67,6 +66,7 @@ ufw
 unrar
 unzip
 usbutils
+vulkan-radeon
 wayland
 wget
 wireplumber
