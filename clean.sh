@@ -1,6 +1,5 @@
-sudo pacman -Sc
-sudo pacman -Scc
-yay -Sc
-yay -Scc
-sudo pacman -Rns $(pacman -Qtdq)
+yes y | sudo pacman -Sc
+yes y | sudo pacman -Scc
+yes y | yay -Sc
+yes y | yay -Scc
 sudo rm ~/.cache/*
