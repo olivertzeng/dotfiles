@@ -10,3 +10,4 @@ stacer-bin
 topgrade
 ttf-jf-openhuninn
 vencord-desktop-bin
+wluma
