@@ -1,9 +1,11 @@
 appimagelauncher
 brave-bin
-freetube-bin
 nerd-fonts
 pfetch-rs-bin
 rm-improved
+mesa-git
+mkinitcpio-firmware
+pamac-nosnap
 stacer-bin
 topgrade
 ttf-jf-openhuninn
