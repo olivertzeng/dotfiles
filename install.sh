@@ -45,13 +45,14 @@ cp ~/dotfiles/vimrc ~/.vimrc
 cp ~/dotfiles/zshrc ~/.zshrc
 cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 cp ~/dotfiles/init.lua ~/.config/nvim/init.lua
+curl -s 'https://liquorix.net/install-liquorix.sh' | sh
+sh ~/dotfiles/clean.sh
+zsh;exit
+exit
 cp ~/dotfiles/templates ~/.config/nvim/templates
 cp ~/dotfiles/pacman.conf /etc/
 cp ~/dotfiles/paccache.timer /etc/systemd/system/paccache.timer
 cp ~/dotfiles/paccache.hook /usr/share/libalpm/hooks/paccache.hook
-zsh
-exit
-curl -s 'https://liquorix.net/install-liquorix.sh' | sh
 ufw enable
 ufw allow 1714:1764/udp
 ufw allow 1714:1764/tcp
