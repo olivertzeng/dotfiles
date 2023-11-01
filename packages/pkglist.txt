@@ -24,7 +24,7 @@ grub
 gum
 handbrake
 htop
-intel-ucode
+and-ucode
 kcrash
 kdenlive
 kdeplasma-addons
