@@ -14,7 +14,7 @@ mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 pacman -Syy reflector
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
-pacstrap -K --noconfirm /mnt - < ~/dotfiles/packages/pkglist.txt
+pacstrap -K /mnt - < ~/dotfiles/packages/pkglist.txt
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 pacman -Sc
