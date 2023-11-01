@@ -69,9 +69,6 @@ alias vim='neovim'
 pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.zprofile
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval $(thefuck --alias)
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
