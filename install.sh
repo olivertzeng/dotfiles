@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd
 setfont ter-132b
 timedatectl set-ntp true
@@ -34,7 +36,7 @@ git clone https://aur.archlinux.org/yay.git
 cd ~/yay
 makepkg -si      
 cd
-rm -rf ~/yay
+rm -rf yay
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 yay -Syyu --noconfirm - < ~/dotfiles/packages/aurlist.txt
@@ -47,6 +49,8 @@ cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 cp ~/dotfiles/init.lua ~/.config/nvim/init.lua
 curl -s 'https://liquorix.net/install-liquorix.sh' | sh
 sh ~/dotfiles/clean.sh
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.zprofile
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 zsh;exit
 exit
 cp ~/dotfiles/templates ~/.config/nvim/templates
