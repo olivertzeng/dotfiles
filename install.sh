@@ -1,15 +1,13 @@
 #!/bin/bash
 
 cd
-setfont ter-132b
 timedatectl set-ntp true
-tput bel
 cfdisk
-mkfs.fat -F32 /dev/sda1
-mkfs.btrfs /dev/sda3
-mkswap /dev/sda2
-swapon /dev/sda2
-mount /dev/sda3 /mnt
+mkfs.fat -F32 /dev/nvme0n1p1
+mkfs.btrfs /dev/nvme0n1p3
+mkswap /dev/nvme0n1p2
+swapon /dev/nvme0n1p2
+mount /dev/nvme0n1p3 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 pacman -Syy reflector
