@@ -65,12 +65,12 @@ echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
 locale-gen
 echo "ArchGang" > /etc/hostname
 tput bel
-echo 'Remember to run `bash -c  "$(wget -qO- https://git.io/vQgMr)`"
+echo 'Remember to run `bash -c  "$(wget -qO- https://git.io/vQgMr)"`
 after installing Arch!'
 systemctl enable bluetooth sddm NetWorkManager
 git clone https://github.com/divory100/tasty-grubs.git
 cp tasty-grubs/themes/amongus /boot/grub/themes/
-grub-install /dev/sda
+grub-install /dev/nvme0
 grub-mkconfig -o /boot/grub/grub.cfg
 rm ~/.cache/*
 exit
