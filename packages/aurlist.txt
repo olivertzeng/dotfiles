@@ -1,5 +1,4 @@
 appimagelauncher
-brave-bin
 nerd-fonts
 pacman-PV
 pfetch-rs-bin
@@ -11,4 +10,5 @@ stacer-bin
 topgrade
 ttf-jf-openhuninn
 vencord-desktop-bin
+Waterford-bin
 wluma
