@@ -1,3 +1,4 @@
+amd-ucode
 base
 base-devel
 bat
@@ -24,7 +25,6 @@ grub
 gum
 handbrake
 htop
-and-ucode
 kcrash
 kdenlive
 kdeplasma-addons
