@@ -1,6 +1,7 @@
 appimagelauncher
 brave-bin
 nerd-fonts
+pacman-PV
 pfetch-rs-bin
 rm-improved
 mesa-git
