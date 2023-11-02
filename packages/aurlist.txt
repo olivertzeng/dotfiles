@@ -1,6 +1,5 @@
 appimagelauncher
-nerd-fonts
-pacman-PV
+pacman-pb
 pfetch-rs-bin
 rm-improved
 mesa-git
@@ -9,6 +8,7 @@ pamac-nosnap
 stacer-bin
 topgrade
 ttf-jf-openhuninn
+ttf-victor-mono-nerd
 vencord-desktop-bin
-Waterford-bin
+waterford-bin
 wluma
