@@ -44,10 +44,9 @@ noto-fonts-cjk
 yarn
 openssh
 pacman-contrib
-pacman-pb
 pipewire
 pipewire-pulse
-plasma-browser-intergration
+plasma-browser-integration
 plasma-desktop
 plasma-disks
 plasma-vault
