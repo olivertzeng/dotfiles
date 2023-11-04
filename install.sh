@@ -47,7 +47,11 @@ cp ~/dotfiles/init.lua ~/.config/nvim/init.lua
 curl -s 'https://liquorix.net/install-liquorix.sh' | sh
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.zprofile
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-zsh;exit
+zsh
+brew install powerlevel10k
+cargo install cargo-cache
+p10k configure
+exit
 exit
 cp ~/dotfiles/templates ~/.config/nvim/templates
 cp ~/dotfiles/pacman.conf /etc/
@@ -63,6 +67,7 @@ locale-gen
 echo "ArchGang" > /etc/hostname
 echo 'Remember to run `bash -c  "$(wget -qO- https://git.io/vQgMr)"`
 after installing Arch!'
+refind-install --usedefault /dev/nvme0n1p1
 systemctl enable bluetooth sddm NetWorkManager
 rm ~/.cache/*
 exit
