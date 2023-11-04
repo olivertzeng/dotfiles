@@ -2,19 +2,20 @@
 
 cd
 timedatectl set-ntp true
-cfdisk
+cfdisk /dev/name0n1
 mkfs.fat -F32 /dev/nvme0n1p1
 mkfs.btrfs /dev/nvme0n1p3
 mkswap /dev/nvme0n1p2
 swapon /dev/nvme0n1p2
 mount /dev/nvme0n1p3 /mnt
 mkdir -p /mnt/boot/efi
-mount /dev/sda1 /mnt/boot/efi
-pacman -Syy reflector
+mount /dev/nvme0n1p1 /mnt/boot/efi
+pacman -Syy --noconfirm reflector
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
-pacstrap -K /mnt - < ~/dotfiles/packages/pkglist.txt
+pacstrap -K /mnt base linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
+pacman --noconfirm - < ~/dotfiles/packages/pkglist.txt
 pacman -Sc
 pacman -Scc
 git clone https://github.com/olivertzeng/dotfiles
@@ -22,18 +23,16 @@ ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 hwclock --systohc
 passwd
 useradd -m -G wheel,audio,video,storage -s /usr/bin/zsh olivertzeng
-tput bel
 passwd olivertzeng
-tput bel
 echo "Please uncomment the %wheel ALL=(ALL) ALL"
-sleep 10
+sleep 5
 EDITOR=nvim visudo
 su olivertzeng
 git clone https://github.com/olivertzeng/dotfiles.git
 git clone https://aur.archlinux.org/yay.git
-cd ~/yay
+cd yay
 makepkg -si      
-cd
+cd ..
 rm -rf yay
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
@@ -46,7 +45,6 @@ cp ~/dotfiles/zshrc ~/.zshrc
 cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 cp ~/dotfiles/init.lua ~/.config/nvim/init.lua
 curl -s 'https://liquorix.net/install-liquorix.sh' | sh
-sh ~/dotfiles/clean.sh
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.zprofile
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 zsh;exit
@@ -59,19 +57,13 @@ ufw enable
 ufw allow 1714:1764/udp
 ufw allow 1714:1764/tcp
 ufw reload
-tput bel
 nvim /etc/locale.gen
 echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
 locale-gen
 echo "ArchGang" > /etc/hostname
-tput bel
 echo 'Remember to run `bash -c  "$(wget -qO- https://git.io/vQgMr)"`
 after installing Arch!'
 systemctl enable bluetooth sddm NetWorkManager
-git clone https://github.com/divory100/tasty-grubs.git
-cp tasty-grubs/themes/amongus /boot/grub/themes/
-grub-install /dev/nvme0
-grub-mkconfig -o /boot/grub/grub.cfg
 rm ~/.cache/*
 exit
 unmount -a
