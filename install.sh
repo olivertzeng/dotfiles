@@ -64,7 +64,12 @@ ufw reload
 nvim /etc/locale.gen
 echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
 locale-gen
-echo "ArchGang" > /etc/hostname
+echo "ArchBTW" > /etc/hostname
+echo -e "
+127.0.0.1	localhost
+::1		localhost
+127.0.1.1	ArchBTW
+" > /etc/hosts
 echo 'Remember to run `bash -c  "$(wget -qO- https://git.io/vQgMr)"`
 after installing Arch!'
 refind-install --usedefault /dev/nvme0n1p1
