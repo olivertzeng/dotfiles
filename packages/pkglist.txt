@@ -21,7 +21,6 @@ fzf
 git 
 glow
 gping
-grub
 gum
 handbrake
 htop
@@ -53,6 +52,8 @@ plasma-vault
 plasma-wayland-session
 plymouth-kcm
 reflector
+refind
+refind-docs
 ripgrep
 rsync
 sddm
