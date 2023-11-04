@@ -12,7 +12,7 @@ mkdir -p /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
 pacman -Syy --noconfirm reflector
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
-pacstrap -K /mnt base linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git
+pacstrap -K /mnt base linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib eza fzf
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 pacman --noconfirm - < ~/dotfiles/packages/pkglist.txt
