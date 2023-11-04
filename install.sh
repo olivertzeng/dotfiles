@@ -2,7 +2,7 @@
 
 cd
 timedatectl set-ntp true
-cfdisk /dev/name0n1
+cfdisk /dev/nvme0n1 || exit 1
 mkfs.fat -F32 /dev/nvme0n1p1
 mkfs.btrfs /dev/nvme0n1p3
 mkswap /dev/nvme0n1p2
