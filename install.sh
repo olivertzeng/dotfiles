@@ -16,6 +16,7 @@ pacman -Syy --noconfirm reflector
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
 pacstrap -K /mnt base linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib eza fzf
 genfstab -U /mnt >> /mnt/etc/fstab
+gum confirm "Do Arch chroot?" || exit 0
 arch-chroot /mnt
 pacman --noconfirm - < ~/dotfiles/packages/pkglist.txt
 pacman -Sc
@@ -67,11 +68,11 @@ nvim /etc/locale.gen
 echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
 locale-gen
 echo "ArchBTW" > /etc/hostname
-echo -e "
+cat > /etc/hosts << EOL
 127.0.0.1	localhost
 ::1		localhost
 127.0.1.1	ArchBTW
-" > /etc/hosts
+EOL
 echo 'Remember to run `bash -c  "$(wget -qO- https://git.io/vQgMr)"`
 after installing Arch!'
 refind-install --usedefault /dev/nvme0n1p1
