@@ -1,8 +1,10 @@
 #!/bin/bash
 
+pacman -S gum
 cd
 timedatectl set-ntp true
 cfdisk /dev/nvme0n1 || exit 1
+gum confirm "Do you want to continue installing Arch?" || exit 0
 mkfs.fat -F32 /dev/nvme0n1p1
 mkfs.btrfs /dev/nvme0n1p3
 mkswap /dev/nvme0n1p2
