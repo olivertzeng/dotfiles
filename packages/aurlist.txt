@@ -1,11 +1,9 @@
 appimagelauncher
-pacman-pb
-pfetch-rs-bin
 rm-improved
 mesa-git
 mkinitcpio-firmware
 pamac-nosnap
-stacer-bin
+pfetch
 topgrade
 ttf-jf-openhuninn
 ttf-victor-mono-nerd
