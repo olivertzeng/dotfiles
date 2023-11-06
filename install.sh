@@ -15,16 +15,19 @@ mount /dev/nvme0n1p3 /mnt || exit 1
 mkdir -p /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
+cp ~/dotfiles/pacman.conf /etc
 pacstrap -K /mnt base linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib eza fzf
 genfstab -U /mnt >> /mnt/etc/fstab
 gum confirm "Do Arch chroot?" || exit 0
 arch-chroot /mnt
 git clone https://github.com/olivertzeng/dotfiles
+cp dotfiles/pacman.conf /etc
+cp dotfiles/paccache.timer /etc/systemd/system
+cp dotfiles/paccache.hook /usr/share/libalpm/hooks
 pacman --noconfirm - < dotfiles/packages/pkglist.txt || exit 1
 gum confirm "Are packages fine?" || exit 1
-yes | pacman -Sc &
-yes | pacman -Scc &
-wait
+yes | pacman -Sc
+yes | pacman -Scc
 curl -s 'https://liquorix.net/install-liquorix.sh' | sh &
 ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime &
 hwclock --systohc
@@ -44,7 +47,6 @@ makepkg -si
 cd ..
 rm -rf yay
 yes "" | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
 yay -Syyu --noconfirm - < ~/dotfiles/packages/aurlist.txt
 gum confirm "Are AUR okay?" || exit 1
 yes | yay -Sc
@@ -60,9 +62,6 @@ cargo install cargo-cache
 p10k configure
 exit
 exit
-cp ~/dotfiles/pacman.conf /etc/
-cp ~/dotfiles/paccache.timer /etc/systemd/system/paccache.timer
-cp ~/dotfiles/paccache.hook /usr/share/libalpm/hooks/paccache.hook
 ufw enable
 ufw allow 1714:1764/udp
 ufw allow 1714:1764/tcp
