@@ -1,5 +1,6 @@
 bat
 bleachbit
+bluez
 cargo-update
 curl 
 dolphin-plugins
