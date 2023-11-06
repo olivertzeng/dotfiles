@@ -8,5 +8,5 @@ topgrade
 ttf-jf-openhuninn
 ttf-victor-mono-nerd
 vencord-desktop-bin
-waterford-bin
+waterfox-bin
 wluma
