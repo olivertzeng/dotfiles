@@ -24,6 +24,7 @@ kcrash
 kdenlive
 kdeplasma-addons
 konsole
+kscreen
 ksystemstats
 mkvtoolnix-cli
 mkvtoolnix-gui
