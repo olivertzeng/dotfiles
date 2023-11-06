@@ -21,6 +21,7 @@ gum
 handbrake
 htop
 kcrash
+kdeconnect
 kdenlive
 kdeplasma-addons
 konsole
@@ -35,11 +36,13 @@ nodejs
 noto-fonts-cjk
 yarn
 openssh
+packagekit-qt5
 pipewire
 pipewire-pulse
 plasma-browser-integration
 plasma-desktop
 plasma-disks
+plasma-nm
 plasma-vault
 plasma-wayland-session
 plymouth-kcm
