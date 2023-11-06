@@ -6,10 +6,9 @@ timedatectl set-ntp true
 cfdisk /dev/nvme0n1 || exit 1
 umount -a
 gum confirm "Do you want to continue installing Arch?" || exit 0
-mkfs.fat -F32 /dev/nvme0n1p1 & || exit 1
-mkswap /dev/nvme0n1p2 & || exit 1
-mkfs.btrfs -f /dev/nvme0n1p3 & || exit 1
-wait
+mkfs.fat -F32 /dev/nvme0n1p1 || exit 1
+mkswap /dev/nvme0n1p2 || exit 1
+mkfs.btrfs -f /dev/nvme0n1p3 || exit 1
 swapon /dev/nvme0n1p2 || exit 1
 mount /dev/nvme0n1p3 /mnt || exit 1
 mkdir -p /mnt/boot/efi
