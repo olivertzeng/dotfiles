@@ -4,8 +4,6 @@ pacman -S --noconfirm gum parallel reflector
 cd
 timedatectl set-ntp true
 cfdisk /dev/nvme0n1 || exit 1
-umount -a
-gum confirm "Do you want to continue installing Arch?" || exit 0
 mkfs.fat -F32 /dev/nvme0n1p1 || exit 1
 mkswap /dev/nvme0n1p2 || exit 1
 mkfs.btrfs -f /dev/nvme0n1p3 || exit 1
@@ -13,9 +11,10 @@ swapon /dev/nvme0n1p2 || exit 1
 mount /dev/nvme0n1p3 /mnt || exit 1
 mkdir -p /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
+gum confirm "Do you want to continue installing Arch?" || exit 0
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
-pacstrap -K /mnt base linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib eza fzf
+pacstrap -K /mnt base base-devel linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib eza fzf
 genfstab -U /mnt >> /mnt/etc/fstab
 gum confirm "Do Arch chroot?" || exit 0
 arch-chroot /mnt
@@ -27,8 +26,8 @@ pacman --noconfirm - < dotfiles/packages/pkglist.txt || exit 1
 gum confirm "Are packages fine?" || exit 1
 yes | pacman -Sc
 yes | pacman -Scc
-curl -s 'https://liquorix.net/install-liquorix.sh' | sh &
-ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime &
+curl -s 'https://liquorix.net/install-liquorix.sh' | sh
+ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 hwclock --systohc
 passwd
 useradd -m -G wheel,audio,video,storage -s /usr/bin/zsh olivertzeng
@@ -37,6 +36,7 @@ echo "Please uncomment %wheel ALL=(ALL) ALL"
 sleep 5
 EDITOR=nvim visudo
 su olivertzeng
+cd
 git clone https://github.com/olivertzeng/dotfiles.git &
 git clone https://aur.archlinux.org/yay.git &
 git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote &
@@ -56,7 +56,7 @@ cp -r ~/dotfiles/templates ~/.config/nvim/templates
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.zprofile
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 zsh
-brew install powerlevel10k
+brew install powerlevel10k gcc
 cargo install cargo-cache
 p10k configure
 exit
