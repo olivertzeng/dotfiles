@@ -52,6 +52,7 @@ plasma-vault
 plasma-wayland-session
 plymouth-kcm
 poweredevil
+rebuild-detector
 ripgrep
 sddm
 sddm-kcm
