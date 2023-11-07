@@ -11,6 +11,7 @@ ttf-jf-openhuninn
 ttf-victor-mono-nerd
 upd72020x-fw
 vencord-desktop-bin
+vrms-arch-git
 waterfox-bin
 wd719x-firmware
 wluma
