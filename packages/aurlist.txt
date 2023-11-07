@@ -1,4 +1,6 @@
+aic94xx-firmware
 appimagelauncher
+ast-firmware
 rm-improved
 mesa-git
 mkinitcpio-firmware
@@ -7,6 +9,8 @@ pfetch
 topgrade
 ttf-jf-openhuninn
 ttf-victor-mono-nerd
+upd72020x-fw
 vencord-desktop-bin
 waterfox-bin
+wd719x-firmware
 wluma
