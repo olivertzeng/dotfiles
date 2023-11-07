@@ -5,6 +5,7 @@ cargo-update
 curl 
 dolphin-plugins
 duf
+eza
 fakeroot
 fcitx5-chewing
 fcitx5-chinese-addons
@@ -24,6 +25,8 @@ kcrash
 kdeconnect
 kdenlive
 kdeplasma-addons
+kde-cli-tools
+kde-gtk-config
 konsole
 kscreen
 ksystemstats
@@ -43,11 +46,13 @@ plasma-browser-integration
 plasma-desktop
 plasma-disks
 plasma-nm
+plasma-pa
+plasma-systemmonitor
 plasma-vault
 plasma-wayland-session
 plymouth-kcm
+poweredevil
 ripgrep
-rsync
 sddm
 sddm-kcm
 sof-firmware
