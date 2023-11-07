@@ -10,6 +10,7 @@ yay -Syyu --noconfirm - < ~/dotfiles/packages/aurlist.txt
 gum confirm "Are AUR okay?" || exit 1
 yes | yay -Sc
 yes | yay -Scc
+yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)
 cp ~/dotfiles/zshrc ~/.zshrc
 cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 cp ~/dotfiles/init.lua ~/.config/nvim/init.lua
