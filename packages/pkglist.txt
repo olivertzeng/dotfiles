@@ -2,8 +2,7 @@ bat
 bleachbit
 bluez
 cargo-update
-curl 
-dolphin-plugins
+curl
 duf
 eza
 fakeroot
@@ -28,6 +27,7 @@ kdeplasma-addons
 kde-cli-tools
 kde-gtk-config
 konsole
+krusader
 kscreen
 ksystemstats
 mkvtoolnix-cli
