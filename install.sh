@@ -37,6 +37,8 @@ passwd olivertzeng
 echo "Please uncomment %wheel ALL=(ALL) ALL"
 sleep 5
 EDITOR=nvim visudo
+
+# login as user olivertzeng
 su olivertzeng
 cd
 git clone https://github.com/olivertzeng/dotfiles.git &
@@ -52,7 +54,8 @@ yay -Syyu --noconfirm - < ~/dotfiles/packages/aurlist.txt
 gum confirm "Are AUR okay?" || exit 1
 yes | yay -Sc
 yes | yay -Scc
-ls .* | parallel cp {} ~/
+cp ~/dotfiles/zshrc ~/.zshrc
+cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 cp ~/dotfiles/init.lua ~/.config/nvim/init.lua
 cp -r ~/dotfiles/templates ~/.config/nvim/templates
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.zprofile
