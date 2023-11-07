@@ -66,6 +66,7 @@ alias sudo='nocorrect sudo'
 alias topgrade='topgrade -y --no-retry -c'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
 alias vim='neovim'
+alias yareb='yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)'
 pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
