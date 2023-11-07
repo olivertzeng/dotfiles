@@ -63,10 +63,6 @@ cargo install cargo-cache
 p10k configure
 exit
 exit
-ufw enable
-ufw allow 1714:1764/udp
-ufw allow 1714:1764/tcp
-ufw reload
 nvim /etc/locale.gen
 echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
 echo "ArchBTW" > /etc/hostname
