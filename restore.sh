@@ -7,10 +7,10 @@ cd ..
 rm -rf yay
 yes "" | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 yay -Syyu --noconfirm - < ~/dotfiles/packages/aurlist.txt
+yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)
 gum confirm "Are AUR okay?" || exit 1
 yes | yay -Sc
 yes | yay -Scc
-yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)
 cp ~/dotfiles/zshrc ~/.zshrc
 cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 cp ~/dotfiles/init.lua ~/.config/nvim/init.lua
