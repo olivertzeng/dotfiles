@@ -24,7 +24,7 @@ git clone https://github.com/olivertzeng/dotfiles
 cp dotfiles/pacman.conf /etc
 cp dotfiles/paccache.timer /etc/systemd/system
 cp dotfiles/paccache.hook /usr/share/libalpm/hooks
-pacman --noconfirm - < dotfiles/packages/pkglist.txt || exit 1
+pacman -Syyu --needed --noconfirm - < dotfiles/packages/pkglist.txt || exit 1
 gum confirm "Are packages fine?" || exit 1
 yes | pacman -Sc
 yes | pacman -Scc
