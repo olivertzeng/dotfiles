@@ -1,7 +1,6 @@
 #!/bin/bash
 
 pacman -S --noconfirm gum parallel reflector
-cd
 timedatectl set-ntp true
 cfdisk /dev/nvme0n1 || exit 1
 mkfs.fat -F32 /dev/nvme0n1p1 || exit 1
@@ -17,7 +16,10 @@ cp ~/dotfiles/pacman.conf /etc
 pacstrap -K /mnt base base-devel linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib eza fzf
 genfstab -U /mnt >> /mnt/etc/fstab
 gum confirm "Do Arch chroot?" || exit 0
+
+# chroot the arch system as new system's root
 arch-chroot /mnt
+cd
 git clone https://github.com/olivertzeng/dotfiles
 cp dotfiles/pacman.conf /etc
 cp dotfiles/paccache.timer /etc/systemd/system
