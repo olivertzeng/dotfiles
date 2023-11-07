@@ -1,5 +1,5 @@
 [Unit]
-Description=用來清理pacman垃圾
+Description=用來清理pacman的快取
 
 [Timer]
 OnCalendar=daily
