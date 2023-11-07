@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman -S --noconfirm gum parallel reflector
+pacman -S --noconfirm gum reflector
 timedatectl set-ntp true
 cfdisk /dev/nvme0n1 || exit 1
 mkfs.fat -F32 /dev/nvme0n1p1 || exit 1
@@ -13,7 +13,7 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 gum confirm "Do you want to continue installing Arch?" || exit 0
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
-pacstrap -K /mnt base base-devel linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib
+pacstrap -K /mnt base base-devel linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib linux-firmware-qlogic
 genfstab -U /mnt >> /mnt/etc/fstab
 gum confirm "Do Arch chroot?" || exit 0
 
