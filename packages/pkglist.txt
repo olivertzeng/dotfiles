@@ -1,7 +1,8 @@
+ark
 bat
-bleachbit
 bluez
 cargo-update
+colord-kde
 curl
 duf
 eza
@@ -30,6 +31,7 @@ konsole
 krusader
 kscreen
 ksystemstats
+kup
 mkvtoolnix-cli
 mkvtoolnix-gui
 neovim
@@ -45,6 +47,7 @@ pipewire-pulse
 plasma-browser-integration
 plasma-desktop
 plasma-disks
+plasma-firewall
 plasma-nm
 plasma-pa
 plasma-systemmonitor
@@ -67,4 +70,5 @@ vulkan-radeon
 wayland
 wget
 wireplumber
+xdg-desktop-portal-kde
 zsh
