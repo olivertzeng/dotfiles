@@ -63,16 +63,22 @@ cp -r ~/dotfiles/templates ~/.config/nvim/templates
 zsh
 brew install powerlevel10k gcc
 cargo install cargo-cache
-p10k configure
 exit
 exit
 nvim /etc/locale.gen
 echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
 echo "ArchBTW" > /etc/hostname
-cat > /etc/hosts << EOL
+cat >> /etc/hosts << EOL
 127.0.0.1	localhost
 ::1		localhost
 127.0.1.1	ArchBTW
+EOL
+cat >> /etc/environment << EOL
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+SDL_IM_MODULE=fcitx
+GLFW_IM_MODULE=fcitx
 EOL
 echo 'Remember to run `bash -c  "$(wget -qO- https://git.io/vQgMr)"`
 after installing Arch!'
