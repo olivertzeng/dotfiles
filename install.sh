@@ -13,7 +13,7 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 gum confirm "Do you want to continue installing Arch?" || exit 0
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
-pacstrap -K /mnt base base-devel linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib eza fzf
+pacstrap -K /mnt base base-devel linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib
 genfstab -U /mnt >> /mnt/etc/fstab
 gum confirm "Do Arch chroot?" || exit 0
 
