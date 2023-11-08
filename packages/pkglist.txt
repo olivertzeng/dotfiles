@@ -22,16 +22,15 @@ gum
 handbrake
 htop
 kcrash
+kde-cli-tools
+kde-gtk-config
 kdeconnect
 kdenlive
 kdeplasma-addons
-kde-cli-tools
-kde-gtk-config
 konsole
 krusader
 kscreen
 ksystemstats
-kup
 mkvtoolnix-cli
 mkvtoolnix-gui
 neovim
@@ -39,7 +38,6 @@ netctl
 networkmanager
 nodejs 
 noto-fonts-cjk
-yarn
 openssh
 packagekit-qt5
 pipewire
@@ -71,4 +69,5 @@ wayland
 wget
 wireplumber
 xdg-desktop-portal-kde
+yarn
 zsh

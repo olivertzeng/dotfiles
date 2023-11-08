@@ -32,7 +32,6 @@ antidote load
 
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH="/usr/local/bin:$PATH"
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export BAT_THEME='gruvbox-dark'
 
 # User configuration
@@ -48,6 +47,8 @@ export ARCHFLAGS="-arch x86_64"
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 
 # some more ls aliases
 alias bat='bat --color=always'
@@ -65,14 +66,12 @@ alias rm='rip --graveyard ~/.local/share/Trash'
 alias sudo='nocorrect sudo'
 alias topgrade='topgrade -y --no-retry -c'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
-alias vim='neovim'
+alias vim='nvim'
 alias yareb='yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)'
 alias pacor='pacman -Qqd | pacman -Rsu'
 pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export GOPATH="$HOME/go"
-export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
 setopt autocd
 HISTFILE=~/.zsh_history
