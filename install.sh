@@ -45,15 +45,7 @@ cat >> /etc/hosts << EOL
 ::1		localhost
 127.0.1.1	ArchBTW
 EOL
-cat >> /etc/environment << EOL
-GTK_IM_MODULE=fcitx
-QT_IM_MODULE=fcitx
-XMODIFIERS=@im=fcitx
-SDL_IM_MODULE=fcitx
-GLFW_IM_MODULE=fcitx
-EOL
-echo 'Remember to run `bash -c  "$(wget -qO- https://git.io/vQgMr)"`
-after installing Arch!'
+echo "XMODIFIERS=@im=fcitx" >> /etc/environment 
 refind-install --usedefault /dev/nvme0n1p1 &
 rm ~/.cache/* &
 locale-gen &

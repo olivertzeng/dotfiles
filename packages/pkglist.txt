@@ -1,5 +1,6 @@
 ark
 bat
+bluedevil
 bluez
 cargo-update
 colord-kde
