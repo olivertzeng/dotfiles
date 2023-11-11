@@ -69,6 +69,7 @@ vulkan-radeon
 wayland
 wget
 wireplumber
+xclip
 xdg-desktop-portal-kde
 yarn
 zsh

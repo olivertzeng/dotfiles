@@ -1,6 +1,7 @@
 aic94xx-firmware
 appimagelauncher
 ast-firmware
+fcitx5-mcbopomofo-git
 rm-improved
 mesa-git
 mkinitcpio-firmware
