@@ -1,10 +1,14 @@
+amd-ucode
 ark
+base
+base-devel
 bat
 bluedevil
 bluez
 cargo-update
 colord-kde
 curl
+dolphin-plugins
 duf
 eza
 fakeroot
@@ -16,7 +20,8 @@ fcitx5-qt
 filelight
 flatpak
 flatpak-kcm
-fzf 
+fzf
+git
 glow
 gping
 gum
@@ -29,9 +34,12 @@ kdeconnect
 kdenlive
 kdeplasma-addons
 konsole
-krusader
 kscreen
 ksystemstats
+linux
+linux-firmware-qlogic
+linux-firmware
+linux-headers 
 mkvtoolnix-cli
 mkvtoolnix-gui
 neovim
@@ -41,6 +49,7 @@ nodejs
 noto-fonts-cjk
 openssh
 packagekit-qt5
+pacman-contrib
 pipewire
 pipewire-pulse
 plasma-browser-integration
@@ -55,6 +64,8 @@ plasma-wayland-session
 plymouth-kcm
 poweredevil
 rebuild-detector
+refind
+refind-docs
 ripgrep
 sddm
 sddm-kcm
