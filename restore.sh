@@ -1,3 +1,4 @@
+cd
 git clone https://aur.archlinux.org/yay.git &
 git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote &
 wait
