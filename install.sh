@@ -32,7 +32,7 @@ curl -s 'https://liquorix.net/install-liquorix.sh' | sh
 ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 hwclock --systohc
 passwd
-useradd -m -G wheel,audio,video,storage -s /usr/bin/zsh olivertzeng
+useradd -m -G wheel,audio,video,storage -s $(which zsh) olivertzeng
 passwd olivertzeng
 echo "Please uncomment %wheel ALL=(ALL) ALL"
 sleep 5
@@ -50,5 +50,5 @@ refind-install --usedefault /dev/nvme0n1p1 &
 rm ~/.cache/* &
 locale-gen &
 wait
-systemctl enable bluetooth sddm NetWorkManager
+systemctl enable bluetooth sddm NetworkManager
 unmount -a
