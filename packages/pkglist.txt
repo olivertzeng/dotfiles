@@ -60,9 +60,8 @@ plasma-nm
 plasma-pa
 plasma-systemmonitor
 plasma-vault
-plasma-wayland-session
 plymouth-kcm
-poweredevil
+powerdevil
 rebuild-detector
 refind
 refind-docs
