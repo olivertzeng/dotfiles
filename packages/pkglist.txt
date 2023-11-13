@@ -70,7 +70,6 @@ sddm
 sddm-kcm
 sof-firmware
 spectacle
-timeshift
 ufw
 unrar
 unzip
