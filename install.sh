@@ -13,7 +13,7 @@ mount /dev/nvme0n1p1 /mnt/boot/efi
 gum confirm "Do you want to continue installing Arch?" || exit 0
 reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
-pacstrap -K /mnt base base-devel linux linux-firmware linux-headers amd-ucode neovim refind refind-docs git pacman-contrib linux-firmware-qlogic
+pacstrap -K /mnt $(cat dotfiles/packages/pkglist.txt | xargs)
 genfstab -U /mnt >> /mnt/etc/fstab
 gum confirm "Do Arch chroot?" || exit 0
 
@@ -24,7 +24,6 @@ git clone https://github.com/olivertzeng/dotfiles
 cp dotfiles/pacman.conf /etc
 cp dotfiles/paccache.timer /etc/systemd/system
 cp dotfiles/paccache.hook /usr/share/libalpm/hooks
-pacman -Syyu --needed --noconfirm $(cat dotfiles/packages/pkglist.txt | xargs) || exit 1
 gum confirm "Are packages fine?" || exit 1
 yes | pacman -Sc
 yes | pacman -Scc
@@ -34,9 +33,8 @@ hwclock --systohc
 passwd
 useradd -m -G wheel,audio,video,storage -s $(which zsh) olivertzeng
 passwd olivertzeng
-echo "Please uncomment %wheel ALL=(ALL) ALL"
-sleep 5
-EDITOR=nvim visudo
+EDITOR=nvim
+visudo
 nvim /etc/locale.gen
 echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
 echo "ArchBTW" > /etc/hostname
@@ -51,4 +49,8 @@ rm ~/.cache/* &
 locale-gen &
 wait
 systemctl enable bluetooth sddm NetworkManager
+su olivertzeng
+git clone https://github.com/olivertzeng/dotfiles
+
+exit
 unmount -a
