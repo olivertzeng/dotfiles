@@ -21,6 +21,7 @@ fcitx5-qt
 filelight
 flatpak
 flatpak-kcm
+fsck
 fzf
 git
 glow
