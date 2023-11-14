@@ -1,3 +1,4 @@
+asciinema
 amd-ucode
 ark
 base
