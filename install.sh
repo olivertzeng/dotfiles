@@ -7,8 +7,7 @@ mkswap /dev/nvme0n1p2 || exit 1
 mkfs.btrfs -f /dev/nvme0n1p3 || exit 1
 swapon /dev/nvme0n1p2 || exit 1
 mount /dev/nvme0n1p3 /mnt || exit 1
-mkdir -p /mnt/boot/efi
-mount /dev/nvme0n1p1 /mnt/boot/efi
+mount --mkdir /dev/nvme0n1p1 /mnt/boot/efi
 gum confirm "Do you want to continue installing Arch?" || exit 0
 reflector -c Taiwan -f 12 -n 12 -l 10 --download-timeout 60 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
