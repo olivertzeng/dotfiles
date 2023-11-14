@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman -S --noconfirm gum reflector
+pacman -S --noconfirm --needed gum reflector git
 cfdisk /dev/nvme0n1 || exit 1
 mkfs.fat -F32 /dev/nvme0n1p1 || exit 1
 mkswap /dev/nvme0n1p2 || exit 1
@@ -26,7 +26,6 @@ cp dotfiles/paccache.hook /usr/share/libalpm/hooks
 gum confirm "Are packages fine?" || exit 1
 yes | pacman -Sc
 yes | pacman -Scc
-curl -s 'https://liquorix.net/install-liquorix.sh' | sh
 timedatectl set-timezone Asia/Taipei
 passwd
 useradd -m -G wheel,audio,video,storage -s $(which zsh) olivertzeng
