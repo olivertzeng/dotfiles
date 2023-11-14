@@ -1,7 +1,6 @@
 #!/bin/bash
 
 pacman -S --noconfirm gum reflector
-timedatectl set-ntp true
 cfdisk /dev/nvme0n1 || exit 1
 mkfs.fat -F32 /dev/nvme0n1p1 || exit 1
 mkswap /dev/nvme0n1p2 || exit 1
@@ -11,7 +10,7 @@ mount /dev/nvme0n1p3 /mnt || exit 1
 mkdir -p /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
 gum confirm "Do you want to continue installing Arch?" || exit 0
-reflector -c Taiwan -f 12 -l 10 --cache-timeout 60 --download-timeout 60 -n 12 --save /etc/pacman.d/mirrorlist
+reflector -c Taiwan -f 12 -n 12 -l 10 --download-timeout 60 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
 pacstrap -K /mnt $(cat dotfiles/packages/pkglist.txt | xargs)
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -28,8 +27,7 @@ gum confirm "Are packages fine?" || exit 1
 yes | pacman -Sc
 yes | pacman -Scc
 curl -s 'https://liquorix.net/install-liquorix.sh' | sh
-ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
-hwclock --systohc
+timedatectl set-timezone Asia/Taipei
 passwd
 useradd -m -G wheel,audio,video,storage -s $(which zsh) olivertzeng
 passwd olivertzeng
