@@ -41,7 +41,8 @@ ksystemstats
 linux
 linux-firmware-qlogic
 linux-firmware
-linux-headers 
+linux-headers
+man
 mkvtoolnix-cli
 mkvtoolnix-gui
 neovim
