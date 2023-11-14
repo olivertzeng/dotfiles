@@ -42,6 +42,9 @@ linux
 linux-firmware-qlogic
 linux-firmware
 linux-headers
+linux-zen
+linux-zen-docs
+linux-zen-headers
 man
 mkvtoolnix-cli
 mkvtoolnix-gui
