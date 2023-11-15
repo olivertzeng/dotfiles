@@ -19,15 +19,17 @@ gum confirm "Do Arch chroot?" || exit 0
 arch-chroot /mnt
 cd
 git clone https://github.com/olivertzeng/dotfiles
-cp dotfiles/pacman.conf /etc
-cp dotfiles/paccache.timer /etc/systemd/system
-cp dotfiles/paccache.hook /usr/share/libalpm/hooks
+cd dotfiles
+cp pacman.conf /etc
+cp paccache.timer /etc/systemd/system
+cp paccache.hook /usr/share/libalpm/hooks
+cd
 gum confirm "Are packages fine?" || exit 1
 yes | pacman -Sc
 yes | pacman -Scc
 timedatectl set-timezone Asia/Taipei
 passwd
-useradd -m -G wheel,audio,video,storage -s $(which zsh) olivertzeng
+useradd -m -G wheel,audio,video,storage,i2c,avahi,git,usbmux,flatpak,rtkit,sddm,polkitd,tss,colord -s $(which zsh) olivertzeng
 passwd olivertzeng
 EDITOR=nvim
 visudo
@@ -46,7 +48,6 @@ locale-gen &
 wait
 systemctl enable bluetooth sddm NetworkManager
 su olivertzeng
-git clone https://github.com/olivertzeng/dotfiles
 
 exit
 unmount -a
