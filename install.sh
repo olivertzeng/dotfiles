@@ -1,6 +1,10 @@
 #!/bin/bash
 
 pacman -S --noconfirm --needed gum reflector git
+timedatectl set-ntp true
+timedatectl set-timezone Asia/Taipei
+ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
+hwclock -w
 cfdisk /dev/nvme0n1 || exit 1
 mkfs.fat -F32 /dev/nvme0n1p1 || exit 1
 mkswap /dev/nvme0n1p2 || exit 1
@@ -27,7 +31,6 @@ cd
 gum confirm "Are packages fine?" || exit 1
 yes | pacman -Sc
 yes | pacman -Scc
-timedatectl set-timezone Asia/Taipei
 passwd
 useradd -m -G wheel,audio,video,storage,i2c,avahi,git,usbmux,flatpak,rtkit,sddm,polkitd,tss,colord -s $(which zsh) olivertzeng
 passwd olivertzeng
