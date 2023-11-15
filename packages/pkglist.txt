@@ -1,5 +1,4 @@
 amd-ucode
-arduino-ide-bin
 asciinema
 ark
 base
