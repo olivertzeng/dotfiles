@@ -16,4 +16,3 @@ vencord-desktop-bin
 vrms-arch-git
 waterfox-bin
 wd719x-firmware
-wluma
