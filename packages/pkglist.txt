@@ -1,5 +1,6 @@
-asciinema
 amd-ucode
+arduino-ide-bin
+asciinema
 ark
 base
 base-devel
