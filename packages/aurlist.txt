@@ -1,4 +1,5 @@
 aic94xx-firmware
+arduino-ide-bin
 appimagelauncher
 ast-firmware
 fcitx5-mcbopomofo-git
