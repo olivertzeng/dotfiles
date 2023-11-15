@@ -2,7 +2,7 @@ aic94xx-firmware
 arduino-ide-bin
 appimagelauncher
 ast-firmware
-galena-etcher
+balena-etcher
 fcitx5-mcbopomofo-git
 rm-improved
 mesa-git
