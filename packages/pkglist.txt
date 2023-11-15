@@ -21,7 +21,6 @@ fcitx5-qt
 filelight
 flatpak
 flatpak-kcm
-fsck
 fzf
 git
 glow
@@ -86,5 +85,6 @@ wget
 wireplumber
 xclip
 xdg-desktop-portal-kde
+xkill
 yarn
 zsh
