@@ -6,7 +6,7 @@ fcitx5-mcbopomofo-git
 rm-improved
 mesa-git
 mkinitcpio-firmware
-mkinitcpio-colorful-git
+mkinitcpio-colors-git
 pamac-nosnap
 pfetch
 topgrade
