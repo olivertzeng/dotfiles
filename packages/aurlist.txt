@@ -6,7 +6,6 @@ rm-improved
 mesa-git
 mkinitcpio-firmware
 mkinitcpio-colors-git
-pamac-nosnap
 pfetch
 topgrade
 ttf-jf-openhuninn
