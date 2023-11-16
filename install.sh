@@ -48,6 +48,7 @@ echo "XMODIFIERS=@im=fcitx" >> /etc/environment
 refind-install --usedefault /dev/nvme0n1p1 &
 rm ~/.cache/* &
 locale-gen &
+mkrmconf
 wait
 systemctl enable bluetooth sddm NetworkManager
 su olivertzeng
