@@ -86,6 +86,6 @@ wget
 wireplumber
 xclip
 xdg-desktop-portal-kde
-xkill
+xorg-xkill
 yarn
 zsh
