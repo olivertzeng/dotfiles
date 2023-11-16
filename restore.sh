@@ -14,7 +14,7 @@ yes | yay -Sc
 yes | yay -Scc
 cp ~/dotfiles/zshrc ~/.zshrc
 cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
-cp ~/dotfiles/init.lua ~/.config/nvim/init.lua
+cp ~/dotfiles/init.lua ~/.config/nvim/
 cp -r ~/dotfiles/templates ~/.config/nvim/templates
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.zprofile
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
