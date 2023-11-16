@@ -7,7 +7,7 @@ makepkg -si
 cd ..
 rm -rf yay
 yes "" | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-yay -Syyu --noconfirm - < ~/dotfiles/packages/aurlist.txt
+yay -Syyu --noconfirm $(cat -/dotfiles/packages/aurlist.txt | xargs)
 yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)
 gum confirm "Are AUR okay?" || exit 1
 yes | yay -Sc
