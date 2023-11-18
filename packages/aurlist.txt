@@ -3,7 +3,6 @@ arduino-ide-bin
 ast-firmware
 fcitx5-mcbopomofo-git
 rm-improved
-mesa-git
 mkinitcpio-firmware
 mkinitcpio-colors-git
 pfetch
