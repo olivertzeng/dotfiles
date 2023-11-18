@@ -88,7 +88,6 @@ wget
 wireplumber
 xclip
 xdg-desktop-portal-kde
-xf86-video-amdgpu
 xorg-xkill
 yarn
 zsh
