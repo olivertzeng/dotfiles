@@ -15,7 +15,7 @@ mount --mkdir /dev/nvme0n1p1 /mnt/boot/efi
 gum confirm "Do you want to continue installing Arch?" || exit 0
 reflector -c Taiwan -f 12 -n 12 -l 10 --download-timeout 60 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
-pacstrap -K /mnt $(cat dotfiles/packages/pkglist.txt | xargs)
+pacstrap -K /mnt $(cat ~/dotfiles/packages/pkglist.txt | xargs)
 genfstab -U /mnt >> /mnt/etc/fstab
 gum confirm "Do Arch chroot?" || exit 0
 
@@ -32,7 +32,7 @@ gum confirm "Are packages fine?" || exit 1
 yes | pacman -Sc
 yes | pacman -Scc
 passwd
-useradd -m -G wheel,audio,video,storage,i2c,avahi,git,usbmux,flatpak,rtkit,sddm,polkitd,tss,colord -s $(which zsh) olivertzeng
+useradd -mG wheel,audio,video,storage,i2c,avahi,git,usbmux,flatpak,rtkit,sddm,polkitd,tss,colord -s $(which zsh) olivertzeng
 passwd olivertzeng
 EDITOR=nvim
 visudo
@@ -45,11 +45,10 @@ cat >> /etc/hosts << EOL
 127.0.1.1	ArchBTW
 EOL
 echo "XMODIFIERS=@im=fcitx" >> /etc/environment 
-refind-install --usedefault /dev/nvme0n1p1 &
-rm ~/.cache/* &
-locale-gen &
-mkrmconf
-wait
+refind-install --usedefault /dev/nvme0n1p1 --alldrivers
+rm -rf ~/cache/*
+locale-gen
+mkrlconf
 systemctl enable bluetooth sddm NetworkManager
 su olivertzeng
 
