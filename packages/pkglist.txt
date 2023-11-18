@@ -80,6 +80,8 @@ ufw
 unrar
 unzip
 usbutils
+vim
+vhs
 vulkan-radeon
 wayland
 wget
