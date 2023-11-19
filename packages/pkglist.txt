@@ -1,6 +1,6 @@
 amd-ucode
-asciinema
 ark
+asciinema
 base
 base-devel
 bat
@@ -23,6 +23,7 @@ flatpak
 flatpak-kcm
 fzf
 git
+gitui
 glow
 gping
 gum
@@ -39,8 +40,8 @@ konsole
 kscreen
 ksystemstats
 linux
-linux-firmware-qlogic
 linux-firmware
+linux-firmware-qlogic
 linux-headers
 linux-zen
 linux-zen-docs
@@ -80,8 +81,8 @@ ufw
 unrar
 unzip
 usbutils
-vim
 vhs
+vim
 vulkan-radeon
 wayland
 wget
