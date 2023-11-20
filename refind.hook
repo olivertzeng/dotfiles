@@ -1,0 +1,9 @@
+[Trigger]
+Operation=Upgrade
+Type=Package
+Target=refind
+
+[Action]
+Description = 更新 refind
+When=PostTransaction
+Exec=/usr/bin/refind-install
