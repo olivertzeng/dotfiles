@@ -49,8 +49,7 @@ refind-install --usedefault /dev/nvme0n1p1 --alldrivers
 rm -rf ~/cache/*
 locale-gen
 mkrlconf
-systemctl enable bluetooth sddm NetworkManager
+systemctl enable $(systemctl list-unit-files)
 su olivertzeng
-
 exit
 unmount -a
