@@ -4,7 +4,8 @@ yes | yay -Sc
 yes | yay -Scc
 cp ~/dotfiles/zshrc ~/.zshrc
 cp ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
-cp ~/dotfiles/init.lua ~/.config/nvim/
+mkdir ~/.config/nvim
+cp ~/dotfiles/init.lua ~/.config/nvim
 cp -r ~/dotfiles/templates ~/.config/nvim/templates
 bash -c  "$(wget -qO- https://git.io/vQgMr)"
 zsh
