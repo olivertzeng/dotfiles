@@ -77,6 +77,8 @@ sddm
 sddm-kcm
 sof-firmware
 spectacle
+systeroid
+thermald
 ufw
 unrar
 unzip
