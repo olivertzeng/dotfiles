@@ -1,11 +1,14 @@
 aic94xx-firmware
-arduino-ide-bin
+auto-cpufreq
 ast-firmware
 fcitx5-mcbopomofo-git
+kcm-polkit-kde-git
+konsave
 rm-improved
 mkinitcpio-firmware
 mkinitcpio-colors-git
 pfetch
+samsung_magician-consumer-ssd
 topgrade
 ttf-jf-openhuninn
 ttf-victor-mono-nerd
