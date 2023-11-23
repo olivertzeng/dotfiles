@@ -1,3 +1,10 @@
+git clone https://aur.archlinux.org/yay
+cod yay
+makepkg -si
+cd
+rm -rf yay
+yay --needed --noconfirm $(cat packages/aurlist.txt | xargs)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote &
 yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)
 yes | yay -Sc
