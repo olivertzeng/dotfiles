@@ -39,6 +39,7 @@ kleopatra
 konsole
 kscreen
 ksystemstats
+kwalletmanager
 linux
 linux-firmware
 linux-firmware-qlogic
