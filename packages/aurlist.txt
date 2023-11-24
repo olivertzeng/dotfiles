@@ -5,6 +5,7 @@ fcitx5-mcbopomofo-git
 kcm-polkit-kde-git
 konsave
 rm-improved
+mesa-git
 mkinitcpio-firmware
 mkinitcpio-colors-git
 pfetch
@@ -17,3 +18,4 @@ vencord-desktop-bin
 vrms-arch-git
 waterfox-bin
 wd719x-firmware
+xf86-video-amdgpu-git
