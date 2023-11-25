@@ -26,6 +26,7 @@ git
 gitui
 glow
 gping
+grub
 gum
 handbrake
 htop
@@ -71,8 +72,6 @@ plasma-vault
 plymouth-kcm
 powerdevil
 rebuild-detector
-refind
-refind-docs
 ripgrep
 sddm
 sddm-kcm
