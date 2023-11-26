@@ -49,6 +49,7 @@ linux-zen
 linux-zen-docs
 linux-zen-headers
 man
+mesa
 mkvtoolnix-cli
 mkvtoolnix-gui
 neovim
