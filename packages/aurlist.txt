@@ -6,7 +6,6 @@ grub-improved-luks2-git
 kcm-polkit-kde-git
 konsave
 rm-improved
-mesa-git
 mkinitcpio-firmware
 mkinitcpio-colors-git
 pfetch
