@@ -11,6 +11,8 @@ colord-kde
 curl
 dolphin-plugins
 duf
+efibootmgr
+efitools
 eza
 fakeroot
 fcitx5-chewing
@@ -48,6 +50,7 @@ linux-headers
 linux-zen
 linux-zen-docs
 linux-zen-headers
+lmms
 man
 mesa
 mkvtoolnix-cli
@@ -74,6 +77,7 @@ plymouth-kcm
 powerdevil
 rebuild-detector
 ripgrep
+sbsigntools
 sddm
 sddm-kcm
 sof-firmware
