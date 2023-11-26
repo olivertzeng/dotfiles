@@ -1,6 +1,7 @@
 aic94xx-firmware
 auto-cpufreq
 ast-firmware
+cryptboot
 fcitx5-mcbopomofo-git
 grub-improved-luks2-git
 kcm-polkit-kde-git
