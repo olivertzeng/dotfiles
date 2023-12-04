@@ -1,13 +1,11 @@
 git clone https://aur.archlinux.org/yay
-cod yay
+cd yay
 makepkg -si
-cd
+cd ..
 rm -rf yay
-yay --needed --noconfirm $(cat packages/aurlist.txt | xargs)
+yay --needed -Syu $(cat packages/aurlist.txt | xargs)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> $HOME/.zprofile
 git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote &
-yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)
 yes | yay -Sc
 yes | yay -Scc
 cp ~/dotfiles/zshrc ~/.zshrc

@@ -9,6 +9,7 @@ bluez
 cargo-update
 colord-kde
 curl
+dolphin
 dolphin-plugins
 duf
 efibootmgr
@@ -23,8 +24,12 @@ fcitx5-qt
 filelight
 flatpak
 flatpak-kcm
+fwupd
+fwupd-docs
+fwupd-efi
 fzf
 git
+github-cli
 gitui
 glow
 gping
@@ -77,7 +82,7 @@ plymouth-kcm
 powerdevil
 rebuild-detector
 ripgrep
-sbsigntools
+rust
 sddm
 sddm-kcm
 sof-firmware
