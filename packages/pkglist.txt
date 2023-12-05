@@ -6,7 +6,6 @@ base-devel
 bat
 bluedevil
 bluez
-cargo-update
 colord-kde
 curl
 dolphin

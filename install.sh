@@ -36,6 +36,9 @@ useradd -mG $(cat /etc/group | cut -d ':' -f1 | xargs | tr -s '[:blank:]' ',') -
 passwd olivertzeng
 EDITOR=nvim
 visudo
+chmod 777 restore.sh
+su olivertzeng
+bash restore.sh
 nvim /etc/locale.gen
 echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
 echo "ArchBTW" > /etc/hostname
@@ -45,11 +48,11 @@ cat >> /etc/hosts << EOL
 127.0.1.1	ArchBTW
 EOL
 echo "XMODIFIERS=@im=fcitx" >> /etc/environment 
-refind-install --usedefault /dev/nvme0n1p1 --alldrivers
-rm -rf ~/cache/*
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/efi
+rm -rf ~/.cache/*
 locale-gen
-mkrlconf
-systemctl enable $(systemctl list-unit-files | grep disabled | xargs)
+grub-mkconfig -o /boot/grub/grub.cfg
+systemctl enable NetworkManager sddm sshd thermald auto-cpufreq 
 su olivertzeng
 exit
 unmount -a

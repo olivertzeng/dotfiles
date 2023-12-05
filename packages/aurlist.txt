@@ -3,9 +3,12 @@ auto-cpufreq
 ast-firmware
 cryptboot
 fcitx5-mcbopomofo-git
+grub-git
+kcm-grub2-git
 kcm-polkit-kde-git
 konsave
 rm-improved
+mesa-git
 mkinitcpio-firmware
 mkinitcpio-colors-git
 pfetch
