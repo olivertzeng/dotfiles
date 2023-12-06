@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gum confirm "do you want to zero out your drive?" && ddrescue -b 512 --generate-mode /dev/zero /dev/FLASH flash.map && ddrescue -b 512 --force --fill-mode=+ /dev/zero /dev/FLASH flash.map
+gum confirm "do you want to zero out your drive?" && ddrescue -b 512 --generate-mode /dev/zero /dev/nvme0n1 flash.map && ddrescue -b 512 --force --fill-mode=+ /dev/zero /dev/nvme0n1 flash.map
 pacman -S --noconfirm --needed gum reflector git
 timedatectl set-ntp true
 timedatectl set-timezone Asia/Taipei
