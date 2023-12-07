@@ -62,12 +62,12 @@ alias la='eza --icons -a'
 alias ll='eza --icons -l'
 alias lla='eza --icons -la'
 alias ls='eza --icons'
+alias open='xdg-open'
 alias rm='rip --graveyard ~/.local/share/Trash'
 alias sudo='nocorrect sudo'
 alias topgrade='topgrade -y --no-retry -c'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
 alias vim='nvim'
-alias yareb='yay -S --rebuild --answerclean A --answerdiff N $(checkrebuild | cut -d$'\t' -f2)'
 pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
