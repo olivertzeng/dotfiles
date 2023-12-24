@@ -12,5 +12,5 @@ cp zshrc ~/.zshrc
 cp zsh_plugins.txt ~/.zsh_plugins.txt
 cp -r nvim ~/.config
 source ~/.zshrc
-brew install powerlevel10k gcc
+brew install powerlevel10k pipx gcc
 cargo install cargo-update cargo-cache

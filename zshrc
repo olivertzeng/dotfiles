@@ -33,6 +33,7 @@ antidote load
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH="/usr/local/bin:$PATH"
 export BAT_THEME='gruvbox-dark'
+export GPG_TTY=$(tty)
 
 # User configuration
 export MANPATH="/usr/local/man:$MANPATH"
@@ -85,3 +86,7 @@ zstyle :compinstall filename '/home/olivertzeng/.zshrc'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export THEOS=~/theos
+eval "$(_AUTO_CPUFREQ_COMPLETE=zsh_source auto-cpufreq)"
+
+# Created by `pipx` on 2023-12-12 15:00:21
+export PATH="$PATH:/home/olivertzeng/.local/bin"

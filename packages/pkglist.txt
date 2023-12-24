@@ -37,6 +37,7 @@ gum
 gwenview
 handbrake
 htop
+kate
 kcrash
 kde-cli-tools
 kde-gtk-config
@@ -66,6 +67,7 @@ networkmanager
 nodejs 
 noto-fonts-cjk
 openssh
+p7zip
 packagekit-qt5
 pacman-contrib
 pipewire
