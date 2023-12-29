@@ -3,7 +3,6 @@ aic94xx-firmware
 arduino-ide-bin
 ast-firmware
 auto-cpufreq
-cryptboot
 fcitx5-mcbopomofo-git
 grub-git
 kcm-grub2-git
@@ -14,8 +13,8 @@ mkinitcpio-colors-git
 mkinitcpio-firmware
 pfetch
 rm-improved
-samsung_magician-consumer-ssd
 sddm-git
+samsung-ssd-dc-toolkit
 topgrade
 ttf-apple-emoji
 ttf-jf-openhuninn
