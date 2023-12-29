@@ -1,8 +1,5 @@
 #!/bin/bash
 
-username=$(gum input --header "Please input a new username" --placeholder "olivertzeng")
-hostname=$(gum input --header "Please input the macchine's name (hostname)" --placeholder "ArchBTW")
-
 pacman -S --noconfirm --needed gum reflector git
 timedatectl set-ntp true
 timedatectl set-timezone Asia/Taipei
@@ -13,12 +10,10 @@ mkfs.btrfs -f /dev/nvme0n1p3
 swapon /dev/nvme0n1p2
 mount /dev/nvme0n1p3 /mnt
 mount --mkdir /dev/nvme0n1p1 /mnt/boot/efi
-gum confirm "Do you want to continue installing Arch?" || exit 0
 reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
 pacstrap -K /mnt $(cat packages/pkglist.txt | xargs)
 genfstab -U /mnt >> /mnt/etc/fstab
-gum confirm "Do Arch chroot?" || exit 0
 
 # chroot the arch system as new system's root
 arch-chroot /mnt
@@ -39,7 +34,7 @@ useradd -mG $(cat /etc/group | cut -d ':' -f1 | xargs | tr -s '[:blank:]' ',') -
 passwd olivertzeng
 EDITOR=nvim
 visudo
-chmod 777 restore.sh
+chmod 777 r.sh
 su olivertzeng
 bash restore.sh
 nvim /etc/locale.gen
@@ -52,10 +47,6 @@ cat >> /etc/hosts << EOL
 EOL
 echo "XMODIFIERS=@im=fcitx" >> /etc/environment 
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/efi
-rm -rf ~/.cache/*
 locale-gen
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager sddm sshd thermald auto-cpufreq 
-su olivertzeng
-exit
-unmount -a
