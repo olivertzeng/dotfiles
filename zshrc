@@ -67,6 +67,7 @@ alias open='xdg-open'
 alias rm='rip --graveyard ~/.local/share/Trash'
 alias sudo='nocorrect sudo'
 alias topgrade='topgrade -y --no-retry -c'
+alias rmdup="perl -i -lne 'print unless $seen{$_}++'"
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
 alias vim='nvim'
 pfetch
@@ -85,8 +86,6 @@ zstyle ':completion:*' matcher-list '' '' '' ''
 zstyle :compinstall filename '/home/olivertzeng/.zshrc'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-export THEOS=~/theos
-eval "$(_AUTO_CPUFREQ_COMPLETE=zsh_source auto-cpufreq)"
 
 # Created by `pipx` on 2023-12-12 15:00:21
 export PATH="$PATH:/home/olivertzeng/.local/bin"
