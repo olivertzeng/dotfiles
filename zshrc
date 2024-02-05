@@ -34,6 +34,7 @@ PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH="/usr/local/bin:$PATH"
 export BAT_THEME='gruvbox-dark'
 export GPG_TTY=$(tty)
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 # User configuration
 export MANPATH="/usr/local/man:$MANPATH"
@@ -67,8 +68,9 @@ alias open='xdg-open'
 alias rm='rip --graveyard ~/.local/share/Trash'
 alias sudo='nocorrect sudo'
 alias topgrade='topgrade -y --no-retry -c'
-alias rmdup="perl -i -lne 'print unless $seen{$_}++'"
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
+alias light='sh ~/light.sh > /dev/null'
+alias dark='sh ~/dark.sh > /dev/null'
 alias vim='nvim'
 pfetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -89,3 +91,4 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Created by `pipx` on 2023-12-12 15:00:21
 export PATH="$PATH:/home/olivertzeng/.local/bin"
+source /usr/share/doc/find-the-command/ftc.zsh
