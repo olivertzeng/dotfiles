@@ -43,6 +43,11 @@ require('lazy').setup({
   },
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+  },
+
+  {
     "folke/noice.nvim",
     event = "VeryLazy",
     view = "cmdline",
@@ -80,7 +85,6 @@ require('lazy').setup({
     },
   },
   {"chentoast/marks.nvim",},
-  {"chentoast/marks.nvim",},
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -91,6 +95,9 @@ require('lazy').setup({
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
@@ -294,6 +301,16 @@ require('telescope').setup {
   },
 }
 
+local highlight = {
+  "RainbowRed",
+  "RainbowYellow",
+  "RainbowBlue",
+  "RainbowOrange",
+  "RainbowGreen",
+  "RainbowViolet",
+  "RainbowCyan",
+}
+
 local hooks = require "ibl.hooks"
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
@@ -396,6 +413,34 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    --enable omnifunc completion
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- buffer local mappings
+    local opts = { buffer = ev.buf }
+    -- go to definition
+    vim.keymap.set('n','gd',vim.lsp.buf.definition,opts)
+    --puts doc header info into a float page
+    vim.keymap.set('n','K',vim.lsp.buf.hover,opts)
+
+    -- workspace management. Necessary for multi-module projects
+    vim.keymap.set('n','<space>wa',vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n','<space>wr',vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n','<space>wl',function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end,opts)
+
+    -- add LSP code actions
+    vim.keymap.set({'n','v'},'<space>ca',vim.lsp.buf.code_action,opts)                
+
+    -- find references of a type
+    vim.keymap.set('n','gr',vim.lsp.buf.references,opts)
+  end,
+})
+
 -- document existing key chains
 require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
@@ -481,6 +526,10 @@ require('marks').setup {
   mappings = {}
 }
 
+require'lspconfig'.sourcekit.setup{
+  cmd = {'$TOOLCHAIN_PATH/usr/bin/sourcekit-lsp'}
+}
+
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
@@ -523,10 +572,12 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-  },
+  },{
+    { name = 'buffer' },
+  })
 }
 
 vim.g.mapleader = ' '
