@@ -1,4 +1,6 @@
-# Keep at the top of this file.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -72,9 +74,6 @@ alias light='sh ~/light.sh > /dev/null'
 alias dark='sh ~/dark.sh > /dev/null'
 alias vim='nvim'
 pfetch
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
 setopt autocd
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -86,8 +85,13 @@ zstyle ':completion:*' completer _expand _complete _ignored _correct _approximat
 zstyle ':completion:*' matcher-list '' '' '' ''
 zstyle :compinstall filename '/home/olivertzeng/.zshrc'
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Created by `pipx` on 2023-12-12 15:00:21
 export PATH="$PATH:/home/olivertzeng/.local/bin"
-source /usr/share/doc/find-the-command/ftc.zsh
+export THEOS=~/theos
+export PATH="$PATH:$THEOS/bin"
+export PATH="$PATH:$THEOS/vendor/bin"
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
