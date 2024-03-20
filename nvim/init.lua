@@ -1,4 +1,3 @@
-
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -46,7 +45,7 @@ require('lazy').setup({
 			'folke/neodev.nvim',
 		},
 	},
-	{"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
+	{ "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
 	{
 		'akinsho/git-conflict.nvim',
 		version = "*",
@@ -58,329 +57,353 @@ require('lazy').setup({
 		build = ":TSUpdate",
 	},
 
-	{'glepnir/template.nvim', cmd = {'Template'}, config = function()
-		require('template').setup({
-			temp_dir = '~/.config/nvim/templates',
-			author = 'Oliver Tzeng',
-			email = 'olivertzeng@proton.me',
-			vim.keymap.set('n', '<Leader>t', function()
-				vim.fn.feedkeys(':Template ')
-			end, { remap = true})
-		})
-	end
-},
-
-{
-	"folke/noice.nvim",
-	event = "VeryLazy",
-	view = "cmdline",
-	opts = {
-		-- add any options here
+	{
+		'glepnir/template.nvim',
+		cmd = { 'Template' },
+		config = function()
+			require('template').setup({
+				temp_dir = '~/.config/nvim/templates',
+				author = 'Oliver Tzeng',
+				email = 'olivertzeng@proton.me',
+				vim.keymap.set('n', '<Leader>t', function()
+					vim.fn.feedkeys(':Template ')
+				end, { remap = true })
+			})
+		end
 	},
-	dependencies = {
-		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-		"MunifTanjim/nui.nvim",
-		-- OPTIONAL:
-		--   `nvim-notify` is only needed, if you want to use the notification view.
-		--   If not available, we use `mini` as the fallback
-		"rcarriga/nvim-notify",
-	}
-},
-{
-	"startup-nvim/startup.nvim",
-	requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
-	config = function()
-		require"startup".setup({theme = "dashboard"})
-	end
-},
-{
-	'windwp/nvim-autopairs',
-	event = "InsertEnter",
-	opts = {} -- this is equalent to setup({}) function
-},
-{
-	"folke/trouble.nvim",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
+
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		view = "cmdline",
 		opts = {
-			color_icons = true;
-			default = true;
-			-- globally enable "strict" selection of icons - icon will be looked up in
-			-- different tables, first by filename, and if not found by extension; this
-			-- prevents cases when file doesn't have any extension but still gets some icon
-			-- because its name happened to match some extension (default to false)
-			strict = true;
-			-- same as `override` but specifically for overrides by filename
-			-- takes effect when `strict` is true
-			override_by_filename = {
-				["init.lua"] = {
-					icon = "",
-					color = "#00a2ff",
-					name = "Neovim",
-				},
-				[".zsh_plugins.txt"] = {
-					icon = "󱉋",
-					color = "#ff0288",
-					name = "Antidote",
-				},
-				[".zsh_history"] = {
-					icon = "",
-					name = "Zsh",
-				},
-			};
-			override_by_extension = {
-				[".x"] = {
-					icon = "󰙱",
-					name = "Tweak",
-				},
-				[".m"] = {
-					icon = "󰙱",
-					name = "Tweak",
-				},
-				[".xm"] = {
-					icon = "󰙲",
-					name = "Tweak",
-				},
-				[".mm"] = {
-					icon = "󰙲",
-					name = "Tweak",
-				},
-				[".po"] = {
-					icon = "",
-					name = "Localization",
-				},
-				[".mo"] = {
-					icon = "",
-					name = "Localization",
-				},
-				[".strings"] = {
-					icon = "",
-					name = "Localization",
-				},
-				[".xcstrings"] = {
-					icon = "",
-					name = "Localization",
-				},
-			};
+			-- add any options here
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
 		}
 	},
-	opts = {},
-},
-{"chentoast/marks.nvim",},
-
-{
-	-- Autocompletion
-	'hrsh7th/nvim-cmp',
-	dependencies = {
-		-- Snippet Engine & its associated nvim-cmp source
-		'L3MON4D3/LuaSnip',
-		'saadparwaiz1/cmp_luasnip',
-
-		-- Adds LSP completion capabilities
-		'hrsh7th/cmp-nvim-lsp',
-		'hrsh7th/cmp-buffer',
-		'hrsh7th/cmp-path',
-		'hrsh7th/cmp-cmdline',
-
-		-- Adds a number of user-friendly snippets
+	{
+		"startup-nvim/startup.nvim",
+		requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		config = function()
+			require "startup".setup({ theme = "dashboard" })
+		end
+	},
+	{
+		'windwp/nvim-autopairs',
+		event = "InsertEnter",
+		opts = {} -- this is equalent to setup({}) function
+	},
+	{
+		"folke/trouble.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			opts = {
+				color_icons = true,
+				default = true,
+				strict = true,
+			},
+		},
+		opts = {},
+	},
+	{ "chentoast/marks.nvim", },
+	{
+		'rafamadriz/friendly-snippets',
 		'mireq/luasnip-snippets',
+		dependencies = { 'L3MON4D3/LuaSnip' },
 		init = function()
 			-- Mandatory setup function
 			require('luasnip_snippets.common.snip_utils').setup()
 		end
+
 	},
-},
-{
-	"L3MON4D3/LuaSnip",
-	version = "2.*",
-	build = "make install_jsregexp",
-	dependencies = {
-		'nvim-treesitter/nvim-treesitter',
+	{
+		-- Autocompletion
+		'hrsh7th/nvim-cmp',
+		dependencies = {
+			-- Snippet Engine & its associated nvim-cmp source
+			'L3MON4D3/LuaSnip',
+			'saadparwaiz1/cmp_luasnip',
+
+			-- Adds LSP completion capabilities
+			'hrsh7th/cmp-nvim-lsp',
+			'hrsh7th/cmp-buffer',
+			'hrsh7th/cmp-path',
+			'hrsh7th/cmp-cmdline',
+		},
 	},
-	init = function()
-		local ls = require('luasnip')
-		ls.setup({
-			-- Required to automatically include base snippets, like "c" snippets for "cpp"
-			load_ft_func = require('luasnip_snippets.common.snip_utils').load_ft_func,
-			ft_func = require('luasnip_snippets.common.snip_utils').ft_func,
-			-- To enable auto expansin
-			enable_autosnippets = true,
-			-- Uncomment to enable visual snippets triggered using <c-x>
-			-- store_selection_keys = '<c-x>',
-		})
-		-- LuaSnip key bindings
-		vim.keymap.set({"i", "s"}, "<Tab>", function() if ls.expand_or_jumpable() then ls.expand_or_jump() else vim.api.nvim_input('<C-V><Tab>') end end, {silent = true})
-		vim.keymap.set({"i", "s"}, "<S-Tab>", function() ls.jump(-1) end, {silent = true})
-		vim.keymap.set({"i", "s"}, "<C-E>", function() if ls.choice_active() then ls.change_choice(1) end end, {silent = true})
-	end
-},
--- Useful plugin to show you pending keybinds.
-{ 'folke/which-key.nvim', opts = {} },
-{
-	-- Adds git related signs to the gutter, as well as utilities for managing changes
-	'lewis6991/gitsigns.nvim',
-	opts = {
-		-- See `:help gitsigns.txt`
-		signs = {
-			add = { text = '󰐖' },
-			change = { text = '' },
-			delete = { text = '' },
-			topdelete = { text = '󰛲' },
-			changedelete = { text = '󰦓' },
-			untracked    = { text = '󰀧' },
+	{
+		"L3MON4D3/LuaSnip",
+		version = "2.*",
+		build = "make install_jsregexp",
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
 		},
-		signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-		numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
-		linehl     = true, -- Toggle with `:Gitsigns toggle_linehl`
-		word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
-		watch_gitdir = {
-			follow_files = true
-		},
-		auto_attach = true,
-		attach_to_untracked = false,
-		current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-		current_line_blame_opts = {
-			virt_text = true,
-			virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-			delay = 1000,
-			ignore_whitespace = false,
-			virt_text_priority = 100,
-		},
-		current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-		sign_priority = 6,
-		update_debounce = 100,
-		status_formatter = nil, -- Use default
-		max_file_length = 40000, -- Disable if file is longer than this (in lines)
-		preview_config = {
-			-- Options passed to nvim_open_win
-			border = 'single',
-			style = 'minimal',
-			relative = 'cursor',
-			row = 0,
-			col = 1
-		},
-		yadm = {
-			enable = false
-		},
-
-		on_attach = function(bufnr)
-			vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
-
-			-- don't override the built-in and fugitive keymaps
-			local gs = package.loaded.gitsigns
-			vim.keymap.set({ 'n', 'v' }, ']c', function()
-				if vim.wo.diff then
-					return ']c'
-				end
-				vim.schedule(function()
-					gs.next_hunk()
-				end)
-				return '<Ignore>'
-			end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
-			vim.keymap.set({ 'n', 'v' }, '[c', function()
-				if vim.wo.diff then
-					return '[c'
-				end
-				vim.schedule(function()
-					gs.prev_hunk()
-				end)
-				return '<Ignore>'
-			end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
-		end,
-	},
-},
-
-{
-	"lukas-reineke/indent-blankline.nvim",
-	main = "ibl",
-	opts = {},
-
-},
-
-{
-	'sainnhe/gruvbox-material',
-	priority = 1000,
-	config = function()
-		vim.cmd.colorscheme 'gruvbox-material'
-	end,
-},
-{
-	"nvim-lualine/lualine.nvim",
-	event = "VeryLazy",
-	init = function()
-		vim.g.lualine_laststatus = vim.o.laststatus
-		if vim.fn.argc(-1) > 0 then
-			-- set an empty statusline till lualine loads
-			vim.o.statusline = " "
-		else
-			-- hide the statusline on the starter page
-			vim.o.laststatus = 0
+		init = function()
+			local ls = require('luasnip')
+			ls.setup({
+				-- Required to automatically include base snippets, like "c" snippets for "cpp"
+				load_ft_func = require('luasnip_snippets.common.snip_utils').load_ft_func,
+				ft_func = require('luasnip_snippets.common.snip_utils').ft_func,
+				-- To enable auto expansin
+				enable_autosnippets = true,
+				-- Uncomment to enable visual snippets triggered using <c-x>
+				store_selection_keys = '<c-x>',
+			})
+			-- LuaSnip key bindings
+			vim.keymap.set({ "i", "s" }, "<Tab>",
+				function() if ls.expand_or_jumpable() then ls.expand_or_jump() else vim.api.nvim_input(
+						'<C-V><Tab>') end end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<S-Tab>", function() ls.jump(-1) end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<C-E>",
+				function() if ls.choice_active() then ls.change_choice(1) end end, { silent = true })
 		end
-	end,
-	opts = function()
-		-- PERF: we don't need this lualine require madness 🤷
-		local lualine_require = require("lualine_require")
-		lualine_require.require = require
-		vim.o.laststatus = vim.g.lualine_laststatus
-		return {
-			options = {
-				theme = "gruvbox-material",
-				globalstatus = false,
-				disabled_filetypes = { statusline = { "startup" } },
+	},
+	-- Useful plugin to show you pending keybinds.
+	{ 'folke/which-key.nvim',  opts = {} },
+	{
+		-- Adds git related signs to the gutter, as well as utilities for managing changes
+		'lewis6991/gitsigns.nvim',
+		opts = {
+			-- See `:help gitsigns.txt`
+			signs = {
+				add          = { text = '󰐖' },
+				change       = { text = '' },
+				delete       = { text = '' },
+				topdelete    = { text = '󰛲' },
+				changedelete = { text = '󰦓' },
+				untracked    = { text = '󰀧' },
 			},
-			sections = {
-				lualine_a = { "mode" },
-				lualine_b = { "branch", "diagnostics" },
-				lualine_c = {{ "filename",
-				symbols = {
-					modified = '󰐖',      -- Text to show when the buffer is modified
-					        readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
-        unnamed = '[No Name]', -- Text to show for unnamed buffers.
-        newfile = '󰎜',     -- Text to show for newly created file before first write
-					alternate_file = '#', -- Text to show to identify the alternate file
-					directory =  '',     -- Text to show when the buffer is a directory
-				},}},
+			signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+			numhl                        = true, -- Toggle with `:Gitsigns toggle_numhl`
+			linehl                       = true, -- Toggle with `:Gitsigns toggle_linehl`
+			word_diff                    = true, -- Toggle with `:Gitsigns toggle_word_diff`
+			watch_gitdir                 = {
+				follow_files = true
+			},
+			auto_attach                  = true,
+			attach_to_untracked          = false,
+			current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+			current_line_blame_opts      = {
+				virt_text = true,
+				virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+				delay = 1000,
+				ignore_whitespace = false,
+				virt_text_priority = 100,
+			},
+			current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+			sign_priority                = 6,
+			update_debounce              = 100,
+			status_formatter             = nil, -- Use default
+			max_file_length              = 40000, -- Disable if file is longer than this (in lines)
+			preview_config               = {
+				-- Options passed to nvim_open_win
+				border = 'single',
+				style = 'minimal',
+				relative = 'cursor',
+				row = 0,
+				col = 1
+			},
+			yadm                         = {
+				enable = false
+			},
 
-				lualine_x = { "fileformat", "filetype" },
-				lualine_y = {{ "progress", separator = " ", padding = { left = 1, right = 0 } },},
-				lualine_z = { {'diff', source = diff_source}, "location"},
-			},
-			inactive_sections = {
-				lualine_a = {},
-				lualine_b = {'filesize'},
-				lualine_c = {},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = {}
-			},
-			extensions = { "lazy", "fugitive", "trouble", "nvim-tree" },
-		}
-	end,
-},
--- "gc" to comment visual regions/lines
-{ 'numToStr/Comment.nvim', opts = {} },
+			on_attach                    = function(bufnr)
+				vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
+					{ buffer = bufnr, desc = 'Preview git hunk' })
 
--- Fuzzy Finder (files, lsp, etc)
-{
-	'nvim-telescope/telescope.nvim',
-	branch = 'master',
-	dependencies = {
-		'nvim-lua/plenary.nvim',
-		-- Fuzzy Finder Algorithm which requires local dependencies to be built.
-		-- Only load if `make` is available. Make sure you have the system
-		-- requirements installed.
-		{
-			'nvim-telescope/telescope-fzf-native.nvim',
-			-- NOTE: If you are having trouble with this installation,
-			--       refer to the README for telescope-fzf-native for more instructions.
-			build = 'make',
-			cond = function()
-				return vim.fn.executable 'make' == 1
+				-- don't override the built-in and fugitive keymaps
+				local gs = package.loaded.gitsigns
+				vim.keymap.set({ 'n', 'v' }, ']c', function()
+					if vim.wo.diff then
+						return ']c'
+					end
+					vim.schedule(function()
+						gs.next_hunk()
+					end)
+					return '<Ignore>'
+				end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
+				vim.keymap.set({ 'n', 'v' }, '[c', function()
+					if vim.wo.diff then
+						return '[c'
+					end
+					vim.schedule(function()
+						gs.prev_hunk()
+					end)
+					return '<Ignore>'
+				end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
 			end,
 		},
 	},
-},
+
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+
+	},
+
+	{
+		'sainnhe/gruvbox-material',
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme 'gruvbox-material'
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.g.lualine_laststatus = vim.o.laststatus
+			if vim.fn.argc(-1) > 0 then
+				-- set an empty statusline till lualine loads
+				vim.o.statusline = " "
+			else
+				-- hide the statusline on the starter page
+				vim.o.laststatus = 0
+			end
+		end,
+		opts = function()
+			-- PERF: we don't need this lualine require madness 🤷
+			local lualine_require = require("lualine_require")
+			lualine_require.require = require
+			vim.o.laststatus = vim.g.lualine_laststatus
+			return {
+				options = {
+					theme = "gruvbox-material",
+					globalstatus = false,
+					disabled_filetypes = { statusline = { "startup" } },
+				},
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { "branch", "diagnostics" },
+					lualine_c = { {
+						"filename",
+						symbols = {
+							modified = '󰐖', -- Text to show when the buffer is modified
+							readonly = '󰌾', -- Text to show when the file is non-modifiable or readonly.
+							unnamed = '󰜣', -- Text to show for unnamed buffers.
+							newfile = '󰎜', -- Text to show for newly created file before first write
+							alternate_file = '#', -- Text to show to identify the alternate file
+							directory = '', -- Text to show when the buffer is a directory
+						},
+					} },
+
+					lualine_x = { "fileformat", "filetype" },
+					lualine_y = { { "progress", separator = " ", padding = { left = 1, right = 0 } }, },
+					lualine_z = { { 'diff', source = diff_source }, "location" },
+				},
+				inactive_sections = {
+					lualine_a = {},
+					lualine_b = { 'filesize' },
+					lualine_c = {},
+					lualine_x = {},
+					lualine_y = {},
+					lualine_z = {}
+				},
+				extensions = { "lazy", "fugitive", "trouble", "nvim-tree" },
+			}
+		end,
+	},
+	-- "gc" to comment visual regions/lines
+	{ 'numToStr/Comment.nvim', opts = {} },
+	{ "rcarriga/nvim-dap-ui",  dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+	{ "mfussenegger/nvim-lint" },
+	{
+		"stevearc/conform.nvim",
+		config = function()
+			require("conform").setup({
+				"stevearc/conform.nvim",
+				event = { "BufWritePre" },
+				cmd = { "ConformInfo" },
+				-- Everything in opts will be passed to setup()
+				opts = {
+					-- Define your formatters
+					formatters_by_ft = {
+						lua = { "stylua" },
+					},
+					-- Set up format-on-save
+					format_on_save = { timeout_ms = 500, lsp_fallback = true },
+				},
+				init = function()
+					-- If you want the formatexpr, here is the place to set it
+					vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+				end,
+			})
+		end,
+	},
+	-- Fuzzy Finder (files, lsp, etc)
+	{
+		'nvim-telescope/telescope.nvim',
+		branch = 'master',
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			-- Fuzzy Finder Algorithm which requires local dependencies to be built.
+			-- Only load if `make` is available. Make sure you have the system
+			-- requirements installed.
+			{
+				'nvim-telescope/telescope-fzf-native.nvim',
+				-- NOTE: If you are having trouble with this installation,
+				--       refer to the README for telescope-fzf-native for more instructions.
+				build = 'make',
+				cond = function()
+					return vim.fn.executable 'make' == 1
+				end,
+			},
+		},
+	},
 }, {})
+
+require('lint').linters_by_ft = {
+  cpp = {'cpplint',},
+  bash = {'shellcheck',},
+  python = {'pylint',},
+}
+
+require("mason").setup({
+    pip = {
+        ---@since 1.0.0
+        -- Whether to upgrade pip to the latest version in the virtual environment before installing packages.
+        upgrade_pip = true,
+    },
+
+    ui = {
+        ---@since 1.0.0
+        -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
+        border = "none",
+
+        ---@since 1.0.0
+        -- Width of the window. Accepts:
+        -- - Integer greater than 1 for fixed width.
+        -- - Float in the range of 0-1 for a percentage of screen width.
+        width = 0.8,
+
+        ---@since 1.0.0
+        -- Height of the window. Accepts:
+        -- - Integer greater than 1 for fixed height.
+        -- - Float in the range of 0-1 for a percentage of screen height.
+        height = 0.9,
+
+        icons = {
+            ---@since 1.0.0
+            -- The list icon to use for installed packages.
+            package_installed = "◍",
+            ---@since 1.0.0
+            -- The list icon to use for packages that are installing, or queued for installation.
+            package_pending = "◍",
+            ---@since 1.0.0
+            -- The list icon to use for packages that are not installed.
+            package_uninstalled = "◍",
+        },
+
+	},
+})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -435,6 +458,12 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 
 -- multiple indent colors for indent-blankline.nvim
 local highlight = {
@@ -580,22 +609,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- buffer local mappings
 		local opts = { buffer = ev.buf }
 		-- go to definition
-		vim.keymap.set('n','gd',vim.lsp.buf.definition,opts)
+		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 		--puts doc header info into a float page
-		vim.keymap.set('n','K',vim.lsp.buf.hover,opts)
+		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 
 		-- workspace management. Necessary for multi-module projects
-		vim.keymap.set('n','<space>wa',vim.lsp.buf.add_workspace_folder, opts)
-		vim.keymap.set('n','<space>wr',vim.lsp.buf.remove_workspace_folder, opts)
-		vim.keymap.set('n','<space>wl',function()
+		vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+		vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+		vim.keymap.set('n', '<space>wl', function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end,opts)
+		end, opts)
 
 		-- add LSP code actions
-		vim.keymap.set({'n','v'},'<space>ca',vim.lsp.buf.code_action,opts)                
+		vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
 
 		-- find references of a type
-		vim.keymap.set('n','gr',vim.lsp.buf.references,opts)
+		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 	end,
 })
 
@@ -625,7 +654,10 @@ local servers = {
 }
 
 -- Setup neovim lua configuration
-require('neodev').setup()
+require("neodev").setup({
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+  ...
+})
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -658,8 +690,8 @@ require('marks').setup {
 	cyclic = true,
 	-- whether the shada file is updated after modifying uppercase marks. default false
 	force_write_shada = false,
-	-- how often (in ms) to redraw signs/recompute mark positions. 
-	-- higher values will have better performance but may cause visual lag, 
+	-- how often (in ms) to redraw signs/recompute mark positions.
+	-- higher values will have better performance but may cause visual lag,
 	-- while lower values may cause performance penalties. default 150.
 	refresh_interval = 250,
 	-- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
@@ -667,7 +699,7 @@ require('marks').setup {
 	-- can be either a table with all/none of the keys, or a single number, in which case
 	-- the priority applies to all marks.
 	-- default 10.
-	sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+	sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
 	-- disables mark tracking for specific filetypes. default {}
 	excluded_filetypes = {},
 	-- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
@@ -684,8 +716,8 @@ require('marks').setup {
 	mappings = {}
 }
 
-require'lspconfig'.sourcekit.setup{
-	cmd = {'$TOOLCHAIN_PATH/usr/bin/sourcekit-lsp'}
+require 'lspconfig'.sourcekit.setup {
+	cmd = { '$TOOLCHAIN_PATH/usr/bin/sourcekit-lsp' }
 }
 
 -- [[ Configure nvim-cmp ]]
@@ -733,7 +765,7 @@ cmp.setup {
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
-	},{
+	}, {
 		{ name = 'buffer' },
 	})
 }

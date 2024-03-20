@@ -58,20 +58,21 @@ export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 alias bat='bat --color=always'
 alias bgp='batgrep'
 alias cp='cp -v'
+alias dark='sh ~/dark.sh > /dev/null'
 alias du='duf'
 alias en='export LC_CTYPE="en_US.UTF-8"'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias l='eza --icons'
 alias la='eza --icons -a'
+alias light='sh ~/light.sh > /dev/null'
 alias ll='eza --icons -l'
 alias lla='eza --icons -la'
 alias ls='eza --icons'
 alias open='xdg-open'
+alias pyinit='python -m venv .venv;source .venv/bin/activate'
 alias sudo='nocorrect sudo'
 alias topgrade='topgrade -y --no-retry -c'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
-alias light='sh ~/light.sh > /dev/null'
-alias dark='sh ~/dark.sh > /dev/null'
 alias vim='nvim'
 pfetch
 setopt autocd
