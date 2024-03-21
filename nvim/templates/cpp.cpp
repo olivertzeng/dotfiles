@@ -1,4 +1,5 @@
-// Copyright {{_date_}} {{_author_}}. All rights reserved.
+// Copyright {{_lua:os.date("%y/%m/%d %H/%M")_}} {{_author_}}. All rights reserved.
+
 #include <bits/stdc++.h>
 using namespace std;
 

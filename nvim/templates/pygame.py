@@ -1,7 +1,7 @@
-#created: {{_lua:os.date("%y/%m/%d %H/%M")_}}
+#Copyright (c) {{_lua:os.date("%y/%m/%d %H/%M")_}} {{_author_}}. All rights reserved.
 
-import pygame
 from screeninfo import get_monitors
+import pygame
 
 pygame.init()
 
