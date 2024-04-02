@@ -7,7 +7,6 @@ fi
 
 autoload -Uz compinit
 compinit
-
 # Set the name of the static .zsh plugins file antidote will generate.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
 
@@ -33,26 +32,19 @@ source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
-export PATH="/usr/local/bin:$PATH"
-export BAT_THEME='gruvbox-dark'
-export GPG_TTY=$(tty)
-export CARGO_NET_GIT_FETCH_WITH_CLI=true
-
-# User configuration
-export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/usr/local/bin:$PATH"
-
-# You may need to manually set your language environment
-export LANG=zh_TW.UTF-8
-export LC_CTYPE="zh_TW.UTF-8"
-
-# Compilation flags
 export ARCHFLAGS="-arch x86_64"
-
-# colored GCC warnings and errors
+export BAT_THEME='gruvbox-dark'
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export GOPATH="$HOME/go"
+export GPG_TTY=$(tty)
+export LANG=zh_TW.UTF-8
+export LC_CTYPE="zh_TW.UTF-8"
+export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PIPENV_VERBOSITY=-1
 
 # some more ls aliases
 alias bat='bat --color=always'
@@ -62,19 +54,21 @@ alias dark='sh ~/dark.sh > /dev/null'
 alias du='duf'
 alias en='export LC_CTYPE="en_US.UTF-8"'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+alias gu="fd -u '^\.git$' --prune -x xargs -P10 git -C $(printf '%s\n' '{//}') pull"
 alias l='eza --icons'
 alias la='eza --icons -a'
 alias light='sh ~/light.sh > /dev/null'
 alias ll='eza --icons -l'
 alias lla='eza --icons -la'
 alias ls='eza --icons'
+alias lt='eza -T'
 alias open='xdg-open'
 alias pyinit='python -m venv .venv;source .venv/bin/activate'
 alias sudo='nocorrect sudo'
 alias topgrade='topgrade -y --no-retry -c'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
 alias vim='nvim'
-pfetch
+owofetch
 setopt autocd
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
