@@ -1,0 +1,7 @@
+[user]
+	email = olivertzeng@proton.me
+	name = Oliver Tzeng
+[core]
+	editor = nvim
+[diff]
+	tool = batdiff

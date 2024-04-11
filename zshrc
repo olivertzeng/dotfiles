@@ -22,6 +22,11 @@ if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
   (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
 fi
 
+# completions
+if [ -d $HOME/.zsh/comp ]; then
+  export fpath="$HOME/.zsh/comp:$fpath"
+fi
+
 # Source your static plugins file.
 source $zsh_plugins
 
@@ -35,7 +40,6 @@ PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export ARCHFLAGS="-arch x86_64"
 export BAT_THEME='gruvbox-dark'
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export GOPATH="$HOME/go"
 export GPG_TTY=$(tty)
 export LANG=zh_TW.UTF-8
@@ -47,26 +51,28 @@ export PATH="/usr/local/bin:$PATH"
 export PIPENV_VERBOSITY=-1
 
 # some more ls aliases
+alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.zshenv ~/dotfiles/zshenv;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig'
 alias bat='bat --color=always'
-alias bgp='batgrep'
 alias cp='cp -v'
 alias dark='sh ~/dark.sh > /dev/null'
+alias diff='batdiff'
 alias du='duf'
 alias en='export LC_CTYPE="en_US.UTF-8"'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias gu="fd -u '^\.git$' --prune -x xargs -P10 git -C $(printf '%s\n' '{//}') pull"
 alias l='eza --icons'
 alias la='eza --icons -a'
+alias lg='lazygit'
 alias light='sh ~/light.sh > /dev/null'
 alias ll='eza --icons -l'
 alias lla='eza --icons -la'
+alias llt='eza -lT'
 alias ls='eza --icons'
 alias lt='eza -T'
+alias man='batman'
 alias open='xdg-open'
-alias pgrade='pip-review -a'
-alias pyinit='python -m venv .venv;source .venv/bin/activate'
-alias sudo='nocorrect sudo'
-alias topgrade='topgrade -y --no-retry -c'
+alias sudo='s'
+alias topgrade='topgrade -y --no-retry -c;sudo -k'
 alias tw='export LC_CTYPE="zh_TW.UTF-8"'
 alias vim='nvim'
 owofetch
