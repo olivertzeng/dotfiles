@@ -46,24 +46,22 @@ export LANG=zh_TW.UTF-8
 export LC_CTYPE="zh_TW.UTF-8"
 export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
-export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
 export PIPENV_VERBOSITY=-1
+export RUNEWIDTH_EASTASIAN=0
 
 # some more ls aliases
 alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.zshenv ~/dotfiles/zshenv;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig'
 alias bat='bat --color=always'
 alias cp='cp -v'
-alias dark='sh ~/dark.sh > /dev/null'
+alias da='sh ~/dark.sh > /dev/null'
 alias diff='batdiff'
 alias du='duf'
-alias en='export LC_CTYPE="en_US.UTF-8"'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias gu="fd -u '^\.git$' --prune -x xargs -P10 git -C $(printf '%s\n' '{//}') pull"
 alias l='eza --icons'
 alias la='eza --icons -a'
 alias lg='lazygit'
-alias light='sh ~/light.sh > /dev/null'
+alias li='sh ~/light.sh > /dev/null'
 alias ll='eza --icons -l'
 alias lla='eza --icons -la'
 alias llt='eza -lT'
@@ -72,14 +70,13 @@ alias lt='eza -T'
 alias man='batman'
 alias open='xdg-open'
 alias sudo='s'
-alias topgrade='topgrade -y --no-retry -c;sudo -k'
-alias tw='export LC_CTYPE="zh_TW.UTF-8"'
+alias t='topgrade -y --no-retry -c;sudo -k'
 alias vim='nvim'
 owofetch
 setopt autocd
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt appendhistory
 
 # The following lines were added by compinstall

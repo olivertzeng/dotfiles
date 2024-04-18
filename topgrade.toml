@@ -70,7 +70,8 @@ notify_each_step = true
 # Custom commands
 [commands]
 "Lazy Plugins" = "nvim --headless '+Lazy! sync' +qa"
-"refresh sudo timeout" = "sudo -vT 0"
+"Mason LSPs" = "nvim +MasonUpdate +qa"
+"Treesitter Parsers" = "nvim +TSUpdateSync +qa"
 
 
 [python]
