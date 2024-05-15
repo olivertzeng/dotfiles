@@ -50,13 +50,15 @@ export PIPENV_VERBOSITY=-1
 export RUNEWIDTH_EASTASIAN=0
 
 # some more ls aliases
-alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.zshenv ~/dotfiles/zshenv;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig'
+alias a='activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d'
+alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.zshenv ~/dotfiles/zshenv;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles'
 alias bat='bat --color=always'
 alias cp='cp -v'
 alias da='sh ~/dark.sh > /dev/null'
 alias diff='batdiff'
 alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+alias ghcl='GHPATH=$(gum input --placeholder "Please input the GitHub clone path");git clone git@github.com:$GHPATH'
 alias gu="fd -u '^\.git$' --prune -x xargs -P10 git -C $(printf '%s\n' '{//}') pull"
 alias l='eza --icons'
 alias la='eza --icons -a'
@@ -94,3 +96,11 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# pnpm
+export PNPM_HOME="/home/olivertzeng/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

@@ -1,5 +1,12 @@
 Aloxaf/fzf-tab
+ChrisPenner/copy-pasta
+Freed-Wu/zsh-help
+MichaelAquilina/zsh-auto-notify
+MikeDacre/cdbk
+SleepyBag/zsh-confer
+Tarrasch/zsh-bd
 djui/alias-tips
+hlissner/zsh-autopair
 johannchangpro/zsh-interactive-cd
 ohmyzsh/ohmyzsh path:plugins/archlinux
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages

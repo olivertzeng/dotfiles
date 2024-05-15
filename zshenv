@@ -5,4 +5,3 @@ s() {
         gum input --prompt "密碼？？？" --password | sudo -S -p '' "$@"
     fi
 }
-. "$HOME/.cargo/env"
