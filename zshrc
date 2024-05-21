@@ -51,7 +51,7 @@ export RUNEWIDTH_EASTASIAN=0
 
 # some more ls aliases
 alias a='activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d'
-alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.zshenv ~/dotfiles/zshenv;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles'
+alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.zshenv ~/dotfiles/zshenv;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles;cp ~/activate-linux.sh ~/dotfiles'
 alias bat='bat --color=always'
 alias cp='cp -v'
 alias da='sh ~/dark.sh > /dev/null'

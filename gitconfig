@@ -5,3 +5,5 @@
 	editor = nvim
 [diff]
 	tool = batdiff
+[help]
+	autocorrect = 1
