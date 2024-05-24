@@ -7,10 +7,10 @@ plasma-apply-colorscheme GruvboxColors
 plasma-apply-colorscheme -a palegreen
 
 # "Cursors"
-plasma-apply-cursortheme Bibata-Rainbow-Modern
+plasma-apply-cursortheme Bibata-Rainbow-Modern >/dev/null 2>&1
 
 # "Icons" (full path!)
-/usr/lib/plasma-changeicons BeautyLine
+/usr/lib/plasma-changeicons BeautyLine >/dev/null 2>&1
 
 # Activate Linux
 killall activate-linux >/dev/null 2>&1

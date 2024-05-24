@@ -7,10 +7,10 @@ plasma-apply-colorscheme 'Gruvbox Light - Red two-tone 3'
 plasma-apply-colorscheme -a palegreen
 
 # "Cursors"
-plasma-apply-cursortheme miku-cursor-linux
+plasma-apply-cursortheme miku-cursor-linux >/dev/null 2>&1
 
 # "Icons" (full path!)
-/usr/lib/plasma-changeicons BeautySolar
+/usr/lib/plasma-changeicons BeautySolar >/dev/null 2>&1
 
 # Kvantum
 kvantummanager --set Gruvbox_Light_Green
