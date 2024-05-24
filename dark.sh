@@ -13,7 +13,7 @@ plasma-apply-cursortheme Bibata-Rainbow-Modern
 /usr/lib/plasma-changeicons BeautyLine
 
 # Activate Linux
-killall activate-linux 2&> /dev/null
+killall activate-linux >/dev/null 2>&1
 activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d
 kvantummanager --set Gruvbox-Dark-Brown
 plasma-apply-wallpaperimage ~/.local/share/wallpapers/boiling-microsoft-dark.png

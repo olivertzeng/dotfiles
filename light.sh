@@ -16,6 +16,6 @@ plasma-apply-cursortheme miku-cursor-linux
 kvantummanager --set Gruvbox_Light_Green
 
 # Activate Linux
-killall activate-linux 2&> /dev/null
+killall activate-linux >/dev/null 2>&1
 activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d
 plasma-apply-wallpaperimage ~/.local/share/wallpapers/boiling-microsoft-light.png
