@@ -3,7 +3,10 @@
 	name = Oliver Tzeng
 [core]
 	editor = nvim
+	quotepath = off
 [diff]
 	tool = batdiff
 [help]
 	autocorrect = 1
+[pull]
+	rebase = false

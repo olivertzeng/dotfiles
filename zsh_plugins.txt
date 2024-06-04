@@ -1,6 +1,5 @@
 Aloxaf/fzf-tab
 ChrisPenner/copy-pasta
-Freed-Wu/zsh-help
 MichaelAquilina/zsh-auto-notify
 MikeDacre/cdbk
 SleepyBag/zsh-confer

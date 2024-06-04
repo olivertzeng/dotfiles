@@ -38,28 +38,29 @@ antidote load
 
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export ARCHFLAGS="-arch x86_64"
-export BAT_THEME='gruvbox-dark'
+export BAT_THEME="gruvbox-dark"
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 export GOPATH="$HOME/go"
-export GPG_TTY=$(tty)
 export LANG=zh_TW.UTF-8
 export LC_CTYPE="zh_TW.UTF-8"
 export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 export PIPENV_VERBOSITY=-1
 export RUNEWIDTH_EASTASIAN=0
+export SUDO_PROMPT=" 密碼勒？？？"
 
 # some more ls aliases
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias a='activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d'
-alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.zshenv ~/dotfiles/zshenv;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles;cp ~/activate-linux.sh ~/dotfiles;cp ~/.clang-format ~/dotfiles/clang-format'
+alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles;cp ~/activate-linux.sh ~/dotfiles;cp ~/.clang-format ~/dotfiles/clang-format'
 alias bat='bat --color=always'
 alias cp='cp -v'
 alias da='sh ~/dark.sh > /dev/null'
 alias diff='batdiff'
 alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-alias ghcl='GHPATH=$(gum input --placeholder "Please input the GitHub clone path");git clone git@github.com:$GHPATH'
-alias gu="fd -u '^\.git$' --prune -x xargs -P10 git -C $(printf '%s\n' '{//}') pull"
+alias gu="fd -u '^\.git$' --prune -x xargs -P10 git -C (printf '%s\n' '{//}') pull"
 alias l='eza --icons'
 alias la='eza --icons -a'
 alias lg='lazygit'
@@ -71,8 +72,7 @@ alias ls='eza --icons'
 alias lt='eza -T'
 alias man='batman'
 alias open='xdg-open'
-alias sudo='s'
-alias t='topgrade -y --no-retry -c;sudo -k'
+alias t='topgrade -y --no-retry -c'
 alias vim='nvim'
 owofetch
 setopt autocd
@@ -96,11 +96,3 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# pnpm
-export PNPM_HOME="/home/olivertzeng/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
