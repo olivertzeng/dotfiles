@@ -60,7 +60,7 @@ alias da='sh ~/dark.sh > /dev/null'
 alias diff='batdiff'
 alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-alias gu="fd -u '^\.git$' --prune -x xargs -P10 git -C (printf '%s\n' '{//}') pull"
+alias gclr="git clean -xfd"
 alias l='eza --icons'
 alias la='eza --icons -a'
 alias lg='lazygit'
