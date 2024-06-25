@@ -13,7 +13,7 @@ mount --mkdir /dev/nvme0n1p1 /mnt/boot/efi
 reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
 pacstrap -K /mnt $(cat packages/pkglist.txt | xargs)
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >>/mnt/etc/fstab
 
 # chroot the arch system as new system's root
 arch-chroot /mnt
@@ -38,15 +38,16 @@ chmod 777 r.sh
 su olivertzeng
 bash restore.sh
 nvim /etc/locale.gen
-echo "LANG=zh_TW.UTF-8" > /etc/locale.conf
-echo "ArchBTW" > /etc/hostname
-cat >> /etc/hosts << EOL
+echo "LANG=zh_TW.UTF-8" >/etc/locale.conf
+echo "LC_TIME=C.UTF-8" >>/etc/locale.conf
+echo "ArchBTW" >/etc/hostname
+cat >>/etc/hosts <<EOL
 127.0.0.1	localhost
 ::1		localhost
 127.0.1.1	ArchBTW
 EOL
-echo "XMODIFIERS=@im=fcitx" >> /etc/environment 
+echo "XMODIFIERS=@im=fcitx" >>/etc/environment
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/efi
 locale-gen
 grub-mkconfig -o /boot/grub/grub.cfg
-systemctl enable NetworkManager sddm sshd thermald auto-cpufreq 
+systemctl enable NetworkManager sddm sshd thermald auto-cpufreq

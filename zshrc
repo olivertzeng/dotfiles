@@ -53,10 +53,9 @@ export SUDO_PROMPT=" 密碼勒？？？"
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias a='activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d'
-alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/light.sh ~/dotfiles;cp ~/dark.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles;cp ~/activate-linux.sh ~/dotfiles;cp ~/.clang-format ~/dotfiles/clang-format'
+alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/theme.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles;cp ~/activate-linux.sh ~/dotfiles;cp ~/.clang-format ~/dotfiles/clang-format'
 alias bat='bat --color=always'
 alias cp='cp -v'
-alias da='sh ~/dark.sh > /dev/null'
 alias diff='batdiff'
 alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
@@ -64,7 +63,6 @@ alias gclr="git clean -xfd"
 alias l='eza --icons'
 alias la='eza --icons -a'
 alias lg='lazygit'
-alias li='sh ~/light.sh > /dev/null'
 alias ll='eza --icons -l'
 alias lla='eza --icons -la'
 alias llt='eza -lT'
@@ -78,20 +76,10 @@ owofetch
 setopt autocd
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
-SAVEHIST=100000
 setopt appendhistory
 
-# The following lines were added by compinstall
-zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-zstyle ':completion:*' matcher-list '' '' '' ''
-zstyle :compinstall filename '/home/olivertzeng/.zshrc'
-
-
-# Created by `pipx` on 2023-12-12 15:00:21
 export PATH="$PATH:/home/olivertzeng/.local/bin"
-export THEOS=~/theos
-export PATH="$PATH:$THEOS/bin"
-export PATH="$PATH:$THEOS/vendor/bin"
+export EDITOR=nvim
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
