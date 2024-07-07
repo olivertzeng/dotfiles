@@ -53,7 +53,7 @@ export SUDO_PROMPT=" 密碼勒？？？"
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias a='activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d'
-alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/theme.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles;cp ~/activate-linux.sh ~/dotfiles;cp ~/.clang-format ~/dotfiles/clang-format'
+alias bak='cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp -r ~/.config/nvim ~/dotfiles/;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/theme.sh ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.config/pip/pip.conf ~/dotfiles;cp ~/activate-linux.sh ~/dotfiles;cp ~/.clang-format ~/dotfiles/clang-format;sudo cp /etc/systemd/system/theme.* ~/dotfiles'
 alias bat='bat --color=always'
 alias cp='cp -v'
 alias diff='batdiff'

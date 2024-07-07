@@ -1,0 +1,11 @@
+
+[Unit]
+Description=Automatic theme changer
+
+[Service]
+User=olivertzeng
+ExecStart=/home/olivertzeng/theme.sh
+Restart=always
+
+[Install]
+WantedBy=network.target

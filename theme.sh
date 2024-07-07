@@ -1,16 +1,16 @@
 #!/bin/bash
 
-killall activate-linux >/dev/null 2>&1
-activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d
-# Get the location from the location.sh script
+activate-linux -p linux -d
+
 location=$(curl -s 'https://ipinfo.io/json' | jq -r '.loc')
+lat=$(echo $location | cut -d, -f1)
+lon=$(echo $location | cut -d, -f2)
+lat_dir="N"
+lon_dir="E"
+if awk "BEGIN {exit !($lat < 0)}"; then lat_dir="S"; fi
+if awk "BEGIN {exit !($lon < 0)}"; then lon_dir="W"; fi
 
-# Use sunwait to get the sunrise and sunset times
-sunrise=$(sunwait sunrise $location)
-sunset=$(sunwait sunset $location)
-
-# Execute your script between sunrise and sunset
-if [ "$sunrise" -lt "$SECONDS" ] && [ "$SECONDS" -lt "$sunset" ]; then
+if [ "$(sunwait poll ${lat}${lat_dir} ${lon}${lon_dir})" = "DAY" ]; then
 	plasma-apply-colorscheme 'Gruvbox Light - Red two-tone 3'
 	plasma-apply-cursortheme miku-cursor-linux >/dev/null 2>&1
 	/usr/lib/plasma-changeicons BeautySolar >/dev/null 2>&1
