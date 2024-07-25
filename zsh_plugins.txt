@@ -4,17 +4,18 @@ MichaelAquilina/zsh-auto-notify
 MikeDacre/cdbk
 SleepyBag/zsh-confer
 Tarrasch/zsh-bd
+aubreypwd/zsh-plugin-fd
 djui/alias-tips
 hlissner/zsh-autopair
 johannchangpro/zsh-interactive-cd
 ohmyzsh/ohmyzsh path:plugins/archlinux
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/git-auto-fetch
 ohmyzsh/ohmyzsh path:plugins/gitfast
 ohmyzsh/ohmyzsh path:plugins/history
 ohmyzsh/ohmyzsh path:plugins/man
 ohmyzsh/ohmyzsh path:plugins/sudo
-ohmyzsh/ohmyzsh path:plugins/web-search
 olets/zsh-abbr
 zdharma-continuum/fast-syntax-highlighting kind:defer
 zsh-users/zsh-autosuggestions
