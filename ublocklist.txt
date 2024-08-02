@@ -1,11 +1,16 @@
 dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
 dotfyle.com###subscribe
 dotfyle.com##.mt-8.gap-4.sm\:px-4.px-4.sm\:mt-4.w-full.xl\:max-w-7xl.max-w-full.flex-col.flex
+duckduckgo.com###features
+duckduckgo.com##.center_andText__ejUnC.center_intrinsic__mk_Ab.center_root__Uf1xM.minimal-homepage_exploreFeatureScroller__TL5Vx.homepage-cta-section_scrollCta__HuSCL
 duckduckgo.com##.eRjZTOsvr6gqJe3E2Yc6
+duckduckgo.com##.feedback-prompt
 duckduckgo.com##.footer
 duckduckgo.com##.header--aside__item--hidden-lg.header--aside__item
+duckduckgo.com##.is-showing.js-welcome-wrap.welcome-wrap
 duckduckgo.com##.js-header-aside.header--aside
 duckduckgo.com##.js-serp-bottom-right.serp__bottom-right
+duckduckgo.com##.minimal-homepage_taglineText__owJPH
 duckduckgo.com##.spread-cta--has-top-margin.ia-module--spread-cta.module
 duckduckgo.com##.t-m.related-searches
 duckduckgo.com##.uNpNxLjmZNNGnlkDPAcl
@@ -24,6 +29,7 @@ github.com##show-dialog-on-load
 hackmd.io##.sidenav-menu-link.cursor-pointer
 imgur.com##.Footer-wrapper
 imgur.com##.ab-modal-interactions.ab-html-message.ab-in-app-message
+itsfoss.com##.gh-portal-close.radius.btn--brand.signup-link.btn
 m.youtube.com##.standalone-collection-badge a[href^="/hashtag/"]
 m.youtube.com##ytm-video-description-header-renderer button-view-model a[href^="/hashtag/"]
 m.youtube.com##ytm-video-description-music-section-renderer
@@ -56,6 +62,7 @@ rueylin0119.pixnet.net##.bookmark
 rueylin0119.pixnet.net##.forward
 rueylin0119.pixnet.net##.navbar
 rueylin0119.pixnet.net##.tag-container-parent
+www.chess.com##.ready-to-play-banner-desktop.ready-to-play-banner-content
 www.dcard.tw##.b2rlo5n.d_ft_1q.d_h_1q.d_a5_hyeg3x.d_y5_ifev7s.d_2l_1a.d_ei_1h2ngc6.d_6r_1s.d_o4_1s.d_g6_1s.d_nf_2y
 www.dcard.tw##.r1tuv6db.d_ei_1r.d_h_1q.d_a5_1p
 www.facebook.com###mount_0_0_aI > div > div:nth-of-type(1) > .x1ja2u2z.x1n2onr6.x9f619 > div:nth-of-type(2)
@@ -77,7 +84,9 @@ www.youtube.com###redux-sort-chip
 www.youtube.com###super-title
 www.youtube.com##+js(aeld, dblclick)
 www.youtube.com##.super-title
+www.youtube.com##.ytp-paid-content-overlay-link
 www.youtube.com##.ytp-suggested-action-badge-expanded
+www.youtube.com##tp-yt-paper-dialog.ytd-popup-container.style-scope
 www.youtube.com##yt-smartimation > *:not(.smartimation__content)
 www.youtube.com##ytd-app:style(--ytd-app-fullerscreen-scrollbar-width: -1px !important;)
 www.youtube.com##ytd-browse ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"])
@@ -92,6 +101,14 @@ www.youtube.com##ytd-reel-shelf-renderer
 www.youtube.com##ytd-search ytd-radio-renderer
 www.youtube.com##ytd-video-meta-block + ytd-badge-supported-renderer
 www.youtube.com##ytd-watch-next-secondary-results-renderer ytd-compact-radio-renderer
+x.com##.r-1udh08x.r-1ifxtd0.r-rs99b7.r-1phboty.r-1867qdf.r-1kqtdi0.r-kemksi.css-175oi2r
+x.com##.r-3pj75a.r-1w6e6rj.r-18u37iz.css-175oi2r
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(2)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(5)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(6)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(7)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(8)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(9)
 youtube.com##.ytp-button.branding-img-container
 youtube.com##.ytp-quality-menu .ytp-premium-label:upward(.ytp-menuitem)
 zh.wikipedia.org##.vector-sitenotice-container
