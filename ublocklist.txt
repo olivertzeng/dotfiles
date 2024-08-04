@@ -16,6 +16,9 @@ duckduckgo.com##.t-m.related-searches
 duckduckgo.com##.uNpNxLjmZNNGnlkDPAcl
 duckduckgo.com##div.WWQzt6Y8Hx0MjxcaZ4o8:nth-of-type(2)
 duckduckgo.com##li.zcm__item:nth-of-type(4)
+duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(2)
+duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(4)
+duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(5)
 en.wikipedia.org##.vector-sitenotice-container
 github.com###sponsor-profile-button
 github.com##.d-md-block.d-none.mt-3.pt-3.color-border-muted.border-top > .mt-2
@@ -86,7 +89,6 @@ www.youtube.com##+js(aeld, dblclick)
 www.youtube.com##.super-title
 www.youtube.com##.ytp-paid-content-overlay-link
 www.youtube.com##.ytp-suggested-action-badge-expanded
-www.youtube.com##tp-yt-paper-dialog.ytd-popup-container.style-scope
 www.youtube.com##yt-smartimation > *:not(.smartimation__content)
 www.youtube.com##ytd-app:style(--ytd-app-fullerscreen-scrollbar-width: -1px !important;)
 www.youtube.com##ytd-browse ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"])
