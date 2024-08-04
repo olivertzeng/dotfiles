@@ -1,0 +1,15 @@
+duckduckgo.com###features
+duckduckgo.com##.center_andText__ejUnC.center_intrinsic__mk_Ab.center_root__Uf1xM.minimal-homepage_exploreFeatureScroller__TL5Vx.homepage-cta-section_scrollCta__HuSCL
+duckduckgo.com##.eRjZTOsvr6gqJe3E2Yc6
+duckduckgo.com##.feedback-prompt
+duckduckgo.com##.footer
+duckduckgo.com##.header--aside__item--hidden-lg.header--aside__item
+duckduckgo.com##.is-showing.js-welcome-wrap.welcome-wrap
+duckduckgo.com##.js-header-aside.header--aside
+duckduckgo.com##.js-serp-bottom-right.serp__bottom-right
+duckduckgo.com##.minimal-homepage_taglineText__owJPH
+duckduckgo.com##.spread-cta--has-top-margin.ia-module--spread-cta.module
+duckduckgo.com##.t-m.related-searches
+duckduckgo.com##.uNpNxLjmZNNGnlkDPAcl
+duckduckgo.com##div.WWQzt6Y8Hx0MjxcaZ4o8:nth-of-type(2)
+duckduckgo.com##li.zcm__item:nth-of-type(4)

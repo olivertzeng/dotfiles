@@ -7,3 +7,8 @@
 # IMPORTANT NOTICE
 * The scripts above installes my personal preferences and doesn't prompt for anything! Please edit before using them. Use it at your own risk!
 * The `install.sh` script should not be run! It's extremely unstable and is currently used as my installation note. I still manually type them in the console instead of running it.
+
+# My custom ublocklist
+- [subscribe](https://subscribe.adblockplus.org/?location=https://raw.githubusercontent.com/olivertzeng/dotfiles/master/ublocklist.txt&title=Oliver
+  Tzeng's Custom Blocklist)
+

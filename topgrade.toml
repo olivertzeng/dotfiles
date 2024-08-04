@@ -69,10 +69,11 @@ notify_each_step = true
 
 # Custom commands
 [commands]
+"Remove Unused" = "yay -Yc"
 "Lazy Plugins" = "nvim --headless '+Lazy! sync' +qa"
 "Mason LSPs" = "nvim +MasonUpdate +qa"
 "Treesitter Parsers" = "nvim +TSUpdateSync +qa"
-"Theme" = "~/theme.sh"
+"Theme Switcher" = "~/theme.sh"
 
 
 [python]

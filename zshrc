@@ -50,6 +50,7 @@ export RUNEWIDTH_EASTASIAN=0
 export SUDO_PROMPT=" 密碼勒？？？"
 
 # some more ls aliases
+alias addon="zip -r -FS extension.zip * --exclude '*.git*'"
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias a='activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d'
