@@ -42,6 +42,7 @@ mail.google.com##div.nH:nth-of-type(4)
 mail.proton.me##.button-promotion--yellow.button-promotion.items-center.flex.max-w-full.text-center.inline-block.button-pill.button-outline-weak.button-medium.button
 mail.proton.me##.empty\:hidden.items-center.flex-nowrap.flex.gap-1.ml-2.my-0.unstyled.topnav-list > div
 mail.proton.me##.relative.bg-promotion.shrink-0.flex-nowrap.flex
+mail.proton.me##.relative.mb-4.mx-4.shadow-norm.border-weak.border.rounded-lg.flex-none.flex.group-hover-opacity-container.tip-box
 mail.proton.me##.shrink-0.apps-dropdown-button
 mail.proton.me##.topnav-listItem--noCollapse.topnav-listItem
 mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link-header-group.mb-0\.5.px-3.w-full.navigation-item:nth-of-type(1)
@@ -70,6 +71,7 @@ www.chess.com##.diamond-top.sprite.nav-link-top-level.trial.nav-link-main-design
 www.chess.com##.ready-to-play-banner-desktop.ready-to-play-banner-content
 www.dcard.tw##.b2rlo5n.d_ft_1q.d_h_1q.d_a5_hyeg3x.d_y5_ifev7s.d_2l_1a.d_ei_1h2ngc6.d_6r_1s.d_o4_1s.d_g6_1s.d_nf_2y
 www.dcard.tw##.r1tuv6db.d_ei_1r.d_h_1q.d_a5_1p
+www.deviantart.com##._2Ee-T.v0vmd._3U8hI._3272G
 www.facebook.com###mount_0_0_aI > div > div:nth-of-type(1) > .x1ja2u2z.x1n2onr6.x9f619 > div:nth-of-type(2)
 www.facebook.com##.x1u8a7rm.x17qophe.xixxii4.x1ye3gou.x1s14bel.xn6708d.x1xy6bms.xds687c.x9f619.xayqjjm.x1ey2m1c.x2bj2ny.x193iq5w.x2lah0s.xdt5ytf.x78zum5
 www.google.com###gbwa > .gb_f > .gb_d
@@ -84,7 +86,6 @@ www.instagram.com##.xh8yej3.x1iyjqo2 > div > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv
 www.instagram.com##div:nth-of-type(7) > .x1n2onr6 > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6
 www.openstreetmap.org##.position-relative
 www.twitch.tv##.kBtJDm.InjectLayout-sc-1i43xsx-0 > .cegTsp.ljgEdo.ScCoreButtonSecondary-sc-ocjdkq-2.ScCoreButton-sc-ocjdkq-0
-www.youtube.com###chat:remove()
 www.youtube.com###copyright
 www.youtube.com###description #info a[href^="/hashtag/"]
 www.youtube.com###description .ytd-watch-metadata #items:has(.ytd-video-description-music-section-renderer)
@@ -111,6 +112,7 @@ www.youtube.com##ytd-reel-shelf-renderer
 www.youtube.com##ytd-search ytd-radio-renderer
 www.youtube.com##ytd-video-meta-block + ytd-badge-supported-renderer
 www.youtube.com##ytd-watch-next-secondary-results-renderer ytd-compact-radio-renderer
+x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-14lw9ot.css-175oi2r
 x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-kemksi.css-175oi2r
 x.com##.r-1udh08x.r-1hycxz.r-10f7w94.r-aqfbo4.css-175oi2r
 x.com##.r-1udh08x.r-1ifxtd0.r-rs99b7.r-1phboty.r-1867qdf.r-1kqtdi0.r-kemksi.css-175oi2r
