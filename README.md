@@ -9,6 +9,5 @@
 * The `install.sh` script should not be run! It's extremely unstable and is currently used as my installation note. I still manually type them in the console instead of running it.
 
 # My custom ublocklist
-- [subscribe](https://subscribe.adblockplus.org/?location=https://raw.githubusercontent.com/olivertzeng/dotfiles/master/ublocklist.txt&title=Oliver
-  Tzeng's Custom Blocklist)
+- [subscribe](https://subscribe.adblockplus.org/?location=https://raw.githubusercontent.com/olivertzeng/dotfiles/master/ublocklist.txt&title=Oliver%20Tzeng's%20Custom%20Blocklist)
 
