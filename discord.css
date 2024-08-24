@@ -1,0 +1,368 @@
+/**
+ * @name Oliver Tzeng's Custom CSS
+ * @author Oliver Tzeng
+ * @description Bruh
+ * @source https://github.com/olivertzeng/dotfiles
+ * @invite BShu37e4jg
+ * @website https://maendisease.github.io/
+ * @authorId 678469587444170762
+ * @BDEditor Solana
+*/
+
+@import url('https://maendisease.github.io/Solana/Solana.css');
+@import url('https://maendisease.github.io/BetterDiscordStuff/css/bdAddonMini.css');
+@import url('https://mwittrien.github.io/BetterDiscordAddons/Themes/EmojiReplace/base/Apple.css');
+
+[class^=avatarWrapper_] [class^=nameTag_] [class^=hovered_]::before {
+    content: "@";
+}
+
+[class^=hoverRoll]>[class^=default] {
+    margin-top: 15px;
+}
+
+/*     Blue Pill      */
+[class^="iconVisibility_"]:has([style="color: var(--text-brand);"])>[class^="unread_"] {
+    background-color: var(--text-brand);
+}
+
+/*     Red Pill      */
+[class^="iconVisibility_"]:has([class^="mentionsBadge_"])>[class^="unread_"] {
+    background-color: var(--status-danger);
+}
+
+/*     Visible Server Banner     */
+[class^="container_"]:not([class*="bannerVisible_"])>[class^="animatedContainer_"] {
+    top: 3px;
+}
+
+[class*="animatedContainer_"] {
+    opacity: 1 !important;
+}
+
+[class*="headerContent_"] {
+    filter: drop-shadow(0 1px 1px var(--bg-backdrop));
+}
+
+[class^=botTagCompact],
+/* reorder tegs in replies */
+[class^=repliedTextPreview],
+/* reorder message in replies */
+[class^=repliedTextContentTrailingIcon]
+
+/* reorder icon that can come after the message in replies */
+    {
+    order: 1 !important;
+    /* default order is 0 so putting it to 1 put it after */
+}
+
+/* Change the first path definition of the volume icon SVG to be the moving part of my new animated SVG */
+.containerDefault_f6f816:has([class*="voiceUser_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M15.16"] {
+    d: path("M15.1 20.75c-.58.14-1.1-.33-1.1-.92v-.03c0-.5.37-.92.85-1.05a7 7 0 0 0 0-13.5A1.11 1.11 0 0 1 14 4.2v-.03c0-.6.52-1.06 1.1-.92a9 9 0 0 1 0 17.5Z");
+    animation-name: volume-icon-anim;
+    animation-duration: 1.25s;
+    animation-iteration-count: infinite;
+}
+
+/* Change the second path definition of the volume icon SVG to be the static part of my new animated SVG */
+.containerDefault_f6f816:has([class*="voiceUser_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M12"] {
+    d: path("M12 3a1 1 0 0 0-1-1h-.06a1 1 0 0 0-.74.32L5.92 7H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.92l4.28 4.68a1 1 0 0 0 .74.32H11a1 1 0 0 0 1-1V3ZM15.16 16.51c-.57.28-1.16-.2-1.16-.83v-.14c0-.43.28-.8.63-1.02a3 3 0 0 0 0-5.04c-.35-.23-.63-.6-.63-1.02v-.14c0-.63.59-1.1 1.16-.83a5 5 0 0 1 0 9.02Z");
+}
+
+/* change color of animation to match Discord's "Live" icon when someone is live-streaming */
+.containerDefault_f6f816:has([class*="live_"], [class*="baseShapeRound_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M15.16"] {
+    animation-name: volume-icon-anim-live;
+}
+
+.containerDefault_f6f816:has([class*="live_"], [class*="baseShapeRound_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M12"] {
+    color: var(--red-400);
+}
+
+/* Animation when there is someone in a voice channel */
+@keyframes volume-icon-anim {
+
+    0%,
+    100% {
+        color: transparent;
+    }
+
+    50% {
+        color: var(--currentColor);
+    }
+}
+
+/* Animation when there is someone live-streaming in a voice channel */
+@keyframes volume-icon-anim-live {
+
+    0%,
+    100% {
+        color: transparent;
+    }
+
+    50% {
+        color: var(--red-400);
+    }
+}
+
+/*Shake animation hover to the text area when you don't have permission !*/
+
+/* Define the shake animation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-10px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(10px);
+    }
+}
+
+/* Initial state of the element */
+[class*=channelTextAreaDisabled] {
+    position: relative;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+/* Hover state to trigger the shake animation */
+[class*=channelTextAreaDisabled]:hover {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* ShowHiddenThings / Mod View / Remove actions like Kick, Ban, and Timeout if disabled due to insufficient permissions. */
+[class^=guildSidebar_] [class^=bottomRow_]:has([class*=bottomRowActionDisabled_]) [class*=bottomRowActionDisabled_] {
+    display: none;
+}
+
+@import url("https://lazuee.github.io/css-snippets/discord/sidebar-notice/import.css");
+
+/* Reactions Hover */
+[class^=reaction_]:not(:has([class^=burstGlow_])) .emoji {
+    transition: transform 0.5s ease;
+}
+
+[class^=reaction_]:not(:has([class^=burstGlow_])):hover .emoji {
+    transform: translateY(-10px) scale(1.5);
+}
+
+/*moves vc hang status to the left*/
+[class*=iconGroup]:has([class*=hangStatusIcon], [d*='M13 3a1'], [class*=gameIcon]) {
+    display: flex;
+    position: absolute;
+    right: 101%;
+}
+
+[data-list-id="guildsnav"]>[class^=scroller_]>[aria-label],
+[id^=folder-items-] {
+    display: flex;
+    flex-direction: column;
+}
+
+[data-list-id="guildsnav"]>[class^=scroller_]>[aria-label] :is([class^=listItem_], [class^=wrapper_]):has([class^=numberBadge_]) {
+    order: -1
+}
+
+[class*=username_][style],
+.mention[style],
+[class*=membersGroup_] [style] {
+    filter: contrast(.2) brightness(1.2) saturate(500%);
+}
+
+.botTag__11e95:not([class*="botTagOP"]) {
+    /* Feel free to replace with any SVG */
+    content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg fill='%23ffffff' width='15px' height='15px' viewBox='1 -2 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 16 1 C 14.894531 1 14 1.894531 14 3 C 14 3.738281 14.402344 4.371094 15 4.71875 L 15 7 L 10 7 C 7.25 7 5 9.25 5 12 L 5 14 L 2 14 L 2 22 L 5 22 L 5 27 L 27 27 L 27 22 L 30 22 L 30 14 L 27 14 L 27 12 C 27 9.25 24.75 7 22 7 L 17 7 L 17 4.71875 C 17.597656 4.371094 18 3.738281 18 3 C 18 1.894531 17.105469 1 16 1 Z M 10 9 L 22 9 C 23.667969 9 25 10.332031 25 12 L 25 25 L 23 25 L 23 20 L 9 20 L 9 25 L 7 25 L 7 12 C 7 10.332031 8.332031 9 10 9 Z M 12 13 C 10.894531 13 10 13.894531 10 15 C 10 16.105469 10.894531 17 12 17 C 13.105469 17 14 16.105469 14 15 C 14 13.894531 13.105469 13 12 13 Z M 20 13 C 18.894531 13 18 13.894531 18 15 C 18 16.105469 18.894531 17 20 17 C 21.105469 17 22 16.105469 22 15 C 22 13.894531 21.105469 13 20 13 Z M 4 16 L 5 16 L 5 20 L 4 20 Z M 27 16 L 28 16 L 28 20 L 27 20 Z M 11 22 L 13 22 L 13 25 L 11 25 Z M 15 22 L 17 22 L 17 25 L 15 25 Z M 19 22 L 21 22 L 21 25 L 19 25 Z'/%3E%3C/svg%3E%0A");
+}
+
+.botTag__4211a {
+    padding: 0 0.1rem !important;
+}
+
+@import url("https://minidiscordthemes.github.io/Snippets/MinimalAuthApps/main.css");
+
+/* Custom Emoji Button */
+.sprite__294b3.spriteColored__9a869 {
+    background-image: url(https://cdn.discordapp.com/emojis/1024751291504791654.gif?size=128&quality=lossless);
+    background-size: 24px;
+}
+
+.sprite__294b3.spriteGreyscale__750f4 {
+    mask-image: url(https://cdn.discordapp.com/emojis/1024751291504791654.png?size=128&quality=lossless);
+    mask-size: 24px;
+}
+
+@import url('https://raw.githubusercontent.com/Vortex-Chaos/Discord-Connections-Glow/main/Code.css');
+
+.profileBadges__7a7cb.profileBadges__7a7cb {
+    flex: none;
+}
+
+.buttons_ce5b56 {
+    margin: 6px 6px 6px auto !important;
+    margin-left: auto;
+    max-width: calc(40px * 6);
+    /* CHANGE HERE: 6 columns when expanded */
+    min-width: calc(40px * 2);
+    /* CHANGE HERE: 2 columns when collapsed */
+    width: min-content;
+    display: flex;
+    gap: 6px 0;
+    flex-wrap: wrap-reverse;
+    flex-grow: 1;
+    height: fit-content;
+    justify-content: right;
+}
+
+.buttons_ce5b56 .buttonContainer__8b164,
+.buttons_ce5b56>.button_afdfd9 {
+    width: 40px;
+}
+
+.separator__8424b {
+    margin: 0;
+    justify-content: center;
+    width: 40px;
+}
+
+.separator__8424b::before {
+    display: none;
+}
+
+.separator__8424b .innerButton_debeee {
+
+    margin: 0;
+}
+
+.textArea__74543 {
+    width: fit-content;
+    flex-grow: 1.01;
+}
+
+@import url(https://cdn.discordapp.com/attachments/1008439556619636777/1232284525363724329/NewIcons.css?ex=6628e5e5&is=66279465&hm=c3ad6679a86ad4babc59f4df753de1727d4f847cc5f53a049a639848b291452c&);
+
+/* if you dont want use new icons remove this line  */
+:root {
+    --tiktok: #ff0050;
+    --instagram: #f09433;
+    --theme-name: "BetterConnectedAccounts";
+    --theme-version: "(0.4.1)";
+    --radius: 4px;
+    /* if you dont want rounded corners change 4px to 0 */
+}
+
+[class^=connectedAccountContainer] {
+    border: none;
+    background: var(--color);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5) inset;
+    border-radius: var(--radius);
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    &:has([aria-label="Spotify"]) {
+        --color: var(--spotify)
+    }
+
+    &:has([aria-label="Twitch"]) {
+        --color: var(--twitch)
+    }
+
+    &:has([aria-label="YouTube"]) {
+        --color: var(--youtube)
+    }
+
+    &:has([aria-label="Reddit"]) {
+        --color: var(--reddit)
+    }
+
+    &:has([aria-label="PayPal"]) {
+        --color: var(--paypall)
+    }
+
+    &:has([aria-label="TikTok"]) {
+        --color: var(--tiktok)
+    }
+
+    &:has([aria-label="Steam"]) {
+        --color: var(--steam)
+    }
+
+    &:has([aria-label="Crunchyroll"]) {
+        --color: var(--cruchyroll)
+    }
+
+    &:has([aria-label="eBay"]) {
+        --color: var(--ebay)
+    }
+
+    &:has([aria-label="Xbox"]) {
+        --color: var(--xbox)
+    }
+
+    &:has([aria-label="Battle.net"]) {
+        --color: var(--battlenet)
+    }
+
+    &:has([aria-label="PlayStation Network"]) {
+        --color: var(--playstation)
+    }
+
+    &:has([aria-label="Epic Games"]) {
+        --color: var(--epic-games)
+    }
+
+    &:has([aria-label="GitHub"]) {
+        --color: var(--github)
+    }
+
+    &:has([aria-label="X"]) {
+        --color: var(--twitter)
+    }
+
+    &:has([aria-label="League of Legends"]) {
+        --color: var(--lol)
+    }
+
+    &:has([aria-label="Twitter"]) {
+        --color: var(--twitter)
+    }
+
+    &:has([aria-label="Instagram"]) {
+        --color: var(--instagram)
+    }
+
+    &:has([aria-label="Riot Games"]) {
+        --color: var(--riot-games)
+    }
+
+    &:has([aria-label="Skype"]) {
+        --color: var(--skype)
+    }
+
+    &:has([aria-label="Facebook"]) {
+        --color: var(--facebook)
+    }
+
+    /* turn the verified check black */
+    [class^=flowerStar_] path {
+        fill: rgb(0 0 0 / 1);
+    }
+}
+
+[class^=connectedAccountOpenIcon],
+[class^=connectedAccountNameText],
+[class^=connectedAccountIcon] {
+    filter: drop-shadow(3px 2px 1px rgb(25 41 35 / 0.5));
+    color: white !important;
+}
+
+[aria-label="User Settings"] [class^=info]> :first-child::before {
+    /* adds theme info to the bottom of options screen, feel free to remove */
+    all: inherit;
+    content: var(--theme-name) " " var(--theme-version);
+}

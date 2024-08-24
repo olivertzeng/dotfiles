@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = 正在清理 pacman 快取...
+When = PostTransaction
+Exec = /usr/bin/paccache -r

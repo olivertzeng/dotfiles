@@ -1,0 +1,21 @@
+Aloxaf/fzf-tab
+ChrisPenner/copy-pasta
+MichaelAquilina/zsh-auto-notify
+MikeDacre/cdbk
+SleepyBag/zsh-confer
+Tarrasch/zsh-bd
+djui/alias-tips
+hlissner/zsh-autopair
+johannchangpro/zsh-interactive-cd
+ohmyzsh/ohmyzsh path:plugins/archlinux
+ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/git-auto-fetch
+ohmyzsh/ohmyzsh path:plugins/gitfast
+ohmyzsh/ohmyzsh path:plugins/history
+ohmyzsh/ohmyzsh path:plugins/man
+ohmyzsh/ohmyzsh path:plugins/sudo
+olets/zsh-abbr
+zdharma-continuum/fast-syntax-highlighting kind:defer
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search

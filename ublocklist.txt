@@ -1,0 +1,127 @@
+dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
+dotfyle.com###subscribe
+dotfyle.com##.mt-8.gap-4.sm\:px-4.px-4.sm\:mt-4.w-full.xl\:max-w-7xl.max-w-full.flex-col.flex
+duckduckgo.com###features
+duckduckgo.com##.center_andText__ejUnC.center_intrinsic__mk_Ab.center_root__Uf1xM.minimal-homepage_exploreFeatureScroller__TL5Vx.homepage-cta-section_scrollCta__HuSCL
+duckduckgo.com##.eRjZTOsvr6gqJe3E2Yc6
+duckduckgo.com##.feedback-prompt
+duckduckgo.com##.footer
+duckduckgo.com##.header--aside__item--hidden-lg.header--aside__item
+duckduckgo.com##.is-showing.js-welcome-wrap.welcome-wrap
+duckduckgo.com##.js-header-aside.header--aside
+duckduckgo.com##.js-serp-bottom-right.serp__bottom-right
+duckduckgo.com##.minimal-homepage_taglineText__owJPH
+duckduckgo.com##.spread-cta--has-top-margin.ia-module--spread-cta.module
+duckduckgo.com##.t-m.related-searches
+duckduckgo.com##.uNpNxLjmZNNGnlkDPAcl
+duckduckgo.com##li.zcm__item:nth-of-type(4)
+duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(2)
+duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(4)
+duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(5)
+en.wikipedia.org##.vector-sitenotice-container
+github.com###sponsor-profile-button
+github.com##.d-md-block.d-none.mt-3.pt-3.color-border-muted.border-top > .mt-2
+github.com##.hide-md.hide-sm.clearfix.mt-3.pt-3.color-border-muted.border-top
+github.com##.imruoV.Box-sc-g0xbh4-0
+github.com##.js-notice
+github.com##.react-directory-remove-file-icon > .hTqPVk.types__StyledButton-sc-ws60qy-0
+github.com##div.BorderGrid-row:nth-of-type(3) > .BorderGrid-cell
+github.com##div.mt-2:nth-of-type(5)
+github.com##show-dialog-on-load
+hackmd.io##.sidenav-menu-link.cursor-pointer
+imgur.com##.Footer-wrapper
+imgur.com##.ab-modal-interactions.ab-html-message.ab-in-app-message
+itsfoss.com##.gh-portal-close.radius.btn--brand.signup-link.btn
+lichess.org##.site-title-nav__donate
+m.youtube.com##.standalone-collection-badge a[href^="/hashtag/"]
+m.youtube.com##ytm-video-description-header-renderer button-view-model a[href^="/hashtag/"]
+m.youtube.com##ytm-video-description-music-section-renderer
+mail.google.com###gbwa > .gb_f > .gb_d
+mail.google.com##.t6.gb_ne.gb_ke.gb_me
+mail.google.com##div.nH:nth-of-type(4)
+mail.proton.me##.button-promotion--yellow.button-promotion.items-center.flex.max-w-full.text-center.inline-block.button-pill.button-outline-weak.button-medium.button
+mail.proton.me##.empty\:hidden.items-center.flex-nowrap.flex.gap-1.ml-2.my-0.unstyled.topnav-list > div
+mail.proton.me##.relative.bg-promotion.shrink-0.flex-nowrap.flex
+mail.proton.me##.shrink-0.apps-dropdown-button
+mail.proton.me##.topnav-listItem--noCollapse.topnav-listItem
+mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link-header-group.mb-0\.5.px-3.w-full.navigation-item:nth-of-type(1)
+mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link-header-group.mb-0\.5.px-3.w-full.navigation-item:nth-of-type(2)
+meet.jit.si###moderated-meetings
+meet.jit.si##.welcome-cards-container
+old.reddit.com##.footer-parent
+old.reddit.com##.giftgold
+old.reddit.com##.premium-banner
+pixnet.net###footer
+pixnet.net###header
+pixnet.net###idle-pop
+pixnet.net###links
+pixnet.net###pilot
+pixnet.net###pix-ad-related-post-desktop
+pixnet.net###trialsquad-post
+pixnet.net###user-post
+pixnet.net##.article-footer
+pixnet.net##.author
+pixnet.net##.author-profile
+pixnet.net##.bookmark
+pixnet.net##.forward
+pixnet.net##.navbar
+pixnet.net##.tag-container-parent
+www.chess.com##.diamond-top.sprite.nav-link-top-level.trial.nav-link-main-design.nav-link-component
+www.chess.com##.ready-to-play-banner-desktop.ready-to-play-banner-content
+www.dcard.tw##.b2rlo5n.d_ft_1q.d_h_1q.d_a5_hyeg3x.d_y5_ifev7s.d_2l_1a.d_ei_1h2ngc6.d_6r_1s.d_o4_1s.d_g6_1s.d_nf_2y
+www.dcard.tw##.r1tuv6db.d_ei_1r.d_h_1q.d_a5_1p
+www.facebook.com###mount_0_0_aI > div > div:nth-of-type(1) > .x1ja2u2z.x1n2onr6.x9f619 > div:nth-of-type(2)
+www.facebook.com##.x1u8a7rm.x17qophe.xixxii4.x1ye3gou.x1s14bel.xn6708d.x1xy6bms.xds687c.x9f619.xayqjjm.x1ey2m1c.x2bj2ny.x193iq5w.x2lah0s.xdt5ytf.x78zum5
+www.google.com###gbwa > .gb_f > .gb_d
+www.google.com##.FpfXM.zp6Lyf
+www.google.com##.SSwjIe.KxwPGc
+www.google.com##.XDyW0e
+www.google.com##.gb_Ff.gb_Pf.gb_A.gb_o
+www.google.com##a.MV3Tnb
+www.instagram.com##.x1nhvcw1.x1oa3qoh.x1qjc9v5.xqjyukv.xdt5ytf.x2lah0s.x1c4vz4f.xryxfnj.x1plvlek.x1uhb9sk.xseo6mj.xo71vjh.x5pf9jr.x13lgxp2.x168nmei.x78zum5.xjbqb8w.x9f619
+www.instagram.com##.xdy9tzy > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6
+www.instagram.com##.xh8yej3.x1iyjqo2 > div > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6 > ._a6hd.x1a2a7pz.xggy1nq.x1hl2dhg.x16tdsg8.xkhd6sd.x18d9i69.x4uap5.xexx8yu.x1mh8g0r.xat24cr.x11i5rnm.xdj266r.xe8uvvx.xt0psk2.x1ypdohk.x9f619.xm0m39n.x1qhh985.xcfux6l.x972fbf.x17r0tee.x1sy0etr.xd10rxx.x1ejq31n.xjbqb8w.x1i10hfl > .x9jhf4c.x30kzoy.xgqcy7u.x1lq5wgf.x1wj20lx.x12ldp4w.x11hdxyr.xs3sg5q.x9k3k5o.x1dejxi8.xdoji71.xzauu7c.x1lhsz42.x10djquj.x172qv1o.xif99yt.x1dn74xm.x159b3zp.x80pfx3.x1ye3gou.xsag5q8.xn6708d.xz9dl7a.x12dmmrz.x7nr27j.x6pnmvc.xo237n4.xjpr12u.xr9ek0c.x3nfvp2.x9f619
+www.instagram.com##div:nth-of-type(7) > .x1n2onr6 > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6
+www.openstreetmap.org##.position-relative
+www.twitch.tv##.kBtJDm.InjectLayout-sc-1i43xsx-0 > .cegTsp.ljgEdo.ScCoreButtonSecondary-sc-ocjdkq-2.ScCoreButton-sc-ocjdkq-0
+www.youtube.com###chat:remove()
+www.youtube.com###copyright
+www.youtube.com###description #info a[href^="/hashtag/"]
+www.youtube.com###description .ytd-watch-metadata #items:has(.ytd-video-description-music-section-renderer)
+www.youtube.com###flexible-item-buttons > yt-button-view-model.ytd-menu-renderer.style-scope:nth-of-type(1)
+www.youtube.com###guide-links-primary
+www.youtube.com###guide-links-secondary
+www.youtube.com###redux-sort-chip
+www.youtube.com###super-title
+www.youtube.com##+js(aeld, dblclick)
+www.youtube.com##.super-title
+www.youtube.com##.ytp-paid-content-overlay-link
+www.youtube.com##.ytp-suggested-action-badge-expanded
+www.youtube.com##yt-smartimation > *:not(.smartimation__content)
+www.youtube.com##ytd-app:style(--ytd-app-fullerscreen-scrollbar-width: -1px !important;)
+www.youtube.com##ytd-browse ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"])
+www.youtube.com##ytd-browse ytd-rich-item-renderer:has(#video-title-link[href*="&start_radio=1"])
+www.youtube.com##ytd-browse ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"])
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-video-renderer ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"]:upward(ytd-item-section-renderer)
+www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(2)
+www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(3)
+www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(4)
+www.youtube.com##ytd-player div.videowall-endscreen a[data-is-list=true]
+www.youtube.com##ytd-reel-shelf-renderer
+www.youtube.com##ytd-search ytd-radio-renderer
+www.youtube.com##ytd-video-meta-block + ytd-badge-supported-renderer
+www.youtube.com##ytd-watch-next-secondary-results-renderer ytd-compact-radio-renderer
+x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-kemksi.css-175oi2r
+x.com##.r-1udh08x.r-1hycxz.r-10f7w94.r-aqfbo4.css-175oi2r
+x.com##.r-1udh08x.r-1ifxtd0.r-rs99b7.r-1phboty.r-1867qdf.r-1kqtdi0.r-kemksi.css-175oi2r
+x.com##.r-3pj75a.r-1w6e6rj.r-18u37iz.css-175oi2r
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(2)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(5)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(6)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(7)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(8)
+x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(9)
+youtube.com##.ytp-button.branding-img-container
+youtube.com##.ytp-quality-menu .ytp-premium-label:upward(.ytp-menuitem)
+zh.wikipedia.org##.vector-sitenotice-container
+||youtube.com/youtubei/v1/updated_metadata

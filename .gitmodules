@@ -1,0 +1,6 @@
+[submodule "nvim"]
+	path = nvim
+	url = git@github.com:olivertzeng/nvim
+[submodule "chrome"]
+	path = chrome
+	url = git@github.com:olivertzeng/chrome
