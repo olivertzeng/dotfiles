@@ -52,6 +52,7 @@ meet.jit.si##.welcome-cards-container
 old.reddit.com##.footer-parent
 old.reddit.com##.giftgold
 old.reddit.com##.premium-banner
+openuserjs.org##.btn-donate.btn
 pixnet.net###footer
 pixnet.net###header
 pixnet.net###idle-pop
@@ -112,6 +113,7 @@ www.youtube.com##ytd-reel-shelf-renderer
 www.youtube.com##ytd-search ytd-radio-renderer
 www.youtube.com##ytd-video-meta-block + ytd-badge-supported-renderer
 www.youtube.com##ytd-watch-next-secondary-results-renderer ytd-compact-radio-renderer
+x.com##.gt2-legacy-profile-automated
 x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-14lw9ot.css-175oi2r
 x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-kemksi.css-175oi2r
 x.com##.r-1udh08x.r-1hycxz.r-10f7w94.r-aqfbo4.css-175oi2r
