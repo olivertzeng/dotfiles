@@ -1,3 +1,6 @@
+! Title: Oliver Tzeng's Custom Blocklist
+! Homepage: https://github.com/olivertzeng/dotfiles
+
 dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
 dotfyle.com###subscribe
 dotfyle.com##.mt-8.gap-4.sm\:px-4.px-4.sm\:mt-4.w-full.xl\:max-w-7xl.max-w-full.flex-col.flex
