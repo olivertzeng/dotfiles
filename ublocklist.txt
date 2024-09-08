@@ -71,6 +71,7 @@ pixnet.net##.bookmark
 pixnet.net##.forward
 pixnet.net##.navbar
 pixnet.net##.tag-container-parent
+www.chess.com###main-banner
 www.chess.com##.diamond-top.sprite.nav-link-top-level.trial.nav-link-main-design.nav-link-component
 www.chess.com##.ready-to-play-banner-desktop.ready-to-play-banner-content
 www.dcard.tw##.b2rlo5n.d_ft_1q.d_h_1q.d_a5_hyeg3x.d_y5_ifev7s.d_2l_1a.d_ei_1h2ngc6.d_6r_1s.d_o4_1s.d_g6_1s.d_nf_2y
