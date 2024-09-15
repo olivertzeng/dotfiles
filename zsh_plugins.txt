@@ -4,7 +4,6 @@ MichaelAquilina/zsh-auto-notify
 MikeDacre/cdbk
 SleepyBag/zsh-confer
 Tarrasch/zsh-bd
-djui/alias-tips
 hlissner/zsh-autopair
 johannchangpro/zsh-interactive-cd
 ohmyzsh/ohmyzsh path:plugins/archlinux

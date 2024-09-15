@@ -1,6 +1,5 @@
-hash -d cat="/home/olivertzeng/homework/cat"
-hash -d nvim="/home/olivertzeng/.config/nvim/lua"
+hash -d en="/home/olivertzeng/homework/english/essay"
+hash -d n="/home/olivertzeng/.config/nvim/lua"
 hash -d cpp="/home/olivertzeng/homework/cpp"
 hash -d py="/home/olivertzeng/homework/python"
-hash -d crc="/home/olivertzeng/homework/crcproject"
 hash -d c="/home/olivertzeng/homework/c"

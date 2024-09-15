@@ -1,8 +1,5 @@
 #!/bin/bash
 
-killall activate-linux 2 &>/dev/null
-activate-linux -t "啟用 Arch Linux" -m "移至 [設定] 以啟用 Arch Linux" -G -d
-
 location=$(curl -s 'https://ipinfo.io/json' | jq -r '.loc')
 lat=$(echo $location | cut -d, -f1)
 lon=$(echo $location | cut -d, -f2)
