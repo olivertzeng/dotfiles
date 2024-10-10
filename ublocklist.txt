@@ -1,9 +1,14 @@
 ! Title: Oliver Tzeng's Custom Blocklist
 ! Homepage: https://github.com/olivertzeng/dotfiles
 
+account.apple.com##.ribbon-content-wrapper
 dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
+dm.reddit.com##.premium-banner
 dotfyle.com###subscribe
 dotfyle.com##.mt-8.gap-4.sm\:px-4.px-4.sm\:mt-4.w-full.xl\:max-w-7xl.max-w-full.flex-col.flex
+drive.google.com##.Wmhurf
+drive.google.com##.ml-Pr-kg
+drive.google.com##.oLzOxb
 duckduckgo.com###features
 duckduckgo.com##.center_andText__ejUnC.center_intrinsic__mk_Ab.center_root__Uf1xM.minimal-homepage_exploreFeatureScroller__TL5Vx.homepage-cta-section_scrollCta__HuSCL
 duckduckgo.com##.eRjZTOsvr6gqJe3E2Yc6
@@ -28,19 +33,27 @@ github.com##.hide-md.hide-sm.clearfix.mt-3.pt-3.color-border-muted.border-top
 github.com##.imruoV.Box-sc-g0xbh4-0
 github.com##.js-notice
 github.com##.react-directory-remove-file-icon > .hTqPVk.types__StyledButton-sc-ws60qy-0
+github.com##.text-medium.text-center.px-lg-8.px-md-5.px-4.fgColor-onEmphasis.lh-condensed.position-relative.d-block.global-banner
 github.com##div.BorderGrid-row:nth-of-type(3) > .BorderGrid-cell
 github.com##div.mt-2:nth-of-type(5)
 github.com##show-dialog-on-load
 hackmd.io##.sidenav-menu-link.cursor-pointer
 imgur.com##.Footer-wrapper
 imgur.com##.ab-modal-interactions.ab-html-message.ab-in-app-message
+itch.io##.anon_intro
+itch.io##.app_banner
 itsfoss.com##.gh-portal-close.radius.btn--brand.signup-link.btn
+jamboard.google.com##.jam-bar-banner
+learning.edx.org##.mb-4.card.small.upgrade-notification
 lichess.org##.site-title-nav__donate
+limetorrents.torrentbay.st##[href="https://gamestoday.org/"]
 m.youtube.com##.standalone-collection-badge a[href^="/hashtag/"]
 m.youtube.com##ytm-video-description-header-renderer button-view-model a[href^="/hashtag/"]
 m.youtube.com##ytm-video-description-music-section-renderer
 mail.google.com###gbwa > .gb_f > .gb_d
+mail.google.com##.aUx
 mail.google.com##.t6.gb_ne.gb_ke.gb_me
+mail.google.com##.zo
 mail.google.com##div.nH:nth-of-type(4)
 mail.proton.me##.button-promotion--yellow.button-promotion.items-center.flex.max-w-full.text-center.inline-block.button-pill.button-outline-weak.button-medium.button
 mail.proton.me##.empty\:hidden.items-center.flex-nowrap.flex.gap-1.ml-2.my-0.unstyled.topnav-list > div
@@ -48,6 +61,7 @@ mail.proton.me##.relative.bg-promotion.shrink-0.flex-nowrap.flex
 mail.proton.me##.relative.mb-4.mx-4.shadow-norm.border-weak.border.rounded-lg.flex-none.flex.group-hover-opacity-container.tip-box
 mail.proton.me##.shrink-0.apps-dropdown-button
 mail.proton.me##.topnav-listItem--noCollapse.topnav-listItem
+mail.proton.me##div:nth-of-type(2) > .flex.button-ghost-weak.button-medium.button-for-icon.button
 mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link-header-group.mb-0\.5.px-3.w-full.navigation-item:nth-of-type(1)
 mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link-header-group.mb-0\.5.px-3.w-full.navigation-item:nth-of-type(2)
 meet.jit.si###moderated-meetings
@@ -71,12 +85,17 @@ pixnet.net##.bookmark
 pixnet.net##.forward
 pixnet.net##.navbar
 pixnet.net##.tag-container-parent
+smallpdf.com##.cWFVfW.iekqw4-0
+www.canva.com##.TeK5GQ
+www.canva.com##div.NqU4Yg.TSBL8g:nth-of-type(3)
 www.chess.com###main-banner
 www.chess.com##.diamond-top.sprite.nav-link-top-level.trial.nav-link-main-design.nav-link-component
 www.chess.com##.ready-to-play-banner-desktop.ready-to-play-banner-content
 www.dcard.tw##.b2rlo5n.d_ft_1q.d_h_1q.d_a5_hyeg3x.d_y5_ifev7s.d_2l_1a.d_ei_1h2ngc6.d_6r_1s.d_o4_1s.d_g6_1s.d_nf_2y
 www.dcard.tw##.r1tuv6db.d_ei_1r.d_h_1q.d_a5_1p
 www.deviantart.com##._2Ee-T.v0vmd._3U8hI._3272G
+www.edx.org##.banner-display.position-relative.sitewide-banner
+www.edx.org##.xpert_chatbot
 www.facebook.com###mount_0_0_aI > div > div:nth-of-type(1) > .x1ja2u2z.x1n2onr6.x9f619 > div:nth-of-type(2)
 www.facebook.com##.x1u8a7rm.x17qophe.xixxii4.x1ye3gou.x1s14bel.xn6708d.x1xy6bms.xds687c.x9f619.xayqjjm.x1ey2m1c.x2bj2ny.x193iq5w.x2lah0s.xdt5ytf.x78zum5
 www.google.com###gbwa > .gb_f > .gb_d
@@ -91,11 +110,17 @@ www.instagram.com##.xdy9tzy > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2
 www.instagram.com##.xh8yej3.x1iyjqo2 > div > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6 > ._a6hd.x1a2a7pz.xggy1nq.x1hl2dhg.x16tdsg8.xkhd6sd.x18d9i69.x4uap5.xexx8yu.x1mh8g0r.xat24cr.x11i5rnm.xdj266r.xe8uvvx.xt0psk2.x1ypdohk.x9f619.xm0m39n.x1qhh985.xcfux6l.x972fbf.x17r0tee.x1sy0etr.xd10rxx.x1ejq31n.xjbqb8w.x1i10hfl > .x9jhf4c.x30kzoy.xgqcy7u.x1lq5wgf.x1wj20lx.x12ldp4w.x11hdxyr.xs3sg5q.x9k3k5o.x1dejxi8.xdoji71.xzauu7c.x1lhsz42.x10djquj.x172qv1o.xif99yt.x1dn74xm.x159b3zp.x80pfx3.x1ye3gou.xsag5q8.xn6708d.xz9dl7a.x12dmmrz.x7nr27j.x6pnmvc.xo237n4.xjpr12u.xr9ek0c.x3nfvp2.x9f619
 www.instagram.com##div:nth-of-type(7) > .x1n2onr6 > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6
 www.openstreetmap.org##.position-relative
+www.twitch.tv##.chat-input.kILIqT.Layout-sc-1xcs6mc-0 > .Layout-sc-1xcs6mc-0
 www.twitch.tv##.kBtJDm.InjectLayout-sc-1i43xsx-0 > .cegTsp.ljgEdo.ScCoreButtonSecondary-sc-ocjdkq-2.ScCoreButton-sc-ocjdkq-0
 www.twitch.tv##.prime-offers.cwtKyw.Layout-sc-1xcs6mc-0 > .hatIYF.Layout-sc-1xcs6mc-0 .kBtJDm.InjectLayout-sc-1i43xsx-0 .eSFFfM.ScButtonIcon-sc-9yap0r-0.ljgEdo.ScCoreButton-sc-ocjdkq-0
+www.twitch.tv##.smarter-sort-callout.eOZOED.Layout-sc-1xcs6mc-0
+www.twitch.tv##.tw-root--theme-light.eya-dcy.iarCNd.ScLayoutCssVars-sc-1pn65j5-0.Layout-sc-1xcs6mc-0
+www.twitch.tv##div.side-nav-section.dcyYPL.Layout-sc-1xcs6mc-0:nth-of-type(3)
+www.twitch.tv##div.side-nav-section.dcyYPL.Layout-sc-1xcs6mc-0:nth-of-type(4)
 www.youtube.com###copyright
 www.youtube.com###description #info a[href^="/hashtag/"]
 www.youtube.com###description .ytd-watch-metadata #items:has(.ytd-video-description-music-section-renderer)
+www.youtube.com###donation-shelf
 www.youtube.com###flexible-item-buttons > yt-button-view-model.ytd-menu-renderer.style-scope:nth-of-type(1)
 www.youtube.com###guide-links-primary
 www.youtube.com###guide-links-secondary

@@ -102,9 +102,6 @@ max_concurrency = 10
 # Additional git repositories to pull
 repos = [
 	"~/dotfiles",
-	"~/homework/crcproject",
-	# "~/dotfiles/nvim",
-	# "~/homework",
 ]
 
 # Don't pull the predefined git repos
