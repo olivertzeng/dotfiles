@@ -14,7 +14,6 @@ ohmyzsh/ohmyzsh path:plugins/gitfast
 ohmyzsh/ohmyzsh path:plugins/history
 ohmyzsh/ohmyzsh path:plugins/man
 ohmyzsh/ohmyzsh path:plugins/sudo
-olets/zsh-abbr
 zdharma-continuum/fast-syntax-highlighting kind:defer
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-history-substring-search

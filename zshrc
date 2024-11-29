@@ -49,7 +49,7 @@ export PIPENV_VERBOSITY=-1
 export RUNEWIDTH_EASTASIAN=0
 export SUDO_PROMPT=" 密碼勒？？？"
 
-# some more ls aliases
+# some more aliases
 alias -g -- --help-all='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
@@ -69,6 +69,7 @@ alias diff='batdiff'
 alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias gclr="git clean -xfd"
+alias kf='konsole --fullscreen'
 alias l='eza --icons'
 alias la='eza --icons -a'
 alias lg='lazygit'
@@ -87,6 +88,8 @@ alias v='nvim'
 alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 owofetch
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
