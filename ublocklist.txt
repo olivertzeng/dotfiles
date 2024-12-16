@@ -2,6 +2,9 @@
 ! Homepage: https://github.com/olivertzeng/dotfiles
 
 account.apple.com##.ribbon-content-wrapper
+apcs.guide##.dark\:text-yellow-100.dark\:bg-yellow-800.text-yellow-900.text-center.p-2.bg-yellow-200.border-origin-gray.border-b
+app.humanornot.ai##.pt-3.hon-wordtune-block.w100.mt-2
+artsandculture.google.com##.iMnvWc
 dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
 dm.reddit.com##.premium-banner
 dotfyle.com###subscribe
@@ -10,6 +13,7 @@ drive.google.com##.Wmhurf
 drive.google.com##.ml-Pr-kg
 drive.google.com##.oLzOxb
 duckduckgo.com###features
+duckduckgo.com##.TccjmKV6RraCaCw5L9gd
 duckduckgo.com##.center_andText__ejUnC.center_intrinsic__mk_Ab.center_root__Uf1xM.minimal-homepage_exploreFeatureScroller__TL5Vx.homepage-cta-section_scrollCta__HuSCL
 duckduckgo.com##.eRjZTOsvr6gqJe3E2Yc6
 duckduckgo.com##.feedback-prompt
@@ -19,6 +23,7 @@ duckduckgo.com##.is-showing.js-welcome-wrap.welcome-wrap
 duckduckgo.com##.js-header-aside.header--aside
 duckduckgo.com##.js-serp-bottom-right.serp__bottom-right
 duckduckgo.com##.minimal-homepage_taglineText__owJPH
+duckduckgo.com##.react-feedback-prompt-mvc-wrapper--images.react-feedback-prompt-mvc-wrapper
 duckduckgo.com##.spread-cta--has-top-margin.ia-module--spread-cta.module
 duckduckgo.com##.t-m.related-searches
 duckduckgo.com##.uNpNxLjmZNNGnlkDPAcl
@@ -40,6 +45,7 @@ github.com##show-dialog-on-load
 hackmd.io##.sidenav-menu-link.cursor-pointer
 imgur.com##.Footer-wrapper
 imgur.com##.ab-modal-interactions.ab-html-message.ab-in-app-message
+itch.io##.anon_intro
 itch.io##.anon_intro
 itch.io##.app_banner
 itsfoss.com##.gh-portal-close.radius.btn--brand.signup-link.btn
@@ -64,6 +70,7 @@ mail.proton.me##.topnav-listItem--noCollapse.topnav-listItem
 mail.proton.me##div:nth-of-type(2) > .flex.button-ghost-weak.button-medium.button-for-icon.button
 mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link-header-group.mb-0\.5.px-3.w-full.navigation-item:nth-of-type(1)
 mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link-header-group.mb-0\.5.px-3.w-full.navigation-item:nth-of-type(2)
+medium.com##.rq.rp.ro.m
 meet.jit.si###moderated-meetings
 meet.jit.si##.welcome-cards-container
 old.reddit.com##.footer-parent
@@ -85,15 +92,21 @@ pixnet.net##.bookmark
 pixnet.net##.forward
 pixnet.net##.navbar
 pixnet.net##.tag-container-parent
+pypi.org###sticky-notifications
+scratch.mit.edu##.donate-banner.title-banner
 smallpdf.com##.cWFVfW.iekqw4-0
 www.canva.com##.TeK5GQ
 www.canva.com##div.NqU4Yg.TSBL8g:nth-of-type(3)
 www.chess.com###main-banner
+www.chess.com###trial-modal
 www.chess.com##.diamond-top.sprite.nav-link-top-level.trial.nav-link-main-design.nav-link-component
 www.chess.com##.ready-to-play-banner-desktop.ready-to-play-banner-content
 www.dcard.tw##.b2rlo5n.d_ft_1q.d_h_1q.d_a5_hyeg3x.d_y5_ifev7s.d_2l_1a.d_ei_1h2ngc6.d_6r_1s.d_o4_1s.d_g6_1s.d_nf_2y
 www.dcard.tw##.r1tuv6db.d_ei_1r.d_h_1q.d_a5_1p
 www.deviantart.com##._2Ee-T.v0vmd._3U8hI._3272G
+www.deviantart.com##._2LoZw._2y4EE._3tNAR.vvI-A.reset-link
+www.deviantart.com##._3ZaF3.reset-link
+www.deviantart.com##._3iL0x._3NKNR._3I-fJ.M9NOL._1VEw1._1jkTN.reset-link
 www.edx.org##.banner-display.position-relative.sitewide-banner
 www.edx.org##.xpert_chatbot
 www.facebook.com###mount_0_0_aI > div > div:nth-of-type(1) > .x1ja2u2z.x1n2onr6.x9f619 > div:nth-of-type(2)
@@ -109,7 +122,12 @@ www.instagram.com##.x1nhvcw1.x1oa3qoh.x1qjc9v5.xqjyukv.xdt5ytf.x2lah0s.x1c4vz4f.
 www.instagram.com##.xdy9tzy > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6
 www.instagram.com##.xh8yej3.x1iyjqo2 > div > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6 > ._a6hd.x1a2a7pz.xggy1nq.x1hl2dhg.x16tdsg8.xkhd6sd.x18d9i69.x4uap5.xexx8yu.x1mh8g0r.xat24cr.x11i5rnm.xdj266r.xe8uvvx.xt0psk2.x1ypdohk.x9f619.xm0m39n.x1qhh985.xcfux6l.x972fbf.x17r0tee.x1sy0etr.xd10rxx.x1ejq31n.xjbqb8w.x1i10hfl > .x9jhf4c.x30kzoy.xgqcy7u.x1lq5wgf.x1wj20lx.x12ldp4w.x11hdxyr.xs3sg5q.x9k3k5o.x1dejxi8.xdoji71.xzauu7c.x1lhsz42.x10djquj.x172qv1o.xif99yt.x1dn74xm.x159b3zp.x80pfx3.x1ye3gou.xsag5q8.xn6708d.xz9dl7a.x12dmmrz.x7nr27j.x6pnmvc.xo237n4.xjpr12u.xr9ek0c.x3nfvp2.x9f619
 www.instagram.com##div:nth-of-type(7) > .x1n2onr6 > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6
+www.legis-pedia.com###policy-alert
+www.mediafire.com##.dl-box.ads > p
+www.mediafire.com##.lifetime-promo
 www.openstreetmap.org##.position-relative
+www.pttweb.cc##.snqrsgxfuojn
+www.python.org##.notification-bar--survey.notification-bar
 www.twitch.tv##.chat-input.kILIqT.Layout-sc-1xcs6mc-0 > .Layout-sc-1xcs6mc-0
 www.twitch.tv##.kBtJDm.InjectLayout-sc-1i43xsx-0 > .cegTsp.ljgEdo.ScCoreButtonSecondary-sc-ocjdkq-2.ScCoreButton-sc-ocjdkq-0
 www.twitch.tv##.prime-offers.cwtKyw.Layout-sc-1xcs6mc-0 > .hatIYF.Layout-sc-1xcs6mc-0 .kBtJDm.InjectLayout-sc-1i43xsx-0 .eSFFfM.ScButtonIcon-sc-9yap0r-0.ljgEdo.ScCoreButton-sc-ocjdkq-0
