@@ -73,8 +73,6 @@ notify_each_step = true
 "Lazy Plugins" = "nvim --headless '+Lazy! sync' +qa"
 "Mason LSPs" = "nvim +MasonUpdate +qa"
 "Treesitter Parsers" = "nvim +TSUpdateSync +qa"
-"Theme Switcher" = "~/theme.sh"
-
 
 [python]
 enable_pip_review = true                         ###disabled by default
