@@ -5,6 +5,7 @@ account.apple.com##.ribbon-content-wrapper
 apcs.guide##.dark\:text-yellow-100.dark\:bg-yellow-800.text-yellow-900.text-center.p-2.bg-yellow-200.border-origin-gray.border-b
 app.humanornot.ai##.pt-3.hon-wordtune-block.w100.mt-2
 artsandculture.google.com##.iMnvWc
+console.cloud.google.com###free-trial-banner
 dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
 dm.reddit.com##.premium-banner
 dotfyle.com###subscribe
@@ -33,6 +34,7 @@ duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(4)
 duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(5)
 en.wikipedia.org##.vector-sitenotice-container
 github.com###sponsor-profile-button
+github.com##.AppHeader-CopilotChat
 github.com##.d-md-block.d-none.mt-3.pt-3.color-border-muted.border-top > .mt-2
 github.com##.hide-md.hide-sm.clearfix.mt-3.pt-3.color-border-muted.border-top
 github.com##.imruoV.Box-sc-g0xbh4-0
@@ -125,6 +127,7 @@ www.instagram.com##div:nth-of-type(7) > .x1n2onr6 > .x1qrby5j.x7ja8zs.x1t2pt76.x
 www.legis-pedia.com###policy-alert
 www.mediafire.com##.dl-box.ads > p
 www.mediafire.com##.lifetime-promo
+www.mediafire.com##.nopop.dl-promo-cont
 www.openstreetmap.org##.position-relative
 www.pttweb.cc##.snqrsgxfuojn
 www.python.org##.notification-bar--survey.notification-bar

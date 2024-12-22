@@ -10,7 +10,7 @@ mkfs.btrfs -f /dev/nvme0n1p3
 swapon /dev/nvme0n1p2
 mount /dev/nvme0n1p3 /mnt
 mount --mkdir /dev/nvme0n1p1 /mnt/boot/efi
-reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist
+reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 -p rsync --save /etc/pacman.d/mirrorlist
 cp ~/dotfiles/pacman.conf /etc
 pacstrap -K /mnt $(cat packages/pkglist.txt | xargs)
 genfstab -U /mnt >>/mnt/etc/fstab
