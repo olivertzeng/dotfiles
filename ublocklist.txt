@@ -35,7 +35,9 @@ duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(5)
 en.wikipedia.org##.vector-sitenotice-container
 github.com###sponsor-profile-button
 github.com##.AppHeader-CopilotChat
+github.com##.copilotPreview__container
 github.com##.d-md-block.d-none.mt-3.pt-3.color-border-muted.border-top > .mt-2
+github.com##.hTYflC.Box-sc-g0xbh4-0
 github.com##.hide-md.hide-sm.clearfix.mt-3.pt-3.color-border-muted.border-top
 github.com##.imruoV.Box-sc-g0xbh4-0
 github.com##.js-notice
@@ -55,6 +57,7 @@ jamboard.google.com##.jam-bar-banner
 learning.edx.org##.mb-4.card.small.upgrade-notification
 lichess.org##.site-title-nav__donate
 limetorrents.torrentbay.st##[href="https://gamestoday.org/"]
+localhost##div.container:nth-of-type(3)
 m.youtube.com##.standalone-collection-badge a[href^="/hashtag/"]
 m.youtube.com##ytm-video-description-header-renderer button-view-model a[href^="/hashtag/"]
 m.youtube.com##ytm-video-description-music-section-renderer
