@@ -6,6 +6,7 @@ apcs.guide##.dark\:text-yellow-100.dark\:bg-yellow-800.text-yellow-900.text-cent
 app.humanornot.ai##.pt-3.hon-wordtune-block.w100.mt-2
 artsandculture.google.com##.iMnvWc
 console.cloud.google.com###free-trial-banner
+ddlc.moe##.plus-banner
 dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
 dm.reddit.com##.premium-banner
 dotfyle.com###subscribe
@@ -100,6 +101,7 @@ pixnet.net##.tag-container-parent
 pypi.org###sticky-notifications
 scratch.mit.edu##.donate-banner.title-banner
 smallpdf.com##.cWFVfW.iekqw4-0
+teamsalvato.itch.io##.active_site_promotion_btn.browse_sales_btn.header_button
 www.canva.com##.TeK5GQ
 www.canva.com##div.NqU4Yg.TSBL8g:nth-of-type(3)
 www.chess.com###main-banner
@@ -132,12 +134,16 @@ www.mediafire.com##.dl-box.ads > p
 www.mediafire.com##.lifetime-promo
 www.mediafire.com##.nopop.dl-promo-cont
 www.openstreetmap.org##.position-relative
+www.pixiv.net##.cugra.sc-4nj1pr-4
+www.pixiv.net##.fvDibl.sc-74lrq-0
+www.pixiv.net##.hRjbtI.sc-1m3vwgt-0
 www.pttweb.cc##.snqrsgxfuojn
 www.python.org##.notification-bar--survey.notification-bar
 www.twitch.tv##.chat-input.kILIqT.Layout-sc-1xcs6mc-0 > .Layout-sc-1xcs6mc-0
 www.twitch.tv##.kBtJDm.InjectLayout-sc-1i43xsx-0 > .cegTsp.ljgEdo.ScCoreButtonSecondary-sc-ocjdkq-2.ScCoreButton-sc-ocjdkq-0
 www.twitch.tv##.prime-offers.cwtKyw.Layout-sc-1xcs6mc-0 > .hatIYF.Layout-sc-1xcs6mc-0 .kBtJDm.InjectLayout-sc-1i43xsx-0 .eSFFfM.ScButtonIcon-sc-9yap0r-0.ljgEdo.ScCoreButton-sc-ocjdkq-0
 www.twitch.tv##.smarter-sort-callout.eOZOED.Layout-sc-1xcs6mc-0
+www.twitch.tv##.tw-root--theme-light.eya-dcy.fYOaHn.ScLayoutCssVars-sc-1pn65j5-0.Layout-sc-1xcs6mc-0
 www.twitch.tv##.tw-root--theme-light.eya-dcy.iarCNd.ScLayoutCssVars-sc-1pn65j5-0.Layout-sc-1xcs6mc-0
 www.twitch.tv##div.side-nav-section.dcyYPL.Layout-sc-1xcs6mc-0:nth-of-type(3)
 www.twitch.tv##div.side-nav-section.dcyYPL.Layout-sc-1xcs6mc-0:nth-of-type(4)
