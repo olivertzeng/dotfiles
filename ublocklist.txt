@@ -79,6 +79,9 @@ mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link
 medium.com##.rq.rp.ro.m
 meet.jit.si###moderated-meetings
 meet.jit.si##.welcome-cards-container
+mzh.moegirl.org.cn##.n-message-container--top.n-message-container
+mzh.moegirl.org.cn##.n-notification-container--top-right.n-notification-container--scrollable.n-notification-container
+mzh.moegirl.org.cn##.toolbar-inner-container
 old.reddit.com##.footer-parent
 old.reddit.com##.giftgold
 old.reddit.com##.premium-banner
@@ -102,6 +105,7 @@ pypi.org###sticky-notifications
 scratch.mit.edu##.donate-banner.title-banner
 smallpdf.com##.cWFVfW.iekqw4-0
 teamsalvato.itch.io##.active_site_promotion_btn.browse_sales_btn.header_button
+thestanleyparable.fandom.com##.notifications-placeholder
 www.canva.com##.TeK5GQ
 www.canva.com##div.NqU4Yg.TSBL8g:nth-of-type(3)
 www.chess.com###main-banner
@@ -110,6 +114,7 @@ www.chess.com##.diamond-top.sprite.nav-link-top-level.trial.nav-link-main-design
 www.chess.com##.ready-to-play-banner-desktop.ready-to-play-banner-content
 www.dcard.tw##.b2rlo5n.d_ft_1q.d_h_1q.d_a5_hyeg3x.d_y5_ifev7s.d_2l_1a.d_ei_1h2ngc6.d_6r_1s.d_o4_1s.d_g6_1s.d_nf_2y
 www.dcard.tw##.r1tuv6db.d_ei_1r.d_h_1q.d_a5_1p
+www.deviantart.com##._2D30j._37cCW._16RrG._1jkTN.reset-link
 www.deviantart.com##._2Ee-T.v0vmd._3U8hI._3272G
 www.deviantart.com##._2LoZw._2y4EE._3tNAR.vvI-A.reset-link
 www.deviantart.com##._3ZaF3.reset-link
@@ -186,7 +191,9 @@ x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6
 x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(7)
 x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(8)
 x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(9)
+x.com##div.r-cpa5s6.r-14tvyh0.css-175oi2r:nth-of-type(3)
 youtube.com##.ytp-button.branding-img-container
+youtube.com##.ytp-pause-overlay
 youtube.com##.ytp-quality-menu .ytp-premium-label:upward(.ytp-menuitem)
 zh.wikipedia.org##.vector-sitenotice-container
 ||youtube.com/youtubei/v1/updated_metadata
