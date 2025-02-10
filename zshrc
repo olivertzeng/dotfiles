@@ -98,7 +98,7 @@ setopt interactive_comments
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-export PATH="$PATH:/home/olivertzeng/.local/bin"
+export PATH="$PATH:/home/olivertzeng/.local/bin:/usr/lib/qt6/bin/"
 export EDITOR=nvim
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
