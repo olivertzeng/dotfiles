@@ -1,23 +1,19 @@
 /**
  * @name Oliver Tzeng's Custom CSS
  * @author Oliver Tzeng
- * @description Bruh
+ * @description My custom css theme
  * @source https://github.com/olivertzeng/dotfiles
  * @invite BShu37e4jg
- * @website https://maendisease.github.io/
- * @authorId 678469587444170762
- * @BDEditor Solana
-*/
+ * @website https://github.com/olivertzeng/dotfiles
+ */
 
-@import url('https://maendisease.github.io/Solana/Solana.css');
-@import url('https://maendisease.github.io/BetterDiscordStuff/css/bdAddonMini.css');
-@import url('https://mwittrien.github.io/BetterDiscordAddons/Themes/EmojiReplace/base/Apple.css');
+@import url("https://lazuee.github.io/css-snippets/discord/sidebar-notice/import.css");
 
-[class^=avatarWrapper_] [class^=nameTag_] [class^=hovered_]::before {
+[class^="avatarWrapper_"] [class^="nameTag_"] [class^="hovered_"]::before {
     content: "@";
 }
 
-[class^=hoverRoll]>[class^=default] {
+[class^="hoverRoll"]>[class^="default"] {
     margin-top: 15px;
 }
 
@@ -44,11 +40,11 @@
     filter: drop-shadow(0 1px 1px var(--bg-backdrop));
 }
 
-[class^=botTagCompact],
+[class^="botTagCompact"],
 /* reorder tegs in replies */
-[class^=repliedTextPreview],
+[class^="repliedTextPreview"],
 /* reorder message in replies */
-[class^=repliedTextContentTrailingIcon]
+[class^="repliedTextContentTrailingIcon"]
 
 /* reorder icon that can come after the message in replies */
     {
@@ -58,7 +54,8 @@
 
 /* Change the first path definition of the volume icon SVG to be the moving part of my new animated SVG */
 .containerDefault_f6f816:has([class*="voiceUser_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M15.16"] {
-    d: path("M15.1 20.75c-.58.14-1.1-.33-1.1-.92v-.03c0-.5.37-.92.85-1.05a7 7 0 0 0 0-13.5A1.11 1.11 0 0 1 14 4.2v-.03c0-.6.52-1.06 1.1-.92a9 9 0 0 1 0 17.5Z");
+    d: path("M15.1 20.75c-.58.14-1.1-.33-1.1-.92v-.03c0-.5.37-.92.85-1.05a7 7 0 0 0 0-13.5A1.11 1.11 0 0 1 14 4.2v-.03c0-.6.52-1.06 1.1-.92a9 9 0 0 1 0 17.5Z"
+        );
     animation-name: volume-icon-anim;
     animation-duration: 1.25s;
     animation-iteration-count: infinite;
@@ -66,7 +63,8 @@
 
 /* Change the second path definition of the volume icon SVG to be the static part of my new animated SVG */
 .containerDefault_f6f816:has([class*="voiceUser_"]) .iconContainer_d8bfb3 svg.icon_d8bfb3 path[d^="M12"] {
-    d: path("M12 3a1 1 0 0 0-1-1h-.06a1 1 0 0 0-.74.32L5.92 7H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.92l4.28 4.68a1 1 0 0 0 .74.32H11a1 1 0 0 0 1-1V3ZM15.16 16.51c-.57.28-1.16-.2-1.16-.83v-.14c0-.43.28-.8.63-1.02a3 3 0 0 0 0-5.04c-.35-.23-.63-.6-.63-1.02v-.14c0-.63.59-1.1 1.16-.83a5 5 0 0 1 0 9.02Z");
+    d: path("M12 3a1 1 0 0 0-1-1h-.06a1 1 0 0 0-.74.32L5.92 7H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2.92l4.28 4.68a1 1 0 0 0 .74.32H11a1 1 0 0 0 1-1V3ZM15.16 16.51c-.57.28-1.16-.2-1.16-.83v-.14c0-.43.28-.8.63-1.02a3 3 0 0 0 0-5.04c-.35-.23-.63-.6-.63-1.02v-.14c0-.63.59-1.1 1.16-.83a5 5 0 0 1 0 9.02Z"
+        );
 }
 
 /* change color of animation to match Discord's "Live" icon when someone is live-streaming */
@@ -126,53 +124,53 @@
 }
 
 /* Initial state of the element */
-[class*=channelTextAreaDisabled] {
+[class*="channelTextAreaDisabled"] {
     position: relative;
     transition: transform 0.5s, opacity 0.5s;
 }
 
 /* Hover state to trigger the shake animation */
-[class*=channelTextAreaDisabled]:hover {
+[class*="channelTextAreaDisabled"]:hover {
     animation: shake 0.5s ease-in-out;
 }
 
 /* ShowHiddenThings / Mod View / Remove actions like Kick, Ban, and Timeout if disabled due to insufficient permissions. */
-[class^=guildSidebar_] [class^=bottomRow_]:has([class*=bottomRowActionDisabled_]) [class*=bottomRowActionDisabled_] {
+[class^="guildSidebar_"] [class^="bottomRow_"]:has([class*="bottomRowActionDisabled_"]) [class*="bottomRowActionDisabled_"] {
     display: none;
 }
 
-@import url("https://lazuee.github.io/css-snippets/discord/sidebar-notice/import.css");
-
 /* Reactions Hover */
-[class^=reaction_]:not(:has([class^=burstGlow_])) .emoji {
+[class^="reaction_"]:not(:has([class^="burstGlow_"])) .emoji {
     transition: transform 0.5s ease;
 }
 
-[class^=reaction_]:not(:has([class^=burstGlow_])):hover .emoji {
+[class^="reaction_"]:not(:has([class^="burstGlow_"])):hover .emoji {
     transform: translateY(-10px) scale(1.5);
 }
 
 /*moves vc hang status to the left*/
-[class*=iconGroup]:has([class*=hangStatusIcon], [d*='M13 3a1'], [class*=gameIcon]) {
+[class*="iconGroup"]:has([class*="hangStatusIcon"],
+    [d*="M13 3a1"],
+    [class*="gameIcon"]) {
     display: flex;
     position: absolute;
     right: 101%;
 }
 
-[data-list-id="guildsnav"]>[class^=scroller_]>[aria-label],
-[id^=folder-items-] {
+[data-list-id="guildsnav"]>[class^="scroller_"]>[aria-label],
+[id^="folder-items-"] {
     display: flex;
     flex-direction: column;
 }
 
-[data-list-id="guildsnav"]>[class^=scroller_]>[aria-label] :is([class^=listItem_], [class^=wrapper_]):has([class^=numberBadge_]) {
-    order: -1
+[data-list-id="guildsnav"]>[class^="scroller_"]>[aria-label]:is([class^="listItem_"], [class^="wrapper_"]):has([class^="numberBadge_"]) {
+    order: -1;
 }
 
-[class*=username_][style],
+[class*="username_"][style],
 .mention[style],
-[class*=membersGroup_] [style] {
-    filter: contrast(.2) brightness(1.2) saturate(500%);
+[class*="membersGroup_"] [style] {
+    filter: contrast(0.2) brightness(1.2) saturate(500%);
 }
 
 .botTag__11e95:not([class*="botTagOP"]) {
@@ -197,7 +195,7 @@
     mask-size: 24px;
 }
 
-@import url('https://raw.githubusercontent.com/Vortex-Chaos/Discord-Connections-Glow/main/Code.css');
+@import url("https://raw.githubusercontent.com/Vortex-Chaos/Discord-Connections-Glow/main/Code.css");
 
 .profileBadges__7a7cb.profileBadges__7a7cb {
     flex: none;
@@ -235,7 +233,6 @@
 }
 
 .separator__8424b .innerButton_debeee {
-
     margin: 0;
 }
 
@@ -256,7 +253,7 @@
     /* if you dont want rounded corners change 4px to 0 */
 }
 
-[class^=connectedAccountContainer] {
+[class^="connectedAccountContainer"] {
     border: none;
     background: var(--color);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5) inset;
@@ -265,104 +262,106 @@
     padding-bottom: 15px;
 
     &:has([aria-label="Spotify"]) {
-        --color: var(--spotify)
+        --color: var(--spotify);
     }
 
     &:has([aria-label="Twitch"]) {
-        --color: var(--twitch)
+        --color: var(--twitch);
     }
 
     &:has([aria-label="YouTube"]) {
-        --color: var(--youtube)
+        --color: var(--youtube);
     }
 
     &:has([aria-label="Reddit"]) {
-        --color: var(--reddit)
+        --color: var(--reddit);
     }
 
     &:has([aria-label="PayPal"]) {
-        --color: var(--paypall)
+        --color: var(--paypall);
     }
 
     &:has([aria-label="TikTok"]) {
-        --color: var(--tiktok)
+        --color: var(--tiktok);
     }
 
     &:has([aria-label="Steam"]) {
-        --color: var(--steam)
+        --color: var(--steam);
     }
 
     &:has([aria-label="Crunchyroll"]) {
-        --color: var(--cruchyroll)
+        --color: var(--cruchyroll);
     }
 
     &:has([aria-label="eBay"]) {
-        --color: var(--ebay)
+        --color: var(--ebay);
     }
 
     &:has([aria-label="Xbox"]) {
-        --color: var(--xbox)
+        --color: var(--xbox);
     }
 
     &:has([aria-label="Battle.net"]) {
-        --color: var(--battlenet)
+        --color: var(--battlenet);
     }
 
     &:has([aria-label="PlayStation Network"]) {
-        --color: var(--playstation)
+        --color: var(--playstation);
     }
 
     &:has([aria-label="Epic Games"]) {
-        --color: var(--epic-games)
+        --color: var(--epic-games);
     }
 
     &:has([aria-label="GitHub"]) {
-        --color: var(--github)
+        --color: var(--github);
     }
 
     &:has([aria-label="X"]) {
-        --color: var(--twitter)
+        --color: var(--twitter);
     }
 
     &:has([aria-label="League of Legends"]) {
-        --color: var(--lol)
+        --color: var(--lol);
     }
 
     &:has([aria-label="Twitter"]) {
-        --color: var(--twitter)
+        --color: var(--twitter);
     }
 
     &:has([aria-label="Instagram"]) {
-        --color: var(--instagram)
+        --color: var(--instagram);
     }
 
     &:has([aria-label="Riot Games"]) {
-        --color: var(--riot-games)
+        --color: var(--riot-games);
     }
 
     &:has([aria-label="Skype"]) {
-        --color: var(--skype)
+        --color: var(--skype);
     }
 
     &:has([aria-label="Facebook"]) {
-        --color: var(--facebook)
+        --color: var(--facebook);
     }
 
     /* turn the verified check black */
-    [class^=flowerStar_] path {
+    [class^="flowerStar_"] path {
         fill: rgb(0 0 0 / 1);
     }
 }
 
-[class^=connectedAccountOpenIcon],
-[class^=connectedAccountNameText],
-[class^=connectedAccountIcon] {
+[class^="connectedAccountOpenIcon"],
+[class^="connectedAccountNameText"],
+[class^="connectedAccountIcon"] {
     filter: drop-shadow(3px 2px 1px rgb(25 41 35 / 0.5));
     color: white !important;
 }
 
-[aria-label="User Settings"] [class^=info]> :first-child::before {
+[aria-label="User Settings"] [class^="info"]> :first-child::before {
     /* adds theme info to the bottom of options screen, feel free to remove */
     all: inherit;
     content: var(--theme-name) " " var(--theme-version);
 }
+
+https: //youtube.com/watch?v=YRK

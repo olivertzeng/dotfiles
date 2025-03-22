@@ -32,7 +32,7 @@ yes | pacman -Scc
 passwd
 useradd -mG $(cat /etc/group | cut -d ':' -f1 | xargs | tr -s '[:blank:]' ',') -s $(which zsh) olivertzeng
 passwd olivertzeng
-EDITOR=nvim
+export EDITOR=nvim
 visudo
 chmod 777 r.sh
 su olivertzeng
