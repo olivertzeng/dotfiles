@@ -53,9 +53,11 @@ export SUDO_PROMPT=" 密碼勒？？？"
 alias -g -- --help-all='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias ....='cd ../../..'
+alias ...='cd ../..'
 alias addon="zip -r -FS extension.zip * --exclude '*.git*'"
 alias airplay="uxplay -p -fps 60 -s 2560x1600@60"
-alias bak='cp -r ~/.config/nvim ~/dotfiles/;cp ~/.clang-format ~/dotfiles/clang-format;cp ~/.config/pip/pip.conf ~/dotfiles;cp ~/.config/topgrade.toml ~/dotfiles;cp ~/.gitconfig ~/dotfiles/gitconfig;cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt;cp ~/.zshbookmarks ~/dotfiles/zshbookmarks;cp ~/.zshrc ~/dotfiles/zshrc;cp ~/light.sh ~/dotfiles; cp ~/dark.sh ~/dotfiles'
+alias bak='~/bak.sh'
 alias bat='bat --color=always'
 alias c='clear'
 alias cl='clear;eza --icons'
@@ -81,14 +83,13 @@ alias man='batman'
 alias n='cd ~/.config/nvim/lua'
 alias open='xdg-open'
 alias p='nvim ~/.config/nvim/lua/core/plugins.lua'
+alias refresh="sudo reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 -p rsync --save /etc/pacman.d/mirrorlist"
 alias t='topgrade -y --no-retry -c'
 alias th='sh ~/theme.sh'
 alias v='nvim'
 alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
-alias ...='cd ../..'
-alias ....='cd ../../..'
 owofetch
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
