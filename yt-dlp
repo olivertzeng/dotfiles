@@ -1,9 +1,10 @@
---audio-format opus
+--audio-format m4a
 --embed-chapters
 --embed-metadata
 --embed-thumbnail
 --parse-metadata "album:%(playlist_title)s"
 --parse-metadata "playlist_index:%(track_number)s"
+--progress
 --sponsorblock-mark all
 --sponsorblock-remove all,-filler
 --use-postprocessor ReplayGain:when=playlist
