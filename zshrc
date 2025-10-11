@@ -40,6 +40,7 @@ PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export ARCHFLAGS="-arch x86_64"
 export BAT_THEME="gruvbox-dark"
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
+export CCACHE_EXEC=/usr/bin/ccache
 export GOPATH="$HOME/go"
 export LANG=zh_TW.UTF-8
 export LC_CTYPE="zh_TW.UTF-8"
@@ -48,13 +49,12 @@ export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 export PIPENV_VERBOSITY=-1
 export RUNEWIDTH_EASTASIAN=0
 export SUDO_PROMPT=" 密碼勒？？？"
+export USE_CCACHE=1
 
 # some more aliases
 alias -g -- --help-all='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-alias ....='cd ../../..'
-alias ...='cd ../..'
 alias addon="zip -r -FS extension.zip * --exclude '*.git*'"
 alias airplay="uxplay -p -fps 60 -s 2560x1600@60"
 alias bak='~/bak.sh'
@@ -70,6 +70,7 @@ alias diff='batdiff'
 alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias gclr="git clean -xfd"
+alias grub-update='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias kf='konsole --fullscreen'
 alias l='eza --icons'
 alias la='eza --icons -a'
@@ -80,9 +81,12 @@ alias llt='eza --icons -lT'
 alias ls='eza --icons'
 alias lt='eza -T'
 alias man='batman'
+alias md='mkdir'
 alias n='cd ~/.config/nvim/lua'
 alias open='xdg-open'
 alias p='nvim ~/.config/nvim/lua/core/plugins.lua'
+alias pull-music=' adb pull /storage/emulated/0/Download/Music ~/'
+alias push-music='adb push ~/Music/* /storage/emulated/0/Download/Music;adb reboot'
 alias refresh="sudo reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist"
 alias t='topgrade -y --no-retry -c'
 alias th='sh ~/theme.sh'
@@ -90,6 +94,7 @@ alias v='nvim'
 alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
+
 owofetch
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
@@ -102,6 +107,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 export PATH="$PATH:/home/olivertzeng/.local/bin:/usr/lib/qt6/bin/"
 export EDITOR=nvim
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
