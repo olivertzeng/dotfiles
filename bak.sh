@@ -13,3 +13,4 @@ cp ~/bak.sh ~/dotfiles
 cp ~/dark.sh ~/dotfiles
 cp ~/light.sh ~/dotfiles
 cp ~/login.sh ~/dotfiles
+cp ~/shift.sh ~/dotfiles
