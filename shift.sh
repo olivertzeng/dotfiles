@@ -12,7 +12,7 @@ fi
 
 # Define directories and album names
 declare -A directories
-directories[1]="Music/Topgrade"
+directories[1]="Music/topgrade"
 directories[0]="Music/kyuKurarin"
 
 # Check if list is a valid option (0 or 1)
@@ -23,7 +23,7 @@ fi
 
 # Get the directory and album name based on the list option
 directory=${directories[$list]}
-album_name=$([ $list -eq 1 ] && echo "Topgrade" || echo "kyuKurarin")
+album_name=$([ $list -eq 1 ] && echo "topgrade" || echo "kyuKurarin")
 
 # Loop through m4a files in the specified directory
 for file in "$directory"/*.m4a; do
@@ -32,7 +32,7 @@ for file in "$directory"/*.m4a; do
 		continue
 	fi
 
-	track_number=$(ffprobe -v quiet -print_format json -show_streams "$file" | jq '.streams[0].tags.track' | tr -d '"')
+	track_number=$(ffprobe -v quiet -print_format json -show_entries format_tags=track -of default=noprint_wrappers=1:nokey=1 "$file")
 
 	# Check if track number is available
 	if [ -z "$track_number" ]; then
