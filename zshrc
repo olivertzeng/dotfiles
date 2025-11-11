@@ -88,12 +88,18 @@ alias p='nvim ~/.config/nvim/lua/core/plugins.lua'
 alias pull-music=' adb pull /storage/emulated/0/Download/Music ~/'
 alias push-music='adb push ~/Music/* /storage/emulated/0/Download/Music;adb reboot'
 alias refresh="sudo reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist"
+alias s='sh ~/shift.sh'
 alias t='topgrade -y --no-retry -c'
-alias th='sh ~/theme.sh'
 alias v='nvim'
 alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
+# AI prompts
+alias dan='cat ~/prompts/DANtw.md | wl-copy --trim-newline'
+alias dnekomutt='(cat ~/catgirl-zhtw-uncensored/prompts/dan.md; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoMuttDataset.md) | wl-copy --trim-newline'
+alias dnekosex='(cat ~/catgirl-zhtw-uncensored/prompts/dan.md; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoSexDataset.md) | wl-copy --trim-newline'
+alias nekomutt='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.md; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoMuttTW.md) | wl-copy --trim-newline'
+alias nekosex='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.md; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoSexTW.md) | wl-copy --trim-newline'
 
 owofetch
 HISTFILE=~/.zsh_history
