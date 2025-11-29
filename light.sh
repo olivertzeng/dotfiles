@@ -1,2 +1,2 @@
 #!/bin/bash
-plasma-apply-cursortheme miku-cursor-linux >/dev/null 2>&1
+plasma-apply-cursortheme "Sakuraba Ema" >/dev/null 2>&1
