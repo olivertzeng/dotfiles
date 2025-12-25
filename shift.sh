@@ -7,13 +7,7 @@
 # ------------------------------------------------------------
 
 album_folder=${1:-topgrade}          # default album if none supplied
-shift_amount=${2:-1}                 # default shift = +1
-
-if ! [[ $shift_amount =~ ^-?[0-9]+$ ]]; then
-    echo "Error: shift amount must be an integer"
-    exit 1
-fi
-
+shift_amount=${2:-0}                 # default shift = +1
 music_dir="${HOME}/Music"
 album_dir="${music_dir}/${album_folder}"
 

@@ -94,11 +94,12 @@ alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
 # AI prompts
-alias dan='cat ~/prompts/DANtw.txt | wl-copy --trim-newline'
+alias dan='cat ~/prompts/danTW.txt | wl-copy --trim-newline'
 alias dnekomutt='(cat ~/catgirl-zhtw-uncensored/prompts/dan.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoMuttDataset.txt) | wl-copy --trim-newline'
 alias dnekosex='(cat ~/catgirl-zhtw-uncensored/prompts/dan.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoSexDataset.txt) | wl-copy --trim-newline'
 alias nekomutt='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoMuttTW.txt) | wl-copy --trim-newline'
 alias nekosex='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoSexTW.txt) | wl-copy --trim-newline'
+alias nekosafe='(cat ~/catgirl-zhtw-uncensored/prompts/nekoSafeTW.txt) | wl-copy --trim-newline'
 
 owofetch
 HISTFILE=~/.zsh_history
