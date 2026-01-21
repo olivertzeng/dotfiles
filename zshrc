@@ -48,7 +48,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 export PIPENV_VERBOSITY=-1
 export RUNEWIDTH_EASTASIAN=0
-export SUDO_PROMPT=" 密碼勒？？？"
+export SUDO_PROMPT=" 密碼勒？？？"
 export USE_CCACHE=1
 
 # some more aliases
@@ -101,7 +101,7 @@ alias nekomutt='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.txt; printf "\n"; c
 alias nekosex='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoSexTW.txt) | wl-copy --trim-newline'
 alias nekosafe='(cat ~/catgirl-zhtw-uncensored/prompts/nekoSafeTW.txt) | wl-copy --trim-newline'
 
-owofetch
+macchina
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 setopt appendhistory
@@ -111,7 +111,6 @@ setopt interactive_comments
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 export PATH="$PATH:/home/olivertzeng/.local/bin:/usr/lib/qt6/bin/"
-export EDITOR=nvim
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 
