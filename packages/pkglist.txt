@@ -1,4 +1,5 @@
 amd-ucode
+aria2
 ark
 asciinema
 base
@@ -30,18 +31,13 @@ fwupd
 fwupd-efi
 fzf
 git
-github-cli
-glow
 gping
 grub-btrfs
-gum
 gwenview
 htop
-kate
 kde-cli-tools
 kde-gtk-config
 kdeconnect
-kdenlive
 kdeplasma-addons
 kdiskmark
 kimageformats
@@ -50,7 +46,6 @@ konsole
 kscreen
 ksystemstats
 kvantum
-kwalletmanager
 kweather
 libc++
 libreoffice-fresh
@@ -59,6 +54,7 @@ linux-firmware
 linux-firmware-qlogic
 linux-headers
 llvm
+macchina
 man-db
 mkinitcpio
 mkvtoolnix-cli
@@ -91,16 +87,14 @@ powerdevil
 python-pip
 reflector
 ripgrep
+sddm
 sddm-kcm
 sof-firmware
 spectacle
-ttf-victor-mono-nerd
 ufw
 unrar
 unzip
 usbutils
-vhs
-vi
 vim
 wayland
 wayland-protocols
@@ -108,5 +102,6 @@ wget
 wireplumber
 wl-clipboard
 xdg-desktop-portal-kde
+yt-dlp
 zip
 zsh
