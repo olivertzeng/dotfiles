@@ -7,13 +7,20 @@ app.humanornot.ai##.pt-3.hon-wordtune-block.w100.mt-2
 artsandculture.google.com##.iMnvWc
 console.cloud.google.com###free-trial-banner
 ddlc.moe##.plus-banner
+dictionary.cambridge.org###topNavBar
+dictionary.cambridge.org##.lmt-10.lt2s.hfr-s
 dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
+dictionary.cambridge.org##.pr0.pl0.pb0.py.pf
+discord.com##.images-dark.theme-darker.theme-dark.notice__29487
 dm.reddit.com##.premium-banner
 dotfyle.com###subscribe
 dotfyle.com##.mt-8.gap-4.sm\:px-4.px-4.sm\:mt-4.w-full.xl\:max-w-7xl.max-w-full.flex-col.flex
 drive.google.com##.Wmhurf
 drive.google.com##.ml-Pr-kg
 drive.google.com##.oLzOxb
+duck.ai##.RJhEAc80sTzdJYZxcRp5.e8hNVcv2hNmgdRTcd0UO
+duck.ai##.rlcjMbT1qQjSH0bBI5hp.ArutaZMJ4CwiTwLWNmjz > button.hF7w5TROgutbYQwHzEf_.vcOFkrrvuSYp7xsAur2Y.ffON2NH02oMAcqyoh2UU.VpffLqZz_i__nmNaesOA:nth-of-type(2)
+duck.ai##button.hF7w5TROgutbYQwHzEf_.vcOFkrrvuSYp7xsAur2Y.ffON2NH02oMAcqyoh2UU.cT119ltdV6p7kedmwhCB.ekCwkGuake0VTpY_jFSg.VpffLqZz_i__nmNaesOA:nth-of-type(2)
 duckduckgo.com###features
 duckduckgo.com##.TccjmKV6RraCaCw5L9gd
 duckduckgo.com##.center_andText__ejUnC.center_intrinsic__mk_Ab.center_root__Uf1xM.minimal-homepage_exploreFeatureScroller__TL5Vx.homepage-cta-section_scrollCta__HuSCL
@@ -36,6 +43,7 @@ duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(5)
 en.wikipedia.org##.vector-sitenotice-container
 github.com###sponsor-profile-button
 github.com##.AppHeader-CopilotChat
+github.com##.BlobViewHeader-module__Box_3--c1yoS > .prc-Button-IconButton-fyge7.prc-Button-ButtonBase-9n-Xk
 github.com##.copilotPreview__container
 github.com##.d-md-block.d-none.mt-3.pt-3.color-border-muted.border-top > .mt-2
 github.com##.hTYflC.Box-sc-g0xbh4-0
@@ -47,6 +55,7 @@ github.com##.text-medium.text-center.px-lg-8.px-md-5.px-4.fgColor-onEmphasis.lh-
 github.com##div.BorderGrid-row:nth-of-type(3) > .BorderGrid-cell
 github.com##div.mt-2:nth-of-type(5)
 github.com##show-dialog-on-load
+github.com##span > .prc-ButtonGroup-ButtonGroup-vFUrY
 hackmd.io##.sidenav-menu-link.cursor-pointer
 imgur.com##.Footer-wrapper
 imgur.com##.ab-modal-interactions.ab-html-message.ab-in-app-message
@@ -139,8 +148,11 @@ www.mediafire.com##.dl-box.ads > p
 www.mediafire.com##.lifetime-promo
 www.mediafire.com##.nopop.dl-promo-cont
 www.openstreetmap.org##.position-relative
+www.pixiv.net###__premium_banner
+www.pixiv.net##.-ml-8.flex
 www.pixiv.net##.cugra.sc-4nj1pr-4
 www.pixiv.net##.fvDibl.sc-74lrq-0
+www.pixiv.net##.h-full.rounded-16.bg-background2
 www.pixiv.net##.hRjbtI.sc-1m3vwgt-0
 www.pttweb.cc##.snqrsgxfuojn
 www.python.org##.notification-bar--survey.notification-bar

@@ -1,5 +1,4 @@
 Aloxaf/fzf-tab
-ChrisPenner/copy-pasta
 MichaelAquilina/zsh-auto-notify
 MikeDacre/cdbk
 SleepyBag/zsh-confer
@@ -8,6 +7,8 @@ hlissner/zsh-autopair
 johannchangpro/zsh-interactive-cd
 ohmyzsh/ohmyzsh path:plugins/archlinux
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+ohmyzsh/ohmyzsh path:plugins/docker
+ohmyzsh/ohmyzsh path:plugins/docker-compose
 ohmyzsh/ohmyzsh path:plugins/git
 ohmyzsh/ohmyzsh path:plugins/git-auto-fetch
 ohmyzsh/ohmyzsh path:plugins/gitfast

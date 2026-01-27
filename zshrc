@@ -5,6 +5,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+# History options
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt histreduceblanks
+# Other options
+setopt autocd
+setopt interactive_comments
 autoload -Uz compinit
 compinit
 # Set the name of the static .zsh plugins file antidote will generate.
@@ -50,6 +61,7 @@ export PIPENV_VERBOSITY=-1
 export RUNEWIDTH_EASTASIAN=0
 export SUDO_PROMPT=" 密碼勒？？？"
 export USE_CCACHE=1
+export EDITOR=nvim
 
 # some more aliases
 alias -g -- --help-all='-h 2>&1 | bat --language=help --style=plain'
@@ -102,11 +114,6 @@ alias nekosex='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.txt; printf "\n"; ca
 alias nekosafe='(cat ~/catgirl-zhtw-uncensored/prompts/nekoSafeTW.txt) | wl-copy --trim-newline'
 
 macchina
-HISTFILE=~/.zsh_history
-HISTSIZE=100000
-setopt appendhistory
-setopt autocd
-setopt interactive_comments
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 

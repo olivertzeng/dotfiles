@@ -740,7 +740,7 @@ GitLab倉庫	GitLab來源
 Git倉庫	Git來源
 HuggingFace 倉庫	HugginFace 來源
 HuggingFace倉庫	HugginFace來源
-git	倉庫 git 來源
+git 倉庫	git 來源
 github 倉庫	GitHub 來源
 github倉庫	GitHub來源
 gitlab 倉庫	GitLab 來源
@@ -973,7 +973,14 @@ jiojio	腳腳
 棒冰	冰棒
 表白	告白
 渠道	管道
-簡體中文	台灣繁體中文
-退出登入 登出
-zh_CN zh_TW
-zh-CN zh-TW
+退出登入	登出
+自適應	動態
+播放列表	播放清單
+剪貼版	剪貼簿
+
+簡體中文	繁體中文
+zh_CN	zh_TW
+zh-CN	zh-TW
+創建	建立
+支持	支援
+質量	品質

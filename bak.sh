@@ -14,3 +14,4 @@ cp ~/bak.sh ~/dotfiles
 cp ~/dark.sh ~/dotfiles
 cp ~/light.sh ~/dotfiles
 cp ~/shift.sh ~/dotfiles
+cp ~/.config/yay/config.json ~/dotfiles/yay.json

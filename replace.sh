@@ -55,7 +55,7 @@ fi
 # Process each input file
 for input_file in "${input_files[@]}"; do
 	output_file="${input_file%.*}TW.${input_file##*.}"
-	opencc -i "$input_file" -o "$output_file" -c s2twp
+	opencc -i "$input_file" -o "$output_file" -c s2tw
 
 	# Apply replacements
 	for ((i = 0; i < ${#map[@]}; i += 2)); do
