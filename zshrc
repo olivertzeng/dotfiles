@@ -98,6 +98,7 @@ alias open='xdg-open'
 alias p='nvim ~/.config/nvim/lua/core/plugins.lua'
 alias pull-music=' adb pull /storage/emulated/0/Download/Music ~/'
 alias push-music='adb push ~/Music/* /storage/emulated/0/Download/Music'
+alias r='sh ~/replace.sh'
 alias refresh="sudo reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist"
 alias s='sh ~/shift.sh'
 alias t='topgrade -y --no-retry -c'
@@ -105,13 +106,6 @@ alias v='nvim'
 alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
-# AI prompts
-alias dan='cat ~/prompts/danTW.txt | wl-copy --trim-newline'
-alias dnekomutt='(cat ~/catgirl-zhtw-uncensored/prompts/dan.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoMuttDataset.txt) | wl-copy --trim-newline'
-alias dnekosex='(cat ~/catgirl-zhtw-uncensored/prompts/dan.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoSexDataset.txt) | wl-copy --trim-newline'
-alias nekomutt='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoMuttTW.txt) | wl-copy --trim-newline'
-alias nekosex='(cat ~/catgirl-zhtw-uncensored/prompts/danTW.txt; printf "\n"; cat ~/catgirl-zhtw-uncensored/prompts/nekoSexTW.txt) | wl-copy --trim-newline'
-alias nekosafe='(cat ~/catgirl-zhtw-uncensored/prompts/nekoSafeTW.txt) | wl-copy --trim-newline'
 
 macchina
 
@@ -119,6 +113,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 export PATH="$PATH:/home/olivertzeng/.local/bin:/usr/lib/qt6/bin/"
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+source ~/.zshsecrets
 export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

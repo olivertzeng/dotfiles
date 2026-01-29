@@ -1,0 +1,9 @@
+zh-CN	zh-TW
+zh-cn	zh-tw
+zh_CN	zh_TW
+zh_cn	zh_tw
+創建	建立
+支持	支援
+簡體中文	繁體中文
+菜單	選單
+質量	品質
