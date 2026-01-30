@@ -18,6 +18,7 @@ dotfyle.com##.mt-8.gap-4.sm\:px-4.px-4.sm\:mt-4.w-full.xl\:max-w-7xl.max-w-full.
 drive.google.com##.Wmhurf
 drive.google.com##.ml-Pr-kg
 drive.google.com##.oLzOxb
+duck.ai##.ArutaZMJ4CwiTwLWNmjz > button.hF7w5TROgutbYQwHzEf_.vcOFkrrvuSYp7xsAur2Y.ffON2NH02oMAcqyoh2UU.VpffLqZz_i__nmNaesOA:nth-of-type(2)
 duck.ai##.RJhEAc80sTzdJYZxcRp5.e8hNVcv2hNmgdRTcd0UO
 duck.ai##.rlcjMbT1qQjSH0bBI5hp.ArutaZMJ4CwiTwLWNmjz > button.hF7w5TROgutbYQwHzEf_.vcOFkrrvuSYp7xsAur2Y.ffON2NH02oMAcqyoh2UU.VpffLqZz_i__nmNaesOA:nth-of-type(2)
 duck.ai##button.hF7w5TROgutbYQwHzEf_.vcOFkrrvuSYp7xsAur2Y.ffON2NH02oMAcqyoh2UU.cT119ltdV6p7kedmwhCB.ekCwkGuake0VTpY_jFSg.VpffLqZz_i__nmNaesOA:nth-of-type(2)
@@ -115,6 +116,8 @@ scratch.mit.edu##.donate-banner.title-banner
 smallpdf.com##.cWFVfW.iekqw4-0
 teamsalvato.itch.io##.active_site_promotion_btn.browse_sales_btn.header_button
 thestanleyparable.fandom.com##.notifications-placeholder
+uiverse.io##.min-h-\[300px\].border-dark-600\/80.border-2.rounded-lg.bg-dark-900
+uiverse.io##div.h-full.w-full
 www.canva.com##.TeK5GQ
 www.canva.com##div.NqU4Yg.TSBL8g:nth-of-type(3)
 www.chess.com###main-banner

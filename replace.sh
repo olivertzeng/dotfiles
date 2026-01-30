@@ -176,23 +176,35 @@ if [ ! -f "$MAP_FILE" ]; then
 	exit 1
 fi
 
-# Parse rules into array - TAB separated, preserve internal spaces
 load_rules() {
-	local file="$1"
-	local reverse="$2"
-	[ ! -f "$file" ] && return
-	while IFS=$'\t' read -r from to || [ -n "$from" ]; do
-		[ -z "$from" ] && continue
-		[[ "$from" =~ ^[[:space:]]*# ]] && continue
-		from="$(echo "$from" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-		to="$(echo "$to" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-		[ -z "$from" ] || [ -z "$to" ] && continue
-		if [ "$reverse" = true ]; then
-			map+=("$to" "$from")
-		else
-			map+=("$from" "$to")
-		fi
-	done <"$file"
+    local file="$1"
+    local reverse="$2"
+    [ ! -f "$file" ] && return
+
+    while IFS=$'\t' read -r from to flag || [ -n "$from" ]; do
+        # 1. skip empty lines
+        [ -z "$from" ] && continue
+
+        # Allow comments
+        [[ "$from" =~ ^[[:space:]]*# ]] && continue
+
+        # Trim spaces
+        from="$(echo "$from" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+        to="$(echo "$to" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+        flag="$(echo "$flag" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+
+        [ -z "$from" ] || [ -z "$to" ] && continue
+
+        # Process logic
+        if [ "$flag" == ">" ] && [ "$reverse" = true ]; then continue; fi
+        if [ "$flag" == "<" ] && [ "$reverse" != true ]; then continue; fi
+
+        if [ "$reverse" = true ]; then
+            map+=("$to" "$from")
+        else
+            map+=("$from" "$to")
+        fi
+    done < "$file"
 }
 
 # Load all rules (dict.txt first, then controversial.txt if enabled)
