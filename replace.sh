@@ -224,51 +224,33 @@ translate_string() {
 	local reverse="$2"
 	local result
 
+	# For string translation (filenames), we follow the same logic order
 	if [ "$reverse" = true ]; then
-		result=$(echo "$input" | opencc -c tw2s)
+		# TW -> CN: Dict replace first (while chars are trad), then OpenCC
+		result="$input"
+		# Since we can't easily run the sed map on a string variable without a loop or temp file,
+		# and filenames are short, we'll do a quick loop here using the currently loaded map.
+		# NOTE: map is global.
+		for ((i = 0; i < ${#map[@]}; i += 2)); do
+			src="${map[i]}"
+			dst="${map[i + 1]}"
+			# Simple string replace for filename parts
+			result="${result//$src/$dst}"
+		done
+		result=$(echo "$result" | opencc -c tw2s)
 	else
+		# CN -> TW: OpenCC first, then Dict replace
 		result=$(echo "$input" | opencc -c s2tw)
+		for ((i = 0; i < ${#map[@]}; i += 2)); do
+			src="${map[i]}"
+			dst="${map[i + 1]}"
+			result="${result//$src/$dst}"
+		done
 	fi
-
-	local temp_map=()
-	while IFS=$'\t' read -r from to || [ -n "$from" ]; do
-		[ -z "$from" ] && continue
-		[[ "$from" =~ ^[[:space:]]*# ]] && continue
-		from="$(echo "$from" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-		to="$(echo "$to" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-		[ -z "$from" ] || [ -z "$to" ] && continue
-		if [ "$reverse" = true ]; then
-			temp_map+=("$to" "$from")
-		else
-			temp_map+=("$from" "$to")
-		fi
-	done <"$MAP_FILE"
-
-	if [ -f "$CONTROVERSIAL_FILE" ]; then
-		while IFS=$'\t' read -r from to || [ -n "$from" ]; do
-			[ -z "$from" ] && continue
-			[[ "$from" =~ ^[[:space:]]*# ]] && continue
-			from="$(echo "$from" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-			to="$(echo "$to" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-			[ -z "$from" ] || [ -z "$to" ] && continue
-			if [ "$reverse" = true ]; then
-				temp_map+=("$to" "$from")
-			else
-				temp_map+=("$from" "$to")
-			fi
-		done <"$CONTROVERSIAL_FILE"
-	fi
-
-	for ((i = 0; i < ${#temp_map[@]}; i += 2)); do
-		src="$(escape_sed "${temp_map[i]}")"
-		dst="$(escape_sed "${temp_map[i + 1]}")"
-		result=$(echo "$result" | sed "s|$src|$dst|g")
-	done
 
 	echo "$result"
 }
 
-# Check if file should be skipped based on name patterns
 # Check if file should be skipped based on name patterns
 should_skip_file() {
 	local filename="$1"
@@ -301,6 +283,23 @@ should_skip_file() {
 		fi
 	fi
 
+	return 1
+}
+
+# Check if file has supported extension
+has_supported_extension() {
+	local filename="$1"
+	local ext="${filename##*.}"
+
+	if [ "$filename" = "$ext" ]; then
+		return 1
+	fi
+
+	for supported in "${SUPPORTED_EXTENSIONS[@]}"; do
+		if [ "$ext" = "$supported" ]; then
+			return 0
+		fi
+	done
 	return 1
 }
 
@@ -391,28 +390,12 @@ generate_output_filename() {
 	echo "$output_filename"
 }
 
-# Check if file has supported extension
-has_supported_extension() {
-	local filename="$1"
-	local ext="${filename##*.}"
-
-	if [ "$filename" = "$ext" ]; then
-		return 1
-	fi
-
-	for supported in "${SUPPORTED_EXTENSIONS[@]}"; do
-		if [ "$ext" = "$supported" ]; then
-			return 0
-		fi
-	done
-	return 1
-}
-
 # Check if counterpart file exists
 # Returns 0 if counterpart exists (should skip), 1 otherwise
 counterpart_exists() {
 	local input_file="$1"
 	local reverse="$2"
+
 	local output_file=$(generate_output_filename "$input_file" "$reverse")
 
 	if [ -f "$output_file" ]; then
@@ -600,6 +583,7 @@ process_png_to_json() {
 	fi
 
 	if [ "$mode" = "tw" ]; then
+		# Normal (CN->TW): OpenCC first (s2tw), then replace
 		local temp_file=$(mktemp)
 		opencc -i "$output_json" -o "$temp_file" -c s2tw
 		mv "$temp_file" "$output_json"
@@ -609,14 +593,16 @@ process_png_to_json() {
 		fi
 		apply_replacements "$output_json"
 	elif [ "$mode" = "cn" ]; then
-		local temp_file=$(mktemp)
-		opencc -i "$output_json" -o "$temp_file" -c tw2s
-		mv "$temp_file" "$output_json"
+		# Reverse (TW->CN): Replace first (while Trad), then OpenCC (tw2s)
 		load_all_rules true
 		if [ -f "$CONTROVERSIAL_FILE" ]; then
 			load_rules "$CONTROVERSIAL_FILE" true
 		fi
 		apply_replacements "$output_json"
+
+		local temp_file=$(mktemp)
+		opencc -i "$output_json" -o "$temp_file" -c tw2s
+		mv "$temp_file" "$output_json"
 	fi
 
 	echo "Wrote: $output_json"
@@ -674,25 +660,47 @@ process_file() {
 			return 1
 		fi
 
+		# ORDER MATTERS:
 		if [ "$REVERSE_MODE" = true ]; then
-			opencc -i "$temp_json" -o "$temp_converted_json" -c tw2s
-		else
-			opencc -i "$temp_json" -o "$temp_converted_json" -c s2tw
-		fi
+			# TW->CN: Dictionary Replacement (on Trad text) FIRST, then OpenCC tw2s
+			cp "$temp_json" "$temp_converted_json"
+			apply_replacements "$temp_converted_json"
 
-		apply_replacements "$temp_converted_json"
+			local temp_cc=$(mktemp)
+			opencc -i "$temp_converted_json" -o "$temp_cc" -c tw2s
+			mv "$temp_cc" "$temp_converted_json"
+		else
+			# CN->TW: OpenCC s2tw FIRST, then Dictionary Replacement
+			opencc -i "$temp_json" -o "$temp_converted_json" -c s2tw
+			apply_replacements "$temp_converted_json"
+		fi
 
 		python3 -c "$PNG_HANDLER" embed "$input_file" "$temp_converted_json" "$actual_output" 2>&1
 
 		rm -f "$temp_json" "$temp_converted_json"
 	else
+		# Text Files
+		# ORDER MATTERS:
 		if [ "$REVERSE_MODE" = true ]; then
-			opencc -i "$input_file" -o "$actual_output" -c tw2s
-		else
-			opencc -i "$input_file" -o "$actual_output" -c s2tw
-		fi
+			# TW->CN:
+			# 1. Copy input to dest
+			# 2. Apply dictionary replacements (Text is still Traditional, matching Dict keys)
+			# 3. Convert characters to Simplified
 
-		apply_replacements "$actual_output"
+			cp "$input_file" "$actual_output"
+			apply_replacements "$actual_output"
+
+			local temp_cc=$(mktemp)
+			opencc -i "$actual_output" -o "$temp_cc" -c tw2s
+			mv "$temp_cc" "$actual_output"
+		else
+			# CN->TW:
+			# 1. Convert characters to Traditional (so they match Dict keys)
+			# 2. Apply dictionary replacements
+
+			opencc -i "$input_file" -o "$actual_output" -c s2tw
+			apply_replacements "$actual_output"
+		fi
 	fi
 
 	# Move temp to final destination if overwriting self
