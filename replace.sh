@@ -17,59 +17,61 @@ REVERSE_MODE=false
 JSON_MODE="" # "", "o", "cn", "tw"
 INCLUDE_HIDDEN=false
 CUSTOM_OUTPUT=false
+DRY_RUN=false
+MAKE_BACKUP=false
 
 # Arrays for custom output
 declare -a OUTPUT_FILES
 
+# Statistics
+total_processed=0
+total_skipped=0
+total_failed=0
+declare -a failed_files
+
+# Colors
+if [ -t 1 ]; then
+	RED='\033[0;31m'
+	YELLOW='\033[1;33m'
+	GREEN='\033[0;32m'
+	BLUE='\033[0;34m'
+	CYAN='\033[0;36m'
+	NC='\033[0m'
+else
+	RED='' YELLOW='' GREEN='' BLUE='' CYAN='' NC=''
+fi
+
 # Usage
 usage() {
 	cat <<EOF
-Usage: $0 [-c] [-r] [-j [MODE]] [-h] [files...] [-o output_files...]
-
-Options:
-  -c          Enable controversial replacements (auto-enabled for PNG)
-  -r          Reverse mode: TW -> CN conversion
-  -j [MODE]   PNG to JSON extraction mode (default: o):
-              o, original  - Extract JSON without conversion
-              c, cn        - Extract and convert to Simplified Chinese
-              t, tw        - Extract and convert to Traditional Chinese
-  -h          Include hidden files (dotfiles) when auto-discovering files
-              (only works when no specific files are provided)
-  -o          Specify output filenames (must match number of input files)
-
-Auto-detection:
-  When no files are specified, the script:
-  - Converts Simplified -> Traditional (or reverse with -r)
-  - Skips if counterpart file already exists (e.g., both 依樱.png and 依櫻.png)
-
-Supported file types for auto-discovery:
-  .txt .json .jsonl .md .po .strings .png
-
-Examples:
-  $0                              # Auto-detect and convert files
-  $0 -h                           # Include hidden files
-  $0 file.json                    # Convert specific file
-  $0 *.json                       # Convert all JSON files
-  $0 -r                           # Reverse: convert TW to CN
-  $0 character.png                # Convert PNG character card
-  $0 -j character.png             # Extract original JSON from PNG
-  $0 a.png -o b.png               # Convert a.png, output as b.png
-  $0 a.png b.png -o c.png d.png   # a.png->c.png, b.png->d.png
+Usage: $0 [-c] [-r] [-j [MODE]] [-h] [-n] [-b] [-f] [files...] [-o output_files...]
 EOF
 	exit 0
 }
 
-# Parse options - handle -j with optional argument
-while getopts ":crj:hH" opt; do
+# Check dependencies
+check_dependencies() {
+	local missing=()
+	if ! command -v opencc >/dev/null 2>&1; then missing+=("opencc"); fi
+	if ! command -v python3 >/dev/null 2>&1; then missing+=("python3"); fi
+	if ! python3 -c "from PIL import Image" 2>/dev/null; then missing+=("python3-PIL/Pillow"); fi
+
+	if [ ${#missing[@]} -gt 0 ]; then
+		echo -e "${RED}Error: Missing required dependencies: ${missing[*]}${NC}" >&2
+		exit 1
+	fi
+}
+
+# Parse options
+FORCE_CONTINUE=false
+while getopts ":crj:hHnbf" opt; do
 	case $opt in
 	c) USE_CONTROVERSIAL=true ;;
 	r) REVERSE_MODE=true ;;
 	j)
 		if [ -z "$OPTARG" ] || [[ "$OPTARG" == -* ]]; then
 			JSON_MODE="o"
-			if [[ "$OPTARG" == -* ]]; then
-				((OPTIND--))
-			fi
+			if [[ "$OPTARG" == -* ]]; then ((OPTIND--)); fi
 		else
 			case "$OPTARG" in
 			o | original) JSON_MODE="o" ;;
@@ -83,131 +85,80 @@ while getopts ":crj:hH" opt; do
 		fi
 		;;
 	h | H) INCLUDE_HIDDEN=true ;;
+	n) DRY_RUN=true ;;
+	b) MAKE_BACKUP=true ;;
+	f) FORCE_CONTINUE=true ;;
 	:)
-		if [ "$OPTARG" = "j" ]; then
-			JSON_MODE="o"
-		else
-			echo "Error: Option -$OPTARG requires an argument" >&2
-			exit 1
-		fi
+		echo -e "${RED}Error: Option -$OPTARG requires an argument${NC}" >&2
+		exit 1
 		;;
 	\?)
-		# Could be -o, let it pass through
-		if [ "$OPTARG" != "o" ]; then
-			echo "Error: Invalid option -$OPTARG" >&2
-			usage
-		else
-			((OPTIND--))
-			break
-		fi
+		echo -e "${RED}Error: Invalid option -$OPTARG${NC}" >&2
+		exit 1
 		;;
 	esac
 done
 shift $((OPTIND - 1))
 
-# Show help if --help
-for arg in "$@"; do
-	if [ "$arg" = "--help" ]; then
-		usage
-	fi
-done
+# Check dependencies
+check_dependencies
 
-# Parse remaining arguments for -o flag
+# Parse -o arguments
 input_args=()
 output_args=()
 found_o=false
-
 for arg in "$@"; do
 	if [ "$arg" = "-o" ]; then
 		found_o=true
 		CUSTOM_OUTPUT=true
 		continue
 	fi
-
-	if [ "$found_o" = true ]; then
-		output_args+=("$arg")
-	else
-		input_args+=("$arg")
-	fi
+	if [ "$found_o" = true ]; then output_args+=("$arg"); else input_args+=("$arg"); fi
 done
 
-# Validate -o usage
+# Validate -o
 if [ "$CUSTOM_OUTPUT" = true ]; then
-	if [ ${#input_args[@]} -eq 0 ]; then
-		echo "Error: -o requires input files to be specified" >&2
-		echo "Usage: $0 input_file(s) -o output_file(s)" >&2
+	if [ ${#input_args[@]} -eq 0 ] || [ ${#output_args[@]} -eq 0 ] || [ ${#output_args[@]} -ne ${#input_args[@]} ]; then
+		echo -e "${RED}Error: Invalid -o usage. Count must match.${NC}" >&2
 		exit 1
 	fi
-
-	if [ ${#output_args[@]} -eq 0 ]; then
-		echo "Error: -o requires output filenames" >&2
-		echo "Usage: $0 input_file(s) -o output_file(s)" >&2
-		exit 1
-	fi
-
-	if [ ${#output_args[@]} -ne ${#input_args[@]} ]; then
-		echo "Error: number of output files (${#output_args[@]}) must match number of input files (${#input_args[@]})" >&2
-		echo "Hint: -o cannot be used with glob patterns unless counts match" >&2
-		exit 1
-	fi
-
-	# Check for conflicts: output file would overwrite a pending input file
-	for ((i = 0; i < ${#output_args[@]}; i++)); do
-		out="${output_args[i]}"
-		for ((j = i + 1; j < ${#input_args[@]}; j++)); do
-			in="${input_args[j]}"
-			# Resolve to absolute paths for comparison
-			out_real=$(realpath -m "$out" 2>/dev/null || echo "$out")
-			in_real=$(realpath -m "$in" 2>/dev/null || echo "$in")
-			if [ "$out_real" = "$in_real" ]; then
-				echo "Error: output file '$out' would overwrite pending input file '$in'" >&2
-				echo "Hint: reorder your files so '$in' is processed before it gets overwritten" >&2
-				exit 1
-			fi
-		done
-	done
-
 	OUTPUT_FILES=("${output_args[@]}")
 fi
 
-# Check required files
 if [ ! -f "$MAP_FILE" ]; then
-	echo "Error: dict.txt not found at $SCRIPT_DIR" >&2
+	echo -e "${RED}Error: dict.txt not found at $SCRIPT_DIR${NC}" >&2
 	exit 1
 fi
 
+# Parse rules
 load_rules() {
-    local file="$1"
-    local reverse="$2"
-    [ ! -f "$file" ] && return
+	local file="$1"
+	local reverse="$2"
+	[ ! -f "$file" ] && return
 
-    while IFS=$'\t' read -r from to flag || [ -n "$from" ]; do
-        # 1. skip empty lines
-        [ -z "$from" ] && continue
+	while IFS=$'\t' read -r from to marker || [ -n "$from" ]; do
+		[ -z "$from" ] && continue
+		[[ "$from" =~ ^[[:space:]]*# ]] && continue
 
-        # Allow comments
-        [[ "$from" =~ ^[[:space:]]*# ]] && continue
+		from="$(echo "$from" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+		to="$(echo "$to" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+		marker="$(echo "$marker" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
 
-        # Trim spaces
-        from="$(echo "$from" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-        to="$(echo "$to" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-        flag="$(echo "$flag" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+		[ -z "$from" ] || [ -z "$to" ] && continue
 
-        [ -z "$from" ] || [ -z "$to" ] && continue
+		# Logic for -> (Forward only) and <- (Reverse only)
+		if [ "$reverse" = true ] && [ "$marker" = "->" ]; then continue; fi
+		if [ "$reverse" = false ] && [ "$marker" = "<-" ]; then continue; fi
 
-        # Process logic
-        if [ "$flag" == ">" ] && [ "$reverse" = true ]; then continue; fi
-        if [ "$flag" == "<" ] && [ "$reverse" != true ]; then continue; fi
-
-        if [ "$reverse" = true ]; then
-            map+=("$to" "$from")
-        else
-            map+=("$from" "$to")
-        fi
-    done < "$file"
+		if [ "$reverse" = true ]; then
+			map+=("$to" "$from")
+		else
+			map+=("$from" "$to")
+		fi
+	done <"$file"
 }
 
-# Load all rules (dict.txt first, then controversial.txt if enabled)
+# Load rules wrapper
 load_all_rules() {
 	local reverse="$1"
 	map=()
@@ -220,306 +171,10 @@ load_all_rules() {
 # Initial load
 load_all_rules "$REVERSE_MODE"
 
-# Helper: escape for sed
-escape_sed() {
-	printf '%s' "$1" | sed -e 's/[\/&|]/\\&/g'
-}
+escape_sed() { printf '%s' "$1" | sed -e 's/[\/&|]/\\&/g'; }
+contains_chinese() { python3 -c "import sys; sys.exit(0 if any('\u4e00' <= c <= '\u9fff' for c in sys.argv[1]) else 1)" "$1" 2>/dev/null; }
 
-# Check if string contains Chinese characters
-contains_chinese() {
-	python3 -c "import sys; sys.exit(0 if any('\u4e00' <= c <= '\u9fff' for c in sys.argv[1]) else 1)" "$1" 2>/dev/null
-}
-
-# Translate a string using opencc and dictionary rules
-translate_string() {
-	local input="$1"
-	local reverse="$2"
-	local result
-
-	# For string translation (filenames), we follow the same logic order
-	if [ "$reverse" = true ]; then
-		# TW -> CN: Dict replace first (while chars are trad), then OpenCC
-		result="$input"
-		# Since we can't easily run the sed map on a string variable without a loop or temp file,
-		# and filenames are short, we'll do a quick loop here using the currently loaded map.
-		# NOTE: map is global.
-		for ((i = 0; i < ${#map[@]}; i += 2)); do
-			src="${map[i]}"
-			dst="${map[i + 1]}"
-			# Simple string replace for filename parts
-			result="${result//$src/$dst}"
-		done
-		result=$(echo "$result" | opencc -c tw2s)
-	else
-		# CN -> TW: OpenCC first, then Dict replace
-		result=$(echo "$input" | opencc -c s2tw)
-		for ((i = 0; i < ${#map[@]}; i += 2)); do
-			src="${map[i]}"
-			dst="${map[i + 1]}"
-			result="${result//$src/$dst}"
-		done
-	fi
-
-	echo "$result"
-}
-
-# Check if file should be skipped based on name patterns
-should_skip_file() {
-	local filename="$1"
-	local basename="${filename%.*}"
-
-	case "$filename" in
-	dict.txt | controversial.txt) return 0 ;;
-	"$SCRIPT_NAME") return 0 ;;
-	esac
-
-	# Skip files that look like output files (TW patterns) in normal mode
-	if [ "$REVERSE_MODE" = false ]; then
-		if [[ "$basename" =~ zh_TW$ ]] ||
-			[[ "$basename" =~ zh-TW$ ]] ||
-			[[ "$basename" =~ zh_tw$ ]] ||
-			[[ "$basename" =~ zh-tw$ ]] ||
-			[[ "$basename" =~ TW$ ]]; then
-			return 0
-		fi
-	fi
-
-	# Skip files that look like output files (CN patterns) in reverse mode
-	if [ "$REVERSE_MODE" = true ]; then
-		if [[ "$basename" =~ zh_CN$ ]] ||
-			[[ "$basename" =~ zh-CN$ ]] ||
-			[[ "$basename" =~ zh_cn$ ]] ||
-			[[ "$basename" =~ zh-cn$ ]] ||
-			[[ "$basename" =~ CN$ ]]; then
-			return 0
-		fi
-	fi
-
-	return 1
-}
-
-# Check if file has supported extension
-has_supported_extension() {
-	local filename="$1"
-	local ext="${filename##*.}"
-
-	if [ "$filename" = "$ext" ]; then
-		return 1
-	fi
-
-	for supported in "${SUPPORTED_EXTENSIONS[@]}"; do
-		if [ "$ext" = "$supported" ]; then
-			return 0
-		fi
-	done
-	return 1
-}
-
-# Generate output filename with translation
-generate_output_filename() {
-	local input_file="$1"
-	local reverse="$2"
-	local dir=$(dirname "$input_file")
-	local filename=$(basename "$input_file")
-	local ext="${filename##*.}"
-	local basename
-	local has_ext=true
-
-	if [ "$filename" = "$ext" ]; then
-		basename="$filename"
-		has_ext=false
-	else
-		basename="${filename%.*}"
-	fi
-
-	local new_basename
-	local output_filename
-
-	if [ "$reverse" = true ]; then
-		# TW -> CN conversion
-		if [[ "$basename" =~ ^(.*)zh_TW$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh_CN"
-		elif [[ "$basename" =~ ^(.*)zh-TW$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh-CN"
-		elif [[ "$basename" =~ ^(.*)zh_tw$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh_cn"
-		elif [[ "$basename" =~ ^(.*)zh-tw$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh-cn"
-		elif [[ "$basename" =~ ^(.*)zh$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh_CN"
-		elif [[ "$basename" =~ ^(.*)TW$ ]]; then
-			new_basename="${BASH_REMATCH[1]}CN"
-		elif contains_chinese "$basename"; then
-			local translated=$(translate_string "$basename" true)
-			if [ "$translated" != "$basename" ]; then
-				new_basename="$translated"
-			else
-				new_basename="${basename}CN"
-			fi
-		else
-			new_basename="${basename}CN"
-		fi
-	else
-		# CN -> TW conversion
-		if [[ "$basename" =~ ^(.*)zh_CN$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh_TW"
-		elif [[ "$basename" =~ ^(.*)zh-CN$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh-TW"
-		elif [[ "$basename" =~ ^(.*)zh_cn$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh_tw"
-		elif [[ "$basename" =~ ^(.*)zh-cn$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh-tw"
-		elif [[ "$basename" =~ ^(.*)zh$ ]]; then
-			new_basename="${BASH_REMATCH[1]}zh_TW"
-		elif [[ "$basename" =~ ^(.*)CN$ ]]; then
-			new_basename="${BASH_REMATCH[1]}TW"
-		elif contains_chinese "$basename"; then
-			local translated=$(translate_string "$basename" false)
-			if [ "$translated" != "$basename" ]; then
-				new_basename="$translated"
-			else
-				new_basename="${basename}TW"
-			fi
-		else
-			new_basename="${basename}TW"
-		fi
-	fi
-
-	if [ "$has_ext" = true ]; then
-		if [ "$dir" = "." ]; then
-			output_filename="${new_basename}.${ext}"
-		else
-			output_filename="${dir}/${new_basename}.${ext}"
-		fi
-	else
-		if [ "$dir" = "." ]; then
-			output_filename="${new_basename}"
-		else
-			output_filename="${dir}/${new_basename}"
-		fi
-	fi
-
-	echo "$output_filename"
-}
-
-# Check if counterpart file exists
-# Returns 0 if counterpart exists (should skip), 1 otherwise
-counterpart_exists() {
-	local input_file="$1"
-	local reverse="$2"
-
-	local output_file=$(generate_output_filename "$input_file" "$reverse")
-
-	if [ -f "$output_file" ]; then
-		return 0
-	fi
-
-	return 1
-}
-
-# Check if two paths refer to the same file
-same_file() {
-	local file1="$1"
-	local file2="$2"
-
-	local real1=$(realpath -m "$file1" 2>/dev/null || echo "$file1")
-	local real2=$(realpath -m "$file2" 2>/dev/null || echo "$file2")
-
-	[ "$real1" = "$real2" ]
-}
-
-# Create temp file with .json suffix (cross-platform)
-make_temp_json() {
-	local temp
-	if temp=$(mktemp --suffix=.json 2>/dev/null); then
-		echo "$temp"
-	else
-		temp=$(mktemp)
-		mv "$temp" "${temp}.json"
-		echo "${temp}.json"
-	fi
-}
-
-# Create temp file with same extension
-make_temp_with_ext() {
-	local ext="$1"
-	local temp
-	if temp=$(mktemp --suffix=".$ext" 2>/dev/null); then
-		echo "$temp"
-	else
-		temp=$(mktemp)
-		mv "$temp" "${temp}.${ext}"
-		echo "${temp}.${ext}"
-	fi
-}
-
-# Python script for PNG handling
-PNG_HANDLER=$(
-	cat <<'PYTHON_SCRIPT'
-import sys
-import json
-from PIL import Image
-import base64
-
-def read_png_metadata(image_path):
-    with Image.open(image_path) as img:
-        metadata = img.text
-        for key in metadata:
-            try:
-                decoded_data = base64.b64decode(metadata[key])
-                json_data = json.loads(decoded_data)
-                return key, json_data
-            except:
-                continue
-    return None, None
-
-def write_png_with_metadata(original_path, output_path, key, json_data):
-    from PIL import PngImagePlugin
-    with Image.open(original_path) as img:
-        meta = PngImagePlugin.PngInfo()
-        json_str = json.dumps(json_data, ensure_ascii=False)
-        encoded = base64.b64encode(json_str.encode('utf-8')).decode('ascii')
-        meta.add_text(key, encoded)
-        img.save(output_path, pnginfo=meta)
-
-if __name__ == "__main__":
-    action = sys.argv[1]
-    if action == "extract":
-        png_path = sys.argv[2]
-        json_path = sys.argv[3]
-        key, data = read_png_metadata(png_path)
-        if data:
-            with open(json_path, 'w', encoding='utf-8') as f:
-                json.dump({"_png_key": key, "data": data}, f, indent=4, ensure_ascii=False)
-            print(f"Extracted: {png_path} -> {json_path}", file=sys.stderr)
-        else:
-            print(f"No metadata found in {png_path}", file=sys.stderr)
-            sys.exit(1)
-    elif action == "extract_raw":
-        png_path = sys.argv[2]
-        json_path = sys.argv[3]
-        key, data = read_png_metadata(png_path)
-        if data:
-            with open(json_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=4, ensure_ascii=False)
-            print(f"Extracted: {png_path} -> {json_path}", file=sys.stderr)
-        else:
-            print(f"No metadata found in {png_path}", file=sys.stderr)
-            sys.exit(1)
-    elif action == "embed":
-        original_png = sys.argv[2]
-        json_path = sys.argv[3]
-        output_png = sys.argv[4]
-        with open(json_path, 'r', encoding='utf-8') as f:
-            wrapper = json.load(f)
-        key = wrapper.get("_png_key", "chara")
-        data = wrapper.get("data", wrapper)
-        write_png_with_metadata(original_png, output_png, key, data)
-        print(f"Embedded: {json_path} -> {output_png}", file=sys.stderr)
-PYTHON_SCRIPT
-)
-
-# Apply replacements to a file
+# Helper to apply replacements from memory
 apply_replacements() {
 	local file="$1"
 	for ((i = 0; i < ${#map[@]}; i += 2)); do
@@ -533,290 +188,344 @@ apply_replacements() {
 	done
 }
 
-# Warn if output file exists and handle overwrite
-# Returns: "self" if overwriting input, "other" if overwriting different file, "none" if new file
-check_overwrite() {
-	local input_file="$1"
-	local output_file="$2"
+# Translate string (for filenames) - Logic matched with process_file
+translate_string() {
+	local input="$1"
+	local reverse="$2"
+	local result="$input"
 
-	if same_file "$input_file" "$output_file"; then
-		echo "Warning: overwriting input file '$input_file'" >&2
+	# Load temp map just for this string (inefficient but safe)
+	local temp_map=()
+	local files=("$MAP_FILE")
+	if [ "$USE_CONTROVERSIAL" = true ]; then files+=("$CONTROVERSIAL_FILE"); fi
+
+	for f in "${files[@]}"; do
+		[ ! -f "$f" ] && continue
+		while IFS=$'\t' read -r from to marker || [ -n "$from" ]; do
+			[ -z "$from" ] && continue
+			[[ "$from" =~ ^[[:space:]]*# ]] && continue
+			from="$(echo "$from" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+			to="$(echo "$to" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+			marker="$(echo "$marker" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+			[ -z "$from" ] || [ -z "$to" ] && continue
+
+			if [ "$reverse" = true ] && [ "$marker" = "->" ]; then continue; fi
+			if [ "$reverse" = false ] && [ "$marker" = "<-" ]; then continue; fi
+
+			if [ "$reverse" = true ]; then temp_map+=("$to" "$from"); else temp_map+=("$from" "$to"); fi
+		done <"$f"
+	done
+
+	# EXECUTION ORDER FIX
+	if [ "$reverse" = true ]; then
+		# Reverse (TW->CN): Dict Replace -> OpenCC tw2s
+		for ((i = 0; i < ${#temp_map[@]}; i += 2)); do
+			src="${temp_map[i]}"
+			dst="${temp_map[i + 1]}"
+			result="${result//$src/$dst}"
+		done
+		result=$(echo "$result" | opencc -c tw2s)
+	else
+		# Normal (CN->TW): OpenCC s2tw -> Dict Replace
+		result=$(echo "$result" | opencc -c s2tw)
+		for ((i = 0; i < ${#temp_map[@]}; i += 2)); do
+			src="${temp_map[i]}"
+			dst="${temp_map[i + 1]}"
+			result="${result//$src/$dst}"
+		done
+	fi
+	echo "$result"
+}
+
+should_skip_file() {
+	local filename="$1"
+	local basename="${filename%.*}"
+	case "$filename" in dict.txt | controversial.txt | "$SCRIPT_NAME" | *.bak) return 0 ;; esac
+
+	if [ "$REVERSE_MODE" = false ]; then
+		if [[ "$basename" =~ zh_TW$ ]] || [[ "$basename" =~ zh-TW$ ]] || [[ "$basename" =~ TW$ ]]; then return 0; fi
+	else
+		if [[ "$basename" =~ zh_CN$ ]] || [[ "$basename" =~ zh-CN$ ]] || [[ "$basename" =~ CN$ ]]; then return 0; fi
+	fi
+	return 1
+}
+
+has_supported_extension() {
+	local filename="$1"
+	local ext="${filename##*.}"
+	[ "$filename" = "$ext" ] && return 1
+	for supported in "${SUPPORTED_EXTENSIONS[@]}"; do
+		if [ "$ext" = "$supported" ]; then return 0; fi
+	done
+	return 1
+}
+
+generate_output_filename() {
+	local input_file="$1"
+	local reverse="$2"
+	local dir=$(dirname "$input_file")
+	local filename=$(basename "$input_file")
+	local ext="${filename##*.}"
+	local basename="${filename%.*}"
+	local has_ext=true
+	if [ "$filename" = "$ext" ]; then
+		basename="$filename"
+		has_ext=false
+	fi
+
+	local new_basename
+
+	# Handle filename patterns
+	if [ "$reverse" = true ]; then
+		if [[ "$basename" =~ ^(.*)zh_TW$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh_CN"
+		elif [[ "$basename" =~ ^(.*)zh-TW$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh-CN"
+		elif [[ "$basename" =~ ^(.*)zh$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh_CN"
+		elif [[ "$basename" =~ ^(.*)TW$ ]]; then
+			new_basename="${BASH_REMATCH[1]}CN"
+		elif contains_chinese "$basename"; then
+			local translated=$(translate_string "$basename" true)
+			new_basename="$translated"
+			[ "$translated" == "$basename" ] && new_basename="${basename}CN"
+		else new_basename="${basename}CN"; fi
+	else
+		if [[ "$basename" =~ ^(.*)zh_CN$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh_TW"
+		elif [[ "$basename" =~ ^(.*)zh-CN$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh-TW"
+		elif [[ "$basename" =~ ^(.*)zh$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh_TW"
+		elif [[ "$basename" =~ ^(.*)CN$ ]]; then
+			new_basename="${BASH_REMATCH[1]}TW"
+		elif contains_chinese "$basename"; then
+			local translated=$(translate_string "$basename" false)
+			new_basename="$translated"
+			[ "$translated" == "$basename" ] && new_basename="${basename}TW"
+		else new_basename="${basename}TW"; fi
+	fi
+
+	if [ "$has_ext" = true ]; then
+		[ "$dir" = "." ] && echo "${new_basename}.${ext}" || echo "${dir}/${new_basename}.${ext}"
+	else
+		[ "$dir" = "." ] && echo "${new_basename}" || echo "${dir}/${new_basename}"
+	fi
+}
+
+counterpart_exists() {
+	local output_file=$(generate_output_filename "$1" "$2")
+	[ -f "$output_file" ]
+}
+
+check_overwrite() {
+	local input="$1"
+	local output="$2"
+	local real1=$(realpath -m "$input" 2>/dev/null || echo "$input")
+	local real2=$(realpath -m "$output" 2>/dev/null || echo "$output")
+
+	if [ "$real1" = "$real2" ]; then
+		echo -e "${YELLOW}Warning: overwriting input file '$input'${NC}" >&2
+		if [ "$MAKE_BACKUP" = true ]; then cp "$output" "${output}.bak"; fi
 		echo "self"
-	elif [ -f "$output_file" ]; then
-		echo "Warning: overwriting existing file '$output_file'" >&2
+	elif [ -f "$output" ]; then
+		echo -e "${YELLOW}Warning: overwriting existing file '$output'${NC}" >&2
+		if [ "$MAKE_BACKUP" = true ]; then cp "$output" "${output}.bak"; fi
 		echo "other"
 	else
 		echo "none"
 	fi
 }
 
-# Process PNG to JSON only
-process_png_to_json() {
-	local input_file="$1"
-	local mode="$2"
-	local custom_output="$3"
-	local dir=$(dirname "$input_file")
-	local filename=$(basename "$input_file")
-	local basename="${filename%.*}"
-	local output_json
-
-	if [ -n "$custom_output" ]; then
-		output_json="$custom_output"
+make_temp_with_ext() {
+	local ext="$1"
+	local temp
+	if temp=$(mktemp --suffix=".$ext" 2>/dev/null); then
+		echo "$temp"
 	else
-		case "$mode" in
-		o)
-			if [ "$dir" = "." ]; then
-				output_json="${basename}.json"
-			else
-				output_json="${dir}/${basename}.json"
-			fi
-			;;
-		cn)
-			local temp_input="${input_file%.png}.json"
-			temp_input="${temp_input%.PNG}.json"
-			output_json=$(generate_output_filename "$temp_input" true)
-			;;
-		tw)
-			local temp_input="${input_file%.png}.json"
-			temp_input="${temp_input%.PNG}.json"
-			output_json=$(generate_output_filename "$temp_input" false)
-			;;
-		esac
+		temp=$(mktemp)
+		mv "$temp" "${temp}.${ext}"
+		echo "${temp}.${ext}"
+	fi
+}
+
+PNG_HANDLER=$(
+	cat <<'PYTHON_SCRIPT'
+import sys, json, base64
+from PIL import Image, PngImagePlugin
+def read_png(path):
+    with Image.open(path) as img:
+        for k, v in img.text.items():
+            try: return k, json.loads(base64.b64decode(v))
+            except: continue
+    return None, None
+def write_png(orig, out, key, data):
+    with Image.open(orig) as img:
+        meta = PngImagePlugin.PngInfo()
+        meta.add_text(key, base64.b64encode(json.dumps(data, ensure_ascii=False).encode('utf-8')).decode('ascii'))
+        img.save(out, pnginfo=meta)
+if __name__ == "__main__":
+    act = sys.argv[1]
+    if act == "extract" or act == "extract_raw":
+        k, d = read_png(sys.argv[2])
+        if d:
+            with open(sys.argv[3], 'w', encoding='utf-8') as f:
+                json.dump({"_png_key": k, "data": d} if act == "extract" else d, f, indent=4, ensure_ascii=False)
+        else: sys.exit(1)
+    elif act == "embed":
+        with open(sys.argv[3], 'r', encoding='utf-8') as f: w = json.load(f)
+        write_png(sys.argv[2], sys.argv[4], w.get("_png_key", "chara"), w.get("data", w))
+PYTHON_SCRIPT
+)
+
+process_png_to_json() {
+	local input="$1"
+	local mode="$2"
+	local custom="$3"
+	local output
+
+	if [ -n "$custom" ]; then
+		output="$custom"
+	else
+		local base="${input%.*}"
+		if [ "$mode" = "o" ]; then
+			output="${base}.json"
+		elif [ "$mode" = "cn" ]; then
+			output=$(generate_output_filename "${base}.json" true)
+		elif [ "$mode" = "tw" ]; then output=$(generate_output_filename "${base}.json" false); fi
 	fi
 
-	# Check for overwrite (JSON output can't overwrite PNG input, but check other files)
-	if [ -f "$output_json" ]; then
-		echo "Warning: overwriting existing file '$output_json'" >&2
+	if [ "$DRY_RUN" = true ]; then
+		echo -e "${BLUE}[DRY]${NC} Extract: $input -> $output"
+		return 0
 	fi
+	if [ -f "$output" ] && [ "$MAKE_BACKUP" = true ]; then cp "$output" "${output}.bak"; fi
 
-	if ! python3 -c "$PNG_HANDLER" extract_raw "$input_file" "$output_json" 2>&1; then
-		echo "Error: Failed to extract metadata from $input_file" >&2
+	if ! python3 -c "$PNG_HANDLER" extract_raw "$input" "$output" 2>&1; then
+		echo -e "${RED}Error extracting $input${NC}" >&2
 		return 1
 	fi
 
+	# PNG JSON EXECUTION ORDER FIX
 	if [ "$mode" = "tw" ]; then
-		# Normal (CN->TW): OpenCC first (s2tw), then replace
-		local temp_file=$(mktemp)
-		opencc -i "$output_json" -o "$temp_file" -c s2tw
-		mv "$temp_file" "$output_json"
+		# Normal: OpenCC -> Dict
+		local tmp=$(mktemp)
+		opencc -i "$output" -o "$tmp" -c s2tw
+		mv "$tmp" "$output"
 		load_all_rules false
-		if [ -f "$CONTROVERSIAL_FILE" ]; then
-			load_rules "$CONTROVERSIAL_FILE" false
-		fi
-		apply_replacements "$output_json"
+		apply_replacements "$output"
 	elif [ "$mode" = "cn" ]; then
-		# Reverse (TW->CN): Replace first (while Trad), then OpenCC (tw2s)
+		# Reverse: Dict -> OpenCC
 		load_all_rules true
-		if [ -f "$CONTROVERSIAL_FILE" ]; then
-			load_rules "$CONTROVERSIAL_FILE" true
-		fi
-		apply_replacements "$output_json"
-
-		local temp_file=$(mktemp)
-		opencc -i "$output_json" -o "$temp_file" -c tw2s
-		mv "$temp_file" "$output_json"
+		apply_replacements "$output"
+		local tmp=$(mktemp)
+		opencc -i "$output" -o "$tmp" -c tw2s
+		mv "$tmp" "$output"
 	fi
-
-	echo "Wrote: $output_json"
+	echo -e "${GREEN}Wrote: $output${NC}"
 }
 
-# Process a single file (PNG to PNG or text to text)
 process_file() {
-	local input_file="$1"
-	local custom_output="$2"
-	local filename=$(basename "$input_file")
-	local ext="${filename##*.}"
-	local output_file
-	local overwrite_type
-	local temp_output=""
+	local input="$1"
+	local custom="$2"
+	local output
+	if [ -n "$custom" ]; then output="$custom"; else output=$(generate_output_filename "$input" "$REVERSE_MODE"); fi
 
-	if [ "$filename" = "$ext" ]; then
-		ext=""
+	if [ "$DRY_RUN" = true ]; then
+		echo -e "${BLUE}[DRY]${NC} Convert: $input -> $output"
+		return 0
 	fi
 
-	# Determine output filename
-	if [ -n "$custom_output" ]; then
-		output_file="$custom_output"
-	else
-		output_file=$(generate_output_filename "$input_file" "$REVERSE_MODE")
+	local type=$(check_overwrite "$input" "$output")
+	local actual="$output"
+	local temp_out=""
+	if [ "$type" = "self" ]; then
+		temp_out=$(make_temp_with_ext "${input##*.}")
+		actual="$temp_out"
 	fi
 
-	# Check for overwrite situations
-	overwrite_type=$(check_overwrite "$input_file" "$output_file")
-
-	# If overwriting self or other, use temp file
-	if [ "$overwrite_type" = "self" ]; then
-		if [ -n "$ext" ]; then
-			temp_output=$(make_temp_with_ext "$ext")
-		else
-			temp_output=$(mktemp)
-		fi
-	fi
-
-	local actual_output="$output_file"
-	if [ "$overwrite_type" = "self" ]; then
-		actual_output="$temp_output"
-	fi
-
+	local ext="${input##*.}"
 	if [ "$ext" = "png" ] || [ "$ext" = "PNG" ]; then
-		local temp_json=$(make_temp_json)
-		local temp_converted_json="${temp_json%.json}_converted.json"
-
-		if [ "$USE_CONTROVERSIAL" = false ] && [ -f "$CONTROVERSIAL_FILE" ]; then
-			load_rules "$CONTROVERSIAL_FILE" "$REVERSE_MODE"
-		fi
-
-		if ! python3 -c "$PNG_HANDLER" extract "$input_file" "$temp_json" 2>&1; then
-			echo "Error: Failed to extract metadata from $input_file" >&2
-			rm -f "$temp_json" "$temp_output"
+		local t_json=$(mktemp --suffix=.json)
+		local t_conv="${t_json}_conv.json"
+		if ! python3 -c "$PNG_HANDLER" extract "$input" "$t_json" 2>&1; then
+			rm "$t_json"
 			return 1
 		fi
 
-		# ORDER MATTERS:
+		# PNG EMBED EXECUTION ORDER FIX
 		if [ "$REVERSE_MODE" = true ]; then
-			# TW->CN: Dictionary Replacement (on Trad text) FIRST, then OpenCC tw2s
-			cp "$temp_json" "$temp_converted_json"
-			apply_replacements "$temp_converted_json"
-
-			local temp_cc=$(mktemp)
-			opencc -i "$temp_converted_json" -o "$temp_cc" -c tw2s
-			mv "$temp_cc" "$temp_converted_json"
+			# Reverse: Dict -> OpenCC
+			cp "$t_json" "$t_conv"
+			apply_replacements "$t_conv"
+			local t_cc=$(mktemp)
+			opencc -i "$t_conv" -o "$t_cc" -c tw2s
+			mv "$t_cc" "$t_conv"
 		else
-			# CN->TW: OpenCC s2tw FIRST, then Dictionary Replacement
-			opencc -i "$temp_json" -o "$temp_converted_json" -c s2tw
-			apply_replacements "$temp_converted_json"
+			# Normal: OpenCC -> Dict
+			opencc -i "$t_json" -o "$t_conv" -c s2tw
+			apply_replacements "$t_conv"
 		fi
 
-		python3 -c "$PNG_HANDLER" embed "$input_file" "$temp_converted_json" "$actual_output" 2>&1
-
-		rm -f "$temp_json" "$temp_converted_json"
+		python3 -c "$PNG_HANDLER" embed "$input" "$t_conv" "$actual" 2>&1
+		rm "$t_json" "$t_conv"
 	else
-		# Text Files
-		# ORDER MATTERS:
+		# TEXT FILE EXECUTION ORDER FIX
 		if [ "$REVERSE_MODE" = true ]; then
-			# TW->CN:
-			# 1. Copy input to dest
-			# 2. Apply dictionary replacements (Text is still Traditional, matching Dict keys)
-			# 3. Convert characters to Simplified
-
-			cp "$input_file" "$actual_output"
-			apply_replacements "$actual_output"
-
-			local temp_cc=$(mktemp)
-			opencc -i "$actual_output" -o "$temp_cc" -c tw2s
-			mv "$temp_cc" "$actual_output"
+			# Reverse: Dict -> OpenCC
+			cp "$input" "$actual"
+			apply_replacements "$actual"
+			local t_cc=$(mktemp)
+			opencc -i "$actual" -o "$t_cc" -c tw2s
+			mv "$t_cc" "$actual"
 		else
-			# CN->TW:
-			# 1. Convert characters to Traditional (so they match Dict keys)
-			# 2. Apply dictionary replacements
-
-			opencc -i "$input_file" -o "$actual_output" -c s2tw
-			apply_replacements "$actual_output"
+			# Normal: OpenCC -> Dict
+			opencc -i "$input" -o "$actual" -c s2tw
+			apply_replacements "$actual"
 		fi
 	fi
 
-	# Move temp to final destination if overwriting self
-	if [ "$overwrite_type" = "self" ]; then
-		mv "$temp_output" "$output_file"
-	fi
-
-	echo "Wrote: $output_file"
+	if [ "$type" = "self" ]; then mv "$temp_out" "$output"; fi
+	echo -e "${GREEN}Wrote: $output${NC}"
 }
 
-# Track if we're in auto-discovery mode
-AUTO_DISCOVER_MODE=false
-
-# Determine input files
+# Auto-discovery
 input_files=()
 if [ ${#input_args[@]} -ge 1 ]; then
-	# Files specified on command line - validate they exist
-	for arg in "${input_args[@]}"; do
-		if [ ! -f "$arg" ]; then
-			echo "Error: Input file '$arg' not found" >&2
-			exit 1
-		fi
-		input_files+=("$arg")
-	done
+	for arg in "${input_args[@]}"; do [ -f "$arg" ] && input_files+=("$arg"); done
 else
-	# Auto-discover files in current directory
-	if [ "$CUSTOM_OUTPUT" = true ]; then
-		echo "Error: -o cannot be used without specifying input files" >&2
-		exit 1
-	fi
-
-	AUTO_DISCOVER_MODE=true
+	[ "$CUSTOM_OUTPUT" = true ] && exit 1
 	shopt -s nullglob
-
-	if [ "$INCLUDE_HIDDEN" = true ]; then
-		shopt -s dotglob
-	fi
-
+	[ "$INCLUDE_HIDDEN" = true ] && shopt -s dotglob
 	for f in *; do
 		[ -d "$f" ] && continue
 		should_skip_file "$f" && continue
 		has_supported_extension "$f" || continue
 		input_files+=("$f")
 	done
-
 	shopt -u nullglob
-	if [ "$INCLUDE_HIDDEN" = true ]; then
-		shopt -u dotglob
-	fi
-
-	if [ ${#input_files[@]} -eq 0 ]; then
-		echo "Error: no supported files found to process" >&2
-		echo "Supported extensions: ${SUPPORTED_EXTENSIONS[*]}" >&2
-		echo "Use -h to include hidden files" >&2
-		exit 1
-	fi
+	[ "$INCLUDE_HIDDEN" = true ] && shopt -u dotglob
+	[ ${#input_files[@]} -eq 0 ] && exit 1
 fi
 
-# Process each input file
-processed_count=0
-skipped_count=0
+# Main Loop
+for idx in "${!input_files[@]}"; do
+	input="${input_files[$idx]}"
+	custom=""
+	[ "$CUSTOM_OUTPUT" = true ] && custom="${OUTPUT_FILES[$idx]}"
 
-for ((idx = 0; idx < ${#input_files[@]}; idx++)); do
-	input_file="${input_files[idx]}"
-	filename=$(basename "$input_file")
-	ext="${filename##*.}"
-
-	# Get custom output if specified
-	custom_out=""
-	if [ "$CUSTOM_OUTPUT" = true ]; then
-		custom_out="${OUTPUT_FILES[idx]}"
-	fi
-
-	if [ "$filename" = "$ext" ]; then
-		ext=""
-	fi
-
-	# If JSON mode is set, only process PNG files
 	if [ -n "$JSON_MODE" ]; then
-		if [ "$ext" = "png" ] || [ "$ext" = "PNG" ]; then
-			process_png_to_json "$input_file" "$JSON_MODE" "$custom_out"
-			((processed_count++))
-		else
-			echo "Warning: -j flag only works with PNG files, skipping: $input_file" >&2
-			((skipped_count++))
-		fi
+		if [[ "$input" =~ \.[pP][nN][gG]$ ]]; then
+			process_png_to_json "$input" "$JSON_MODE" "$custom"
+		else ((total_skipped++)); fi
 	else
-		# In auto-discover mode, check if counterpart exists
-		if [ "$AUTO_DISCOVER_MODE" = true ]; then
-			if counterpart_exists "$input_file" "$REVERSE_MODE"; then
-				output_file=$(generate_output_filename "$input_file" "$REVERSE_MODE")
-				echo "Skipping (counterpart exists): $input_file <-> $output_file"
-				((skipped_count++))
-				continue
-			fi
+		if [ ${#input_args[@]} -eq 0 ] && counterpart_exists "$input" "$REVERSE_MODE"; then
+			echo -e "${YELLOW}Skipping (exists): $input${NC}"
+			((total_skipped++))
+			continue
 		fi
-
-		process_file "$input_file" "$custom_out"
-		((processed_count++))
+		if process_file "$input" "$custom"; then ((total_processed++)); else ((total_failed++)); fi
 	fi
 done
 
-# Summary for auto-discover mode
-if [ "$AUTO_DISCOVER_MODE" = true ]; then
-	echo ""
-	echo "Summary: $processed_count file(s) processed, $skipped_count file(s) skipped"
-fi
+echo -e "\n${CYAN}Summary:${NC} Processed: $total_processed, Skipped: $total_skipped, Failed: $total_failed"
