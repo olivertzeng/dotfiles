@@ -1,16 +1,7 @@
 git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 yes | yay -Sc
 yes | yay -Scc
-cp -r nvim ~/.config
-cp activate-linux.sh ~/
-cp clang-format ~/.clang-format
-cp gitconfig ~/.gitconfig
-cp pip.conf ~/.config/pip
-cp theme.sh ~/
-cp topgrade.toml ~/.config
-cp zsh_plugins.txt ~/.zsh_plugins.txt
-cp zshbookmarks ~/.zshbookmarks
-cp zshenv ~/.zshenv
-cp zshrc ~/.zshrc
+sh ./link.sh
 source ~/.zshrc
+pip install --pre -r requirements.txt
 rm ~/.gnupg/{S.keyboxd,public-keys.d/pubring.db.lock}

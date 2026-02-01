@@ -1,0 +1,4 @@
+mutagen
+pipenv
+pygame
+yt-dlp

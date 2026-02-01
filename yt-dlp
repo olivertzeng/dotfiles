@@ -1,13 +1,18 @@
--f bestaudio/best
--x
 --audio-format m4a
+--audio-quality 0
+--concurrent-fragments 4
+--convert-thumbnails jpg
+--downloader aria2c
+--downloader-args "aria2c:-x 16 -s 16 -k 1M"
 --embed-chapters
 --embed-metadata
---parse-metadata "album:%(playlist_title)s"
---parse-metadata "playlist_index:%(track_number)s"
 --embed-thumbnail
 --no-keep-video
+--postprocessor-args "AudioConvertor:-af loudnorm=I=-14:TP=-1:LRA=11 -c:a aac -b:a 256k"
+--progress
 --sponsorblock-mark all
 --sponsorblock-remove all,-filler
---progress
---postprocessor-args "AudioConvertor:-af loudnorm=I=-14:TP=-1:LRA=11"
+--write-thumbnail
+-f bestaudio/best
+-o "%(title)s [%(id)s].%(ext)s"
+-x
