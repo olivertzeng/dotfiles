@@ -10,4 +10,4 @@
 --sponsorblock-mark all
 --sponsorblock-remove all,-filler
 --progress
---use-postprocessor ReplayGain:when=playlist
+--postprocessor-args "AudioConvertor:-af loudnorm=I=-14:TP=-1:LRA=11"

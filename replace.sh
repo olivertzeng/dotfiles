@@ -2,6 +2,28 @@
 
 # Credit for PNG metadata handling: https://github.com/IlllllIII/png_to_json
 
+# ==========================================
+# 使用者配置區 (User Configuration)
+# ==========================================
+
+# 黑名單 (Blacklist)
+# 在這裡添加你想忽略的檔案或目錄模式
+# 支援通配符，例如: "*.log" "node_modules" "dist"
+declare -a BLACKLIST=(
+	"node_modules"
+	".git"
+	".DS_Store"
+	"*.bak"
+	"*.tmp"
+	"dist"
+	"build"
+	"__pycache__"
+)
+
+# ==========================================
+# 腳本邏輯開始 (Script Logic)
+# ==========================================
+
 # Get script directory for finding dict files
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
@@ -16,6 +38,7 @@ USE_CONTROVERSIAL=false
 REVERSE_MODE=false
 JSON_MODE="" # "", "o", "cn", "tw"
 INCLUDE_HIDDEN=false
+RESPECT_GITIGNORE=false
 CUSTOM_OUTPUT=false
 DRY_RUN=false
 MAKE_BACKUP=false
@@ -41,10 +64,44 @@ else
 	RED='' YELLOW='' GREEN='' BLUE='' CYAN='' NC=''
 fi
 
-# Usage
+# Usage / Help
 usage() {
 	cat <<EOF
-Usage: $0 [-c] [-r] [-j [MODE]] [-h] [-n] [-b] [-f] [files...] [-o output_files...]
+${CYAN}Advanced Chinese Converter & PNG Metadata Tool${NC}
+
+Usage: $0 [OPTIONS] [files...]
+
+Options:
+  ${GREEN}-c${NC}            Enable controversial replacements (auto-enabled for PNG)
+  ${GREEN}-r${NC}            Reverse mode: Traditional (TW) -> Simplified (CN)
+                Default is Simplified (CN) -> Traditional (TW)
+
+  ${GREEN}-j [MODE]${NC}     PNG Metadata Extraction Mode:
+                ${YELLOW}o, original${NC}  - Extract JSON without conversion (default)
+                ${YELLOW}c, cn${NC}        - Extract and convert to Simplified Chinese
+                ${YELLOW}t, tw${NC}        - Extract and convert to Traditional Chinese
+
+  ${GREEN}-g${NC}            Respect .gitignore (skip ignored files)
+  ${GREEN}-h${NC}            Include hidden files (dotfiles) in auto-discovery
+  ${GREEN}-n${NC}            Dry-run: Preview changes without modifying files
+  ${GREEN}-b${NC}            Create backup (.bak) before overwriting
+  ${GREEN}-f${NC}            Force mode: Continue processing even if errors occur
+
+  ${GREEN}-o [files]${NC}    Specify output filenames (must match number of input files)
+  ${GREEN}--help${NC}        Show this help message
+
+Blacklist:
+  You can edit the 'BLACKLIST' array at the top of this script
+  to permanently ignore specific files or directories.
+  Current blacklist: ${YELLOW}${BLACKLIST[*]}${NC}
+
+Examples:
+  $0                              # Convert all supported files in current dir
+  $0 -r                           # Convert all files TW -> CN
+  $0 -g                           # Convert all files, respecting .gitignore
+  $0 file.json                    # Convert specific file
+  $0 -j tw chara.png              # Extract metadata from PNG and convert to TW
+  $0 a.txt -o b.txt               # Convert a.txt to b.txt
 EOF
 	exit 0
 }
@@ -64,7 +121,19 @@ check_dependencies() {
 
 # Parse options
 FORCE_CONTINUE=false
-while getopts ":crj:hHnbf" opt; do
+while getopts ":crj:hHnbfg-:" opt; do
+	# Handle long options manually
+	if [ "$opt" = "-" ]; then
+		case "${OPTARG}" in
+		help) usage ;;
+		*)
+			echo -e "${RED}Invalid option: --${OPTARG}${NC}" >&2
+			exit 1
+			;;
+		esac
+		continue
+	fi
+
 	case $opt in
 	c) USE_CONTROVERSIAL=true ;;
 	r) REVERSE_MODE=true ;;
@@ -85,6 +154,7 @@ while getopts ":crj:hHnbf" opt; do
 		fi
 		;;
 	h | H) INCLUDE_HIDDEN=true ;;
+	g) RESPECT_GITIGNORE=true ;;
 	n) DRY_RUN=true ;;
 	b) MAKE_BACKUP=true ;;
 	f) FORCE_CONTINUE=true ;;
@@ -146,7 +216,6 @@ load_rules() {
 
 		[ -z "$from" ] || [ -z "$to" ] && continue
 
-		# Logic for -> (Forward only) and <- (Reverse only)
 		if [ "$reverse" = true ] && [ "$marker" = "->" ]; then continue; fi
 		if [ "$reverse" = false ] && [ "$marker" = "<-" ]; then continue; fi
 
@@ -188,13 +257,12 @@ apply_replacements() {
 	done
 }
 
-# Translate string (for filenames) - Logic matched with process_file
+# Translate string (for filenames)
 translate_string() {
 	local input="$1"
 	local reverse="$2"
 	local result="$input"
 
-	# Load temp map just for this string (inefficient but safe)
 	local temp_map=()
 	local files=("$MAP_FILE")
 	if [ "$USE_CONTROVERSIAL" = true ]; then files+=("$CONTROVERSIAL_FILE"); fi
@@ -216,9 +284,7 @@ translate_string() {
 		done <"$f"
 	done
 
-	# EXECUTION ORDER FIX
 	if [ "$reverse" = true ]; then
-		# Reverse (TW->CN): Dict Replace -> OpenCC tw2s
 		for ((i = 0; i < ${#temp_map[@]}; i += 2)); do
 			src="${temp_map[i]}"
 			dst="${temp_map[i + 1]}"
@@ -226,7 +292,6 @@ translate_string() {
 		done
 		result=$(echo "$result" | opencc -c tw2s)
 	else
-		# Normal (CN->TW): OpenCC s2tw -> Dict Replace
 		result=$(echo "$result" | opencc -c s2tw)
 		for ((i = 0; i < ${#temp_map[@]}; i += 2)); do
 			src="${temp_map[i]}"
@@ -240,12 +305,36 @@ translate_string() {
 should_skip_file() {
 	local filename="$1"
 	local basename="${filename%.*}"
+
+	# 1. System skips
 	case "$filename" in dict.txt | controversial.txt | "$SCRIPT_NAME" | *.bak) return 0 ;; esac
 
+	# 2. Blacklist check (Glob matching)
+	for pattern in "${BLACKLIST[@]}"; do
+		# Use == for glob matching in bash
+		if [[ "$filename" == $pattern ]]; then return 0; fi
+		# Check basename as well for convenience
+		if [[ "$(basename "$filename")" == $pattern ]]; then return 0; fi
+	done
+
+	# 3. Gitignore check
+	if [ "$RESPECT_GITIGNORE" = true ] && command -v git >/dev/null 2>&1; then
+		if git check-ignore -q "$filename" 2>/dev/null; then
+			return 0
+		fi
+	fi
+
+	# 4. Output file patterns
 	if [ "$REVERSE_MODE" = false ]; then
-		if [[ "$basename" =~ zh_TW$ ]] || [[ "$basename" =~ zh-TW$ ]] || [[ "$basename" =~ TW$ ]]; then return 0; fi
+		if [[ "$basename" =~ zh_TW$ ]] || [[ "$basename" =~ zh-TW$ ]] ||
+			[[ "$basename" =~ zh_tw$ ]] || [[ "$basename" =~ zh-tw$ ]] ||
+			[[ "$basename" =~ _TW$ ]] || [[ "$basename" =~ _tw$ ]] ||
+			[[ "$basename" =~ TW$ ]]; then return 0; fi
 	else
-		if [[ "$basename" =~ zh_CN$ ]] || [[ "$basename" =~ zh-CN$ ]] || [[ "$basename" =~ CN$ ]]; then return 0; fi
+		if [[ "$basename" =~ zh_CN$ ]] || [[ "$basename" =~ zh-CN$ ]] ||
+			[[ "$basename" =~ zh_cn$ ]] || [[ "$basename" =~ zh-cn$ ]] ||
+			[[ "$basename" =~ _CN$ ]] || [[ "$basename" =~ _cn$ ]] ||
+			[[ "$basename" =~ CN$ ]]; then return 0; fi
 	fi
 	return 1
 }
@@ -277,10 +366,21 @@ generate_output_filename() {
 
 	# Handle filename patterns
 	if [ "$reverse" = true ]; then
+		# TW -> CN
 		if [[ "$basename" =~ ^(.*)zh_TW$ ]]; then
 			new_basename="${BASH_REMATCH[1]}zh_CN"
 		elif [[ "$basename" =~ ^(.*)zh-TW$ ]]; then
 			new_basename="${BASH_REMATCH[1]}zh-CN"
+		elif [[ "$basename" =~ ^(.*)zh_tw$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh_cn"
+		elif [[ "$basename" =~ ^(.*)zh-tw$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh-cn"
+		# _TW -> _CN
+		elif [[ "$basename" =~ ^(.*)_TW$ ]]; then
+			new_basename="${BASH_REMATCH[1]}_CN"
+		elif [[ "$basename" =~ ^(.*)_tw$ ]]; then
+			new_basename="${BASH_REMATCH[1]}_cn"
+
 		elif [[ "$basename" =~ ^(.*)zh$ ]]; then
 			new_basename="${BASH_REMATCH[1]}zh_CN"
 		elif [[ "$basename" =~ ^(.*)TW$ ]]; then
@@ -291,10 +391,21 @@ generate_output_filename() {
 			[ "$translated" == "$basename" ] && new_basename="${basename}CN"
 		else new_basename="${basename}CN"; fi
 	else
+		# CN -> TW
 		if [[ "$basename" =~ ^(.*)zh_CN$ ]]; then
 			new_basename="${BASH_REMATCH[1]}zh_TW"
 		elif [[ "$basename" =~ ^(.*)zh-CN$ ]]; then
 			new_basename="${BASH_REMATCH[1]}zh-TW"
+		elif [[ "$basename" =~ ^(.*)zh_cn$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh_tw"
+		elif [[ "$basename" =~ ^(.*)zh-cn$ ]]; then
+			new_basename="${BASH_REMATCH[1]}zh-tw"
+		# _CN -> _TW
+		elif [[ "$basename" =~ ^(.*)_CN$ ]]; then
+			new_basename="${BASH_REMATCH[1]}_TW"
+		elif [[ "$basename" =~ ^(.*)_cn$ ]]; then
+			new_basename="${BASH_REMATCH[1]}_tw"
+
 		elif [[ "$basename" =~ ^(.*)zh$ ]]; then
 			new_basename="${BASH_REMATCH[1]}zh_TW"
 		elif [[ "$basename" =~ ^(.*)CN$ ]]; then
@@ -406,16 +517,13 @@ process_png_to_json() {
 		return 1
 	fi
 
-	# PNG JSON EXECUTION ORDER FIX
 	if [ "$mode" = "tw" ]; then
-		# Normal: OpenCC -> Dict
 		local tmp=$(mktemp)
 		opencc -i "$output" -o "$tmp" -c s2tw
 		mv "$tmp" "$output"
 		load_all_rules false
 		apply_replacements "$output"
 	elif [ "$mode" = "cn" ]; then
-		# Reverse: Dict -> OpenCC
 		load_all_rules true
 		apply_replacements "$output"
 		local tmp=$(mktemp)
@@ -453,16 +561,13 @@ process_file() {
 			return 1
 		fi
 
-		# PNG EMBED EXECUTION ORDER FIX
 		if [ "$REVERSE_MODE" = true ]; then
-			# Reverse: Dict -> OpenCC
 			cp "$t_json" "$t_conv"
 			apply_replacements "$t_conv"
 			local t_cc=$(mktemp)
 			opencc -i "$t_conv" -o "$t_cc" -c tw2s
 			mv "$t_cc" "$t_conv"
 		else
-			# Normal: OpenCC -> Dict
 			opencc -i "$t_json" -o "$t_conv" -c s2tw
 			apply_replacements "$t_conv"
 		fi
@@ -470,16 +575,13 @@ process_file() {
 		python3 -c "$PNG_HANDLER" embed "$input" "$t_conv" "$actual" 2>&1
 		rm "$t_json" "$t_conv"
 	else
-		# TEXT FILE EXECUTION ORDER FIX
 		if [ "$REVERSE_MODE" = true ]; then
-			# Reverse: Dict -> OpenCC
 			cp "$input" "$actual"
 			apply_replacements "$actual"
 			local t_cc=$(mktemp)
 			opencc -i "$actual" -o "$t_cc" -c tw2s
 			mv "$t_cc" "$actual"
 		else
-			# Normal: OpenCC -> Dict
 			opencc -i "$input" -o "$actual" -c s2tw
 			apply_replacements "$actual"
 		fi

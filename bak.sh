@@ -9,8 +9,4 @@ cp ~/.gitconfig ~/dotfiles/gitconfig
 cp ~/.zsh_plugins.txt ~/dotfiles/zsh_plugins.txt
 cp ~/.zshbookmarks ~/dotfiles/zshbookmarks
 cp ~/.zshrc ~/dotfiles/zshrc
-cp ~/bak.sh ~/dotfiles
-cp ~/dark.sh ~/dotfiles
-cp ~/light.sh ~/dotfiles
-cp ~/shift.sh ~/dotfiles
 cp ~/.config/yay/config.json ~/dotfiles/yay.json
