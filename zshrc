@@ -106,6 +106,7 @@ alias v='nvim'
 alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
+alias yt='sh ~/yt.sh'
 
 macchina
 
