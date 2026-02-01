@@ -14,5 +14,5 @@ ln -sf ~/dotfiles/yt.sh ~/
 ln -sf ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 ln -sf ~/dotfiles/zshbookmarks ~/.zshbookmarks
 ln -sf ~/dotfiles/zshrc ~/.zshrc
-sudo ln -sf ~/dotfiles /etc/makepkg.conf
-sudo ln -sf ~/dotfiles /etc/pacman.conf
+sudo ln -sf ~/dotfiles/makepkg.conf /etc
+sudo ln -sf ~/dotfiles/pacman.conf /etc
