@@ -7,14 +7,15 @@
 # ==========================================
 
 declare -a BLACKLIST=(
-	"node_modules"
-	".git"
-	".DS_Store"
 	"*.bak"
 	"*.tmp"
-	"dist"
-	"build"
+	".DS_Store"
+	".git"
+	"LICENSE"
 	"__pycache__"
+	"build"
+	"dist"
+	"node_modules"
 )
 
 # 並行處理數量 (0 = 使用 CPU 核心數)
@@ -35,6 +36,7 @@ SUPPORTED_EXTENSIONS=("txt" "json" "jsonl" "md" "po" "strings" "png" "PNG")
 USE_CONTROVERSIAL=false
 REVERSE_MODE=false
 JSON_MODE=""
+AMEND_MODE=false
 INCLUDE_HIDDEN=false
 RESPECT_GITIGNORE=false
 UNIFY_MODE=false
@@ -42,6 +44,7 @@ CUSTOM_OUTPUT=false
 DRY_RUN=false
 MAKE_BACKUP=false
 PARALLEL_MODE=false
+FORCE_CONTINUE=false
 
 declare -a OUTPUT_FILES
 
@@ -72,6 +75,10 @@ Options:
   ${GREEN}-c${NC}            Enable controversial replacements
   ${GREEN}-r${NC}            Reverse mode: TW -> CN (default: CN -> TW)
   ${GREEN}-j [MODE]${NC}     PNG extraction: o(riginal), c(n), t(w)
+                  cn/tw modes also translate filename
+  ${GREEN}-a${NC}            Amend mode: combine PNG + JSON into character card
+                  Output filename uses JSON's name (clears old metadata)
+                  Usage: -a <file1> <file2> [-o output.png]
   ${GREEN}-u${NC}            Unify: force -TW/-CN suffix
   ${GREEN}-g${NC}            Respect .gitignore
   ${GREEN}-h${NC}            Include hidden files
@@ -81,6 +88,12 @@ Options:
   ${GREEN}-p${NC}            Parallel processing (faster for many files)
   ${GREEN}-o [files]${NC}    Specify output filenames
   ${GREEN}--help${NC}        Show this help
+
+Examples:
+  $0 -j tw card.png              Extract & translate to TW (filename too)
+  $0 -a avatar.png char.json     Combine into char.png (uses JSON name)
+  $0 -a avatar.png data.json -o out.png   Combine into out.png (preserves original)
+  $0 -a -c img.png data.json     Amend with controversial dict
 
 Blacklist: ${YELLOW}${BLACKLIST[*]}${NC}
 EOF
@@ -99,13 +112,18 @@ check_dependencies() {
 	fi
 }
 
-FORCE_CONTINUE=false
-while getopts ":crj:hHnbfgup-:" opt; do
+while getopts ":crj:ahHnbfgup-:" opt; do
 	[ "$opt" = "-" ] && { [ "${OPTARG}" = "help" ] && usage || exit 1; }
 	case $opt in
 	c) USE_CONTROVERSIAL=true ;;
 	r) REVERSE_MODE=true ;;
-	j) case "$OPTARG" in o | original) JSON_MODE="o" ;; c | cn) JSON_MODE="cn" ;; t | tw) JSON_MODE="tw" ;; *) JSON_MODE="o" ;; esac ;;
+	j) case "$OPTARG" in
+		o | original) JSON_MODE="o" ;;
+		c | cn) JSON_MODE="cn" ;;
+		t | tw) JSON_MODE="tw" ;;
+		*) JSON_MODE="o" ;;
+		esac ;;
+	a) AMEND_MODE=true ;;
 	h | H) INCLUDE_HIDDEN=true ;;
 	g) RESPECT_GITIGNORE=true ;;
 	u) UNIFY_MODE=true ;;
@@ -139,11 +157,21 @@ for arg in "$@"; do
 done
 
 if [ "$CUSTOM_OUTPUT" = true ]; then
-	[ ${#input_args[@]} -eq 0 ] || [ ${#output_args[@]} -ne ${#input_args[@]} ] && {
-		echo -e "${RED}Invalid -o usage${NC}" >&2
-		exit 1
-	}
-	OUTPUT_FILES=("${output_args[@]}")
+	# For amend mode, we expect 2 inputs and 1 output
+	if [ "$AMEND_MODE" = true ]; then
+		if [ ${#input_args[@]} -eq 2 ] && [ ${#output_args[@]} -eq 1 ]; then
+			OUTPUT_FILES=("${output_args[@]}")
+		else
+			echo -e "${RED}Amend mode with -o requires: -a <png> <json> -o <output.png>${NC}" >&2
+			exit 1
+		fi
+	else
+		[ ${#input_args[@]} -eq 0 ] || [ ${#output_args[@]} -ne ${#input_args[@]} ] && {
+			echo -e "${RED}Invalid -o usage${NC}" >&2
+			exit 1
+		}
+		OUTPUT_FILES=("${output_args[@]}")
+	fi
 fi
 
 [ ! -f "$MAP_FILE" ] && {
@@ -241,6 +269,19 @@ apply_replacements() {
 	fi
 }
 
+# Apply replacements to a string (for filename translation)
+apply_replacements_string() {
+	local input="$1" reverse="$2"
+	local script_file
+	[ "$reverse" = true ] && script_file="$SED_SCRIPT_FILE_REV" || script_file="$SED_SCRIPT_FILE"
+
+	if [ -s "$script_file" ]; then
+		echo "$input" | sed -f "$script_file"
+	else
+		echo "$input"
+	fi
+}
+
 # ==========================================
 # 優化 4: 整合 Python 腳本 (減少進程啟動)
 # ==========================================
@@ -262,6 +303,30 @@ def write_png(orig, out, key, data):
         meta.add_text(key, base64.b64encode(json.dumps(data, ensure_ascii=False).encode()).decode())
         img.save(out, pnginfo=meta)
 
+def embed_raw(png_path, json_path, out_path, key="chara"):
+    """Embed JSON file into PNG, completely clearing all existing metadata"""
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    with Image.open(png_path) as img:
+        # Convert to RGB/RGBA to strip all metadata, then back to original mode
+        # This ensures NO old metadata is carried over
+        if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
+            # Preserve transparency
+            clean_img = Image.new('RGBA', img.size)
+            clean_img.paste(img)
+        else:
+            clean_img = Image.new('RGB', img.size)
+            clean_img.paste(img)
+
+        # Create fresh metadata with only our data
+        meta = PngImagePlugin.PngInfo()
+        encoded = base64.b64encode(json.dumps(data, ensure_ascii=False).encode()).decode()
+        meta.add_text(key, encoded)
+
+        # Save as PNG with only our metadata
+        clean_img.save(out_path, format='PNG', pnginfo=meta)
+
 def has_chinese(text):
     return any('\u4e00' <= c <= '\u9fff' for c in str(text))
 
@@ -282,14 +347,27 @@ if __name__ == "__main__":
     elif act == "embed":
         with open(sys.argv[3], 'r', encoding='utf-8') as f: w = json.load(f)
         write_png(sys.argv[2], sys.argv[4], w.get("_png_key", "chara"), w.get("data", w))
+    elif act == "embed_raw":
+        # embed_raw <png_path> <json_path> <output_path> [key]
+        key = sys.argv[5] if len(sys.argv) > 5 else "chara"
+        embed_raw(sys.argv[2], sys.argv[3], sys.argv[4], key)
     elif act == "check_chinese":
         k, d = read_png(sys.argv[2])
         sys.exit(0 if d and check_json_chinese(d) else 1)
+    elif act == "get_key":
+        # Get the metadata key from existing PNG
+        k, d = read_png(sys.argv[2])
+        print(k if k else "chara")
+    elif act == "list_keys":
+        # List all metadata keys in PNG (for debugging)
+        with Image.open(sys.argv[2]) as img:
+            for k in img.text.keys():
+                print(k)
 PYTHON_SCRIPT
 )
 
 # ==========================================
-# 輔助函數 (保持不變或小幅優化)
+# 輔助函數
 # ==========================================
 
 translate_string() {
@@ -305,6 +383,34 @@ translate_string() {
 		[ -s "$script_file" ] && result=$(echo "$result" | sed -f "$script_file")
 	fi
 	echo "$result"
+}
+
+# Translate filename (basename only, preserving directory and extension)
+translate_filename() {
+	local filepath="$1" mode="$2"
+	local dir=$(dirname "$filepath")
+	local filename=$(basename "$filepath")
+	local ext="${filename##*.}"
+	local basename="${filename%.*}"
+	local new_basename
+
+	if [ "$mode" = "tw" ]; then
+		# CN -> TW: opencc first, then dict replacements
+		new_basename=$(echo "$basename" | opencc -c s2tw)
+		new_basename=$(apply_replacements_string "$new_basename" false)
+	elif [ "$mode" = "cn" ]; then
+		# TW -> CN: dict replacements first, then opencc
+		new_basename=$(apply_replacements_string "$basename" true)
+		new_basename=$(echo "$new_basename" | opencc -c tw2s)
+	else
+		new_basename="$basename"
+	fi
+
+	if [ "$dir" = "." ]; then
+		echo "${new_basename}.${ext}"
+	else
+		echo "${dir}/${new_basename}.${ext}"
+	fi
 }
 
 should_skip_file() {
@@ -346,9 +452,6 @@ generate_output_filename() {
 		has_ext=false
 	fi
 
-	# Debug (可移除)
-	# echo "DEBUG: filename=$filename, basename=$basename, ext=$ext" >&2
-
 	local patterns_tw=("zh_TW:zh_CN" "zh-TW:zh-CN" "zh_tw:zh_cn" "zh-tw:zh-cn" "_TW:_CN" "_tw:_cn" "-TW:-CN" "-tw:-cn" "zh:zh_CN" "TW:CN")
 	local patterns_cn=("zh_CN:zh_TW" "zh-CN:zh-TW" "zh_cn:zh_tw" "zh-cn:zh-tw" "_CN:_TW" "_cn:_tw" "-CN:-TW" "-cn:-tw" "zh:zh_TW" "CN:TW")
 	local patterns
@@ -388,6 +491,10 @@ generate_output_filename() {
 
 	# 組合輸出
 	if [ "$has_ext" = true ]; then
+		if [[ "$new_basename" == *.${ext} ]]; then
+			new_basename="${new_basename%.*}"
+		fi
+
 		if [ "$dir" = "." ]; then
 			echo "${new_basename}.${ext}"
 		else
@@ -433,32 +540,137 @@ make_temp_with_ext() {
 # 處理函數
 # ==========================================
 
-process_png_to_json() {
-	local input="$1" mode="$2" custom="$3" output base="${input%.*}"
+# Amend mode: Combine PNG + JSON into character card PNG
+process_amend() {
+	local file1="$1" file2="$2" custom_output="$3"
+	local png_file="" json_file=""
 
-	[ -n "$custom" ] && output="$custom" || case "$mode" in
-	o) output="${base}.json" ;;
-	cn) output=$(generate_output_filename "${base}.json" true) ;;
-	tw) output=$(generate_output_filename "${base}.json" false) ;;
-	esac
+	# Auto-detect which is PNG and which is JSON
+	if [[ "$file1" =~ \.[pP][nN][gG]$ ]] && [[ "$file2" =~ \.[jJ][sS][oO][nN]$ ]]; then
+		png_file="$file1"
+		json_file="$file2"
+	elif [[ "$file2" =~ \.[pP][nN][gG]$ ]] && [[ "$file1" =~ \.[jJ][sS][oO][nN]$ ]]; then
+		png_file="$file2"
+		json_file="$file1"
+	else
+		echo -e "${RED}Error: -a requires one PNG and one JSON file${NC}" >&2
+		echo -e "${YELLOW}Got: $file1, $file2${NC}" >&2
+		return 1
+	fi
+
+	# Validate files exist
+	[ ! -f "$png_file" ] && {
+		echo -e "${RED}PNG file not found: $png_file${NC}" >&2
+		return 1
+	}
+	[ ! -f "$json_file" ] && {
+		echo -e "${RED}JSON file not found: $json_file${NC}" >&2
+		return 1
+	}
+
+	# Determine output filename
+	local output
+	if [ -n "$custom_output" ]; then
+		output="$custom_output"
+	else
+		# Use JSON's basename with .png extension
+		local json_dir=$(dirname "$json_file")
+		local json_basename=$(basename "$json_file" .json)
+		json_basename=$(basename "$json_basename" .JSON)
+		if [ "$json_dir" = "." ]; then
+			output="${json_basename}.png"
+		else
+			output="${json_dir}/${json_basename}.png"
+		fi
+	fi
+
+	[ "$DRY_RUN" = true ] && {
+		echo -e "${BLUE}[DRY]${NC} Amend: $png_file + $json_file -> $output"
+		return 0
+	}
+
+	# Check for overwrite and backup if needed
+	if [ -f "$output" ]; then
+		echo -e "${YELLOW}Overwriting: $output${NC}" >&2
+		[ "$MAKE_BACKUP" = true ] && cp "$output" "${output}.bak"
+	fi
+
+	# Use "chara" as default key (standard for character cards)
+	local key="chara"
+
+	# Embed JSON into PNG (this completely clears old metadata)
+	python3 -c "$PNG_HANDLER" embed_raw "$png_file" "$json_file" "$output" "$key" 2>/dev/null || {
+		echo -e "${RED}Failed to embed JSON into PNG${NC}" >&2
+		return 1
+	}
+
+	echo -e "${GREEN}Created: $output${NC} (from $png_file + $json_file, old metadata cleared)"
+	return 0
+}
+
+process_png_to_json() {
+	local input="$1" mode="$2" custom="$3" output base
+
+	# Get base without extension
+	local dir=$(dirname "$input")
+	local filename=$(basename "$input")
+	local basename="${filename%.*}"
+
+	if [ -n "$custom" ]; then
+		output="$custom"
+	else
+		case "$mode" in
+		o)
+			# Original mode: no translation
+			if [ "$dir" = "." ]; then
+				output="${basename}.json"
+			else
+				output="${dir}/${basename}.json"
+			fi
+			;;
+		cn)
+			# Translate filename to CN (TW -> CN)
+			local new_basename=$(apply_replacements_string "$basename" true)
+			new_basename=$(echo "$new_basename" | opencc -c tw2s)
+			if [ "$dir" = "." ]; then
+				output="${new_basename}.json"
+			else
+				output="${dir}/${new_basename}.json"
+			fi
+			;;
+		tw)
+			# Translate filename to TW (CN -> TW)
+			local new_basename=$(echo "$basename" | opencc -c s2tw)
+			new_basename=$(apply_replacements_string "$new_basename" false)
+			if [ "$dir" = "." ]; then
+				output="${new_basename}.json"
+			else
+				output="${dir}/${new_basename}.json"
+			fi
+			;;
+		esac
+	fi
 
 	[ "$DRY_RUN" = true ] && {
 		echo -e "${BLUE}[DRY]${NC} $input -> $output"
 		return 0
 	}
 
-	# 優化: 使用整合的 Python 腳本檢測中文
+	# Check for Chinese content in PNG
 	if ! python3 -c "$PNG_HANDLER" check_chinese "$input" 2>/dev/null; then
 		echo -e "${YELLOW}Skip (no Chinese): $input${NC}"
 		return 0
 	fi
 
 	[ -f "$output" ] && [ "$MAKE_BACKUP" = true ] && cp "$output" "${output}.bak"
+
+	# Extract JSON from PNG
 	python3 -c "$PNG_HANDLER" extract_raw "$input" "$output" 2>/dev/null || {
-		echo -e "${RED}Error: $input${NC}" >&2
+		echo -e "${RED}Error extracting: $input${NC}" >&2
 		return 1
 	}
 
+	# Translate content if needed
 	if [ "$mode" = "tw" ]; then
 		local t=$(mktemp)
 		opencc -i "$output" -o "$t" -c s2tw
@@ -470,6 +682,7 @@ process_png_to_json() {
 		opencc -i "$output" -o "$t" -c tw2s
 		mv "$t" "$output"
 	fi
+
 	echo -e "${GREEN}Wrote: $output${NC}"
 }
 
@@ -540,21 +753,41 @@ process_file() {
 # 優化 5: 並行處理支援
 # ==========================================
 process_file_parallel() {
-	# 導出必要變量供子進程使用
 	export REVERSE_MODE UNIFY_MODE MAKE_BACKUP DRY_RUN USE_CONTROVERSIAL
 	export SED_SCRIPT_FILE SED_SCRIPT_FILE_REV
 	export MAP_FILE CONTROVERSIAL_FILE
 	process_file "$1" ""
 }
 
-export -f process_file process_file_parallel apply_replacements file_contains_chinese
-export -f generate_output_filename translate_string check_overwrite make_temp_with_ext
-export -f contains_chinese should_skip_file has_supported_extension counterpart_exists
+export -f process_file process_file_parallel apply_replacements apply_replacements_string
+export -f file_contains_chinese generate_output_filename translate_string translate_filename
+export -f check_overwrite make_temp_with_ext contains_chinese should_skip_file
+export -f has_supported_extension counterpart_exists
 export PNG_HANDLER
 
 # ==========================================
 # 主程序
 # ==========================================
+
+# Handle amend mode specially
+if [ "$AMEND_MODE" = true ]; then
+	if [ ${#input_args[@]} -ne 2 ]; then
+		echo -e "${RED}Error: -a mode requires exactly 2 files (PNG and JSON)${NC}" >&2
+		echo -e "${YELLOW}Usage: $0 -a <file1> <file2> [-o output.png]${NC}" >&2
+		exit 1
+	fi
+
+	custom_out=""
+	[ "$CUSTOM_OUTPUT" = true ] && [ ${#OUTPUT_FILES[@]} -ge 1 ] && custom_out="${OUTPUT_FILES[0]}"
+
+	if process_amend "${input_args[0]}" "${input_args[1]}" "$custom_out"; then
+		echo -e "\n${CYAN}Done.${NC} Amend completed successfully."
+	else
+		echo -e "\n${RED}Failed.${NC}"
+		exit 1
+	fi
+	exit 0
+fi
 
 input_files=()
 if [ ${#input_args[@]} -ge 1 ]; then
@@ -581,15 +814,12 @@ echo -e "${CYAN}Processing ${#input_files[@]} file(s)...${NC}"
 
 # 並行或序列處理
 if [ "$PARALLEL_MODE" = true ] && [ ${#input_files[@]} -gt 1 ] && command -v parallel >/dev/null 2>&1; then
-	# 使用 GNU Parallel
 	[ "$PARALLEL_JOBS" -eq 0 ] && PARALLEL_JOBS=$(nproc 2>/dev/null || echo 4)
 	printf '%s\n' "${input_files[@]}" | parallel -j "$PARALLEL_JOBS" process_file_parallel {}
 elif [ "$PARALLEL_MODE" = true ] && [ ${#input_files[@]} -gt 1 ]; then
-	# Fallback: 使用 xargs
 	[ "$PARALLEL_JOBS" -eq 0 ] && PARALLEL_JOBS=$(nproc 2>/dev/null || echo 4)
-	printf '%s\0' "${input_files[@]}" | xargs -0 -P "$PARALLEL_JOBS" -I {} bash -c 'process_file_parallel "$@"' _ {}
+	printf '%s\0' "${input_args[@]}" | xargs -0 -P "$PARALLEL_JOBS" -I {} bash -c 'process_file_parallel "$@"' _ {}
 else
-	# 序列處理
 	for idx in "${!input_files[@]}"; do
 		input="${input_files[$idx]}"
 		custom=""

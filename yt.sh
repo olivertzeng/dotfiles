@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eo pipefail # 移除 -u，避免關聯陣列問題
+set -eo pipefail
 
 # ============================================================
 # yt.sh - YouTube Playlist Smart Downloader
@@ -9,6 +9,8 @@ PARALLEL_JOBS=10
 CONFIG_PATH="$HOME/.config/yt-dlp/config"
 INDEX_FILE=".yt_index.json"
 TIMEOUT=120
+# beilu: 優化 - 將延遲從 0.5 改為 0.1，大幅加快檢查速度
+SB_API_DELAY=0.1
 
 declare -A ALIASES=(
 	["homebrew"]="https://www.youtube.com/playlist?list=PLNv1Xy2Vg8K1kjniRx00Tbtqh7Ob30m5v"
@@ -76,6 +78,47 @@ extract_video_id() {
 	fi
 }
 
+# 從 SponsorBlock API 獲取段落並計算 hash
+get_sb_hash() {
+	local video_id="$1"
+	local api_url="https://sponsor.ajay.app/api/skipSegments?videoID=${video_id}&categories=%5B%22sponsor%22%2C%22selfpromo%22%2C%22interaction%22%2C%22intro%22%2C%22outro%22%2C%22preview%22%2C%22music_offtopic%22%2C%22filler%22%5D"
+
+	local response
+	response=$(curl -s -f "$api_url" 2>/dev/null) || {
+		# 404 或錯誤表示無段落，返回固定 hash
+		echo "no_segments"
+		return 0
+	}
+
+	# 無內容或空陣列
+	if [[ -z "$response" || "$response" == "[]" ]]; then
+		echo "no_segments"
+		return 0
+	fi
+
+	# 排序並計算 hash（只取 segment 和 category 資訊）
+	local normalized
+	normalized=$(echo "$response" | jq -c 'sort_by(.segment[0]) | [.[] | {segment, category}]' 2>/dev/null) || {
+		echo "no_segments"
+		return 0
+	}
+
+	echo "$normalized" | sha256sum | cut -d' ' -f1
+}
+
+# 獲取已存儲的 sb_hash
+get_stored_sb_hash() {
+	local video_id="$1"
+	local index_file="$PWD/$INDEX_FILE"
+
+	if [[ ! -f "$index_file" ]]; then
+		echo ""
+		return 0
+	fi
+
+	jq -r --arg id "$video_id" '.songs[] | select(.id == $id) | .sb_hash // empty' "$index_file" 2>/dev/null || echo ""
+}
+
 save_index() {
 	local album_name="$1"
 	local playlist_url="$2"
@@ -87,17 +130,24 @@ save_index() {
 	for file in "$PWD"/*.m4a; do
 		[[ -f "$file" ]] || continue
 
-		local vid track filename
+		local vid track filename sb_hash
 		filename=$(basename "$file")
 		vid=$(extract_video_id "$filename")
 		track=$(ffprobe -v quiet -show_entries format_tags=track \
 			-of default=noprint_wrappers=1:nokey=1 "$file" 2>/dev/null | cut -d'/' -f1)
 		track=${track:-0}
 
+		# 從現有索引獲取 sb_hash，若無則為空
+		sb_hash=$(get_stored_sb_hash "$vid")
+
 		if [[ -n "$vid" ]]; then
 			$first || songs_json+=","
 			first=false
-			songs_json+="{\"id\":\"$vid\",\"track\":$track,\"file\":\"$filename\"}"
+			if [[ -n "$sb_hash" ]]; then
+				songs_json+="{\"id\":\"$vid\",\"track\":$track,\"file\":\"$filename\",\"sb_hash\":\"$sb_hash\"}"
+			else
+				songs_json+="{\"id\":\"$vid\",\"track\":$track,\"file\":\"$filename\"}"
+			fi
 		fi
 	done
 	shopt -u nullglob
@@ -111,6 +161,24 @@ save_index() {
 		--argjson songs "$songs_json" \
 		'{album: $album, url: $url, updated: $updated, songs: $songs}' \
 		>"$PWD/$INDEX_FILE"
+}
+
+# 更新單個歌曲的 sb_hash
+update_sb_hash_in_index() {
+	local video_id="$1"
+	local new_hash="$2"
+	local index_file="$PWD/$INDEX_FILE"
+
+	if [[ ! -f "$index_file" ]]; then
+		return 1
+	fi
+
+	local tmp_file
+	tmp_file=$(mktemp)
+
+	jq --arg id "$video_id" --arg hash "$new_hash" \
+		'(.songs[] | select(.id == $id)) .sb_hash = $hash' \
+		"$index_file" >"$tmp_file" && mv "$tmp_file" "$index_file"
 }
 
 download_single() {
@@ -135,6 +203,89 @@ download_single() {
 	fi
 
 	return 1
+}
+
+# 檢查並重新下載 SponsorBlock 變化的歌曲
+check_and_redownload_sponsorblock() {
+	local album_name="$1"
+
+	# beilu: 計算總檔案數，用於顯示進度
+	local total_files
+	total_files=$(ls "$PWD"/*.m4a 2>/dev/null | wc -l)
+	local current_index=0
+
+	# 使用 -n 不換行，方便後續覆蓋
+	echo -ne "\033[1;34mℹ️  Checking SponsorBlock segments... (0/$total_files)\033[0m"
+
+	local to_redownload=()
+	local redownload_info=() # 存儲 "vid|track|file" 格式
+
+	shopt -s nullglob
+	for file in "$PWD"/*.m4a; do
+		[[ -f "$file" ]] || continue
+
+		# beilu: 更新進度計數
+		current_index=$((current_index + 1))
+		echo -ne "\r\033[1;34mℹ️  Checking SponsorBlock segments... ($current_index/$total_files)\033[0m"
+
+		local filename vid track stored_hash current_hash
+		filename=$(basename "$file")
+		vid=$(extract_video_id "$filename")
+
+		[[ -z "$vid" ]] && continue
+
+		track=$(ffprobe -v quiet -show_entries format_tags=track \
+			-of default=noprint_wrappers=1:nokey=1 "$file" 2>/dev/null | cut -d'/' -f1)
+		track=${track:-1}
+
+		stored_hash=$(get_stored_sb_hash "$vid")
+
+		# 加入延遲避免 rate limit
+		sleep "$SB_API_DELAY"
+		current_hash=$(get_sb_hash "$vid")
+
+		# 首次運行（無 stored_hash）或 hash 變化
+		if [[ -z "$stored_hash" || "$stored_hash" != "$current_hash" ]]; then
+			to_redownload+=("$vid")
+			redownload_info+=("$vid|$track|$file|$current_hash")
+		fi
+	done
+	shopt -u nullglob
+
+	# beilu: 檢查完成，換行
+	echo ""
+
+	local count=${#to_redownload[@]}
+
+	if [[ $count -eq 0 ]]; then
+		log_ok "No SponsorBlock changes detected"
+		return 0
+	fi
+
+	log_info "Found $count songs with SponsorBlock changes, redownloading..."
+
+	for info in "${redownload_info[@]}"; do
+		IFS='|' read -r vid track old_file new_hash <<<"$info"
+
+		log_info "  Redownloading: $vid (track $track)"
+
+		# 刪除舊檔案
+		rm -f "$old_file"
+
+		# 下載新檔案
+		if download_single "$vid" "$track" "$album_name"; then
+			# 更新索引中的 sb_hash
+			update_sb_hash_in_index "$vid" "$new_hash"
+			log_ok "  Done: $vid"
+		else
+			log_error "  Failed: $vid"
+		fi
+	done
+
+	# 清理 .bak 檔案
+	rm -f "$PWD"/*.bak 2>/dev/null || true
+
+	log_ok "SponsorBlock redownload complete"
 }
 
 sync_playlist() {
@@ -338,7 +489,12 @@ sync_playlist() {
 	rm -f "$reindex_list"
 	rm -f "$PWD"/*.bak 2>/dev/null || true
 
-	# 7. 更新索引
+	# 7. 檢查 SponsorBlock 變化並重新下載
+	echo ""
+	check_and_redownload_sponsorblock "$album_name"
+
+	# 8. 更新索引
+	echo ""
 	log_info "Updating index..."
 	save_index "$album_name" "$url"
 

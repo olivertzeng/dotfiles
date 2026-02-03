@@ -69,7 +69,6 @@ alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias addon="zip -r -FS extension.zip * --exclude '*.git*'"
 alias airplay="uxplay -p -fps 60 -s 2560x1600@60"
-alias bak='~/bak.sh'
 alias bat='bat --color=always'
 alias c='clear'
 alias cl='clear;eza --icons'
@@ -83,6 +82,7 @@ alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias gclr="git clean -xfd"
 alias grub-update='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias ivm='nvim'
 alias kf='konsole --fullscreen'
 alias l='eza --icons'
 alias la='eza --icons -a'
@@ -119,3 +119,5 @@ export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH="$PATH:/home/olivertzeng/fount/path"
