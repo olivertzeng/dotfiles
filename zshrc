@@ -97,16 +97,17 @@ alias n='cd ~/.config/nvim/lua'
 alias open='xdg-open'
 alias p='nvim ~/.config/nvim/lua/core/plugins.lua'
 alias pull-music=' adb pull /storage/emulated/0/Download/Music ~/'
-alias push-music='adb push ~/Music/* /storage/emulated/0/Download/Music'
-alias r='sh ~/replace.sh'
-alias refresh="sudo reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist"
-alias s='sh ~/shift.sh'
+alias push-music='adb shell rm -rf /storage/emulated/0/Download/Music/*;adb push ~/Music/* /storage/emulated/0/Download/Music'
+alias r='bash ~/replace.sh'
+alias refresh='sudo reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist'
+alias restart='docker compose down;docker compose pull;docker compose up -d'
+alias s='bash ~/shift.sh'
 alias t='topgrade -y --no-retry -c'
 alias v='nvim'
 alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
-alias yt='sh ~/yt.sh'
+alias yt='python3 ~/yt.py'
 
 macchina
 
@@ -121,3 +122,31 @@ export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="$PATH:/home/olivertzeng/fount/path"
+#compdef kilo
+###-begin-kilo-completions-###
+#
+# yargs command completion script
+#
+# Installation: kilo completion >> ~/.zshrc
+#    or kilo completion >> ~/.zprofile on OSX.
+#
+_kilo_yargs_completions()
+{
+  local reply
+  local si=$IFS
+  IFS=$'
+' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" kilo --get-yargs-completions "${words[@]}"))
+  IFS=$si
+  if [[ ${#reply} -gt 0 ]]; then
+    _describe 'values' reply
+  else
+    _default
+  fi
+}
+if [[ "'${zsh_eval_context[-1]}" == "loadautofunc" ]]; then
+  _kilo_yargs_completions "$@"
+else
+  compdef _kilo_yargs_completions kilo
+fi
+###-end-kilo-completions-###
+

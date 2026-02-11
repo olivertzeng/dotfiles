@@ -1,6 +1,10 @@
+# ~/.config/yt-dlp/config
+# NOTE: -o is handled by yt.sh, do not set here when using the script
+
 --audio-format m4a
 --audio-quality 0
 --concurrent-fragments 4
+--write-thumbnail
 --convert-thumbnails jpg
 --downloader aria2c
 --downloader-args "aria2c:-x 16 -s 16 -k 1M"
@@ -8,11 +12,10 @@
 --embed-metadata
 --embed-thumbnail
 --no-keep-video
---postprocessor-args "AudioConvertor:-af loudnorm=I=-14:TP=-1:LRA=11 -c:a aac -b:a 256k"
+--no-mtime
+--postprocessor-args "ffmpeg:-af loudnorm=I=-14:TP=-1:LRA=11 -c:a aac -b:a 256k"
 --progress
 --sponsorblock-mark all
 --sponsorblock-remove all,-filler
---write-thumbnail
 -f bestaudio/best
--o "%(title)s [%(id)s].%(ext)s"
 -x
