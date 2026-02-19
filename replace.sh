@@ -157,6 +157,7 @@ ${BOLD}Conversion Options:${NC}
   ${GREEN}-i${NC}              In-place mode: overwrite original files
                     Also translates filenames (删除.txt -> 刪除.txt)
   ${GREEN}-R${NC}              Recursive: process directories recursively
+                    (auto-enabled when input is a directory)
   ${GREEN}-u${NC}              Unify: force -TW/-CN suffix on output
 
 ${BOLD}PNG Operations:${NC}
@@ -186,7 +187,8 @@ ${BOLD}Help:${NC}
 ${BOLD}Examples:${NC}
   $SCRIPT_NAME -i file.txt                 In-place convert (CN->TW)
   $SCRIPT_NAME -i -r file.txt              In-place convert (TW->CN)
-  $SCRIPT_NAME -i -R ./directory/          Recursively convert
+  $SCRIPT_NAME ./zh-CN/                    Copy to ./zh-TW/ with converted files
+  $SCRIPT_NAME -i ./zh-CN/                 In-place convert with dir rename
   $SCRIPT_NAME -i -R -p ./dir/             Parallel recursive conversion
   $SCRIPT_NAME -i -R -b -s ./dir/          With backup and auto-stage
   $SCRIPT_NAME -a image.png data.json      Combine into character card
@@ -245,7 +247,6 @@ for arg in "$@"; do
         --quiet) QUIET_MODE=true ;;
         --stage) AUTO_STAGE=true ;;
         --log)
-            # Next arg will be the log file.
             args+=("$arg")
             ;;
         --log=*)
@@ -286,7 +287,6 @@ while getopts ":crj:aHgnbfupRiqsl:-:" opt; do
         -)
             case "$OPTARG" in
                 log)
-                    # Get next argument as log file.
                     LOG_FILE="${!OPTIND}"
                     OPTIND=$((OPTIND + 1))
                     ;;
@@ -365,6 +365,14 @@ fi
 if [ "$PARALLEL_JOBS" -eq 0 ]; then
     PARALLEL_JOBS=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)
 fi
+
+# Auto-enable recursive mode if any input is a directory
+for arg in "${input_args[@]}"; do
+    if [ -d "$arg" ]; then
+        RECURSIVE_MODE=true
+        break
+    fi
+done
 
 # ------------------------------------------------------------------------------
 # Precompiled sed Scripts
@@ -601,13 +609,49 @@ translate_filename_inplace() {
         new_base=$(echo "$new_base" | opencc -c tw2s)
     else
         new_base=$(echo "$base" | opencc -c s2tw)
-        new_base=$(apply_replacements_string "$new_base" false)
+        new_base=$(apply_replacements_string "$base" false)
     fi
 
     if [ "$dir" = "." ]; then
         echo "${new_base}${ext}"
     else
         echo "${dir}/${new_base}${ext}"
+    fi
+}
+
+# Translate path (including directory names)
+translate_path() {
+    local filepath="$1"
+    local reverse="${2:-false}"
+
+    local dir filename ext base
+    dir=$(dirname "$filepath")
+    filename=$(basename "$filepath")
+
+    if [[ "$filename" == *.* ]]; then
+        ext=".${filename##*.}"
+        base="${filename%.*}"
+    else
+        ext=""
+        base="$filename"
+    fi
+
+    # Translate the base filename
+    local new_base
+    new_base=$(translate_string "$base" "$reverse")
+
+    # Translate directory path
+    local new_dir
+    if [ "$dir" = "." ]; then
+        new_dir="."
+    else
+        new_dir=$(translate_string "$dir" "$reverse")
+    fi
+
+    if [ "$new_dir" = "." ]; then
+        echo "${new_base}${ext}"
+    else
+        echo "${new_dir}/${new_base}${ext}"
     fi
 }
 
@@ -634,6 +678,19 @@ generate_output_filename() {
     local patterns
     [ "$reverse" = true ] && patterns=("${patterns_tw[@]}") || patterns=("${patterns_cn[@]}")
 
+    # First, try to translate the whole path (for directory rename without -i)
+    if [ "$INPLACE_MODE" = false ]; then
+        local translated_path
+        translated_path=$(translate_path "$input_file" "$reverse")
+
+        # If path changed, use it
+        if [ "$translated_path" != "$input_file" ]; then
+            echo "$translated_path"
+            return
+        fi
+    fi
+
+    # Then try pattern matching on base filename
     new_base=""
     for p in "${patterns[@]}"; do
         local from="${p%:*}"
@@ -705,6 +762,24 @@ should_skip_file() {
             [[ "$base" =~ (zh[-_]?[Tt][Ww]|[-_][Tt][Ww]|TW)$ ]] && return 0
         else
             [[ "$base" =~ (zh[-_]?[Cc][Nn]|[-_][Cc][Nn]|CN)$ ]] && return 0
+        fi
+    fi
+
+    return 1
+}
+
+should_skip_dir() {
+    local dirpath="$1"
+    local dirname
+    dirname=$(basename "$dirpath")
+
+    for p in "${BLACKLIST[@]}"; do
+        [[ "$dirname" == $p ]] && return 0
+    done
+
+    if [ "$RESPECT_GITIGNORE" = true ]; then
+        if command -v git >/dev/null 2>&1 && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            git check-ignore -q "$dirpath" 2>/dev/null && return 0
         fi
     fi
 
@@ -935,6 +1010,58 @@ prompt_confirmation() {
 }
 
 # ------------------------------------------------------------------------------
+# Directory Renaming
+# ------------------------------------------------------------------------------
+
+rename_directories_recursive() {
+    local target="$1"
+    local dirs=()
+
+    # Collect all subdirectories
+    while IFS= read -r dir; do
+        [ -z "$dir" ] && continue
+        dirs+=("$dir")
+    done < <($FD_CMD --type d . "$target" 2>/dev/null)
+
+    [ ${#dirs[@]} -eq 0 ] && return 0
+
+    # Sort by depth (deepest first)
+    local sorted=()
+    while IFS= read -r line; do
+        sorted+=("$line")
+    done < <(printf '%s\n' "${dirs[@]}" | awk -F'/' '{print NF, $0}' | sort -rn | cut -d' ' -f2-)
+
+    for dir in "${sorted[@]}"; do
+        should_skip_dir "$dir" && continue
+
+        local parent base new_name new_path
+        parent=$(dirname "$dir")
+        base=$(basename "$dir")
+        new_name=$(translate_string "$base" "$REVERSE_MODE")
+
+        [ "$new_name" = "$base" ] && continue
+
+        if [ "$parent" = "." ]; then
+            new_path="$new_name"
+        else
+            new_path="$parent/$new_name"
+        fi
+
+        if [ -d "$new_path" ] && [ "$new_path" != "$dir" ]; then
+            # Merge if target exists
+            mv "$dir"/* "$new_path"/ 2>/dev/null
+            rmdir "$dir" 2>/dev/null
+            log_success "Merged dir: $dir ${BLUE}→${NC} $new_path"
+        else
+            mv "$dir" "$new_path"
+            log_success "Renamed dir: $dir ${BLUE}→${NC} $new_path"
+        fi
+
+        auto_stage_file "$new_path"
+    done
+}
+
+# ------------------------------------------------------------------------------
 # Amend Mode
 # ------------------------------------------------------------------------------
 
@@ -1159,7 +1286,7 @@ process_file_inplace() {
 
     if [ "$filename_changed" = true ]; then
         clear_progress
-        log_success "Updated: $input ${BLUE}→${NC} $(basename "$new_path")"
+        log_success "Updated: $input ${BLUE}→${NC} $new_path"
     else
         clear_progress
         log_success "Updated: $input"
@@ -1253,12 +1380,21 @@ process_file() {
 
     [ "$overwrite_type" = "self" ] && mv "$temp_out" "$output"
 
+    # Create output directory if needed
+    local out_dir
+    out_dir=$(dirname "$output")
+    if [ "$out_dir" != "." ] && [ ! -d "$out_dir" ]; then
+        mkdir -p "$out_dir"
+    fi
+
+    [ "$overwrite_type" = "self" ] && mv "$temp_out" "$output"
+
     local dir
     dir=$(dirname "$input")
     ((++dir_stats["$dir"])) 2>/dev/null || dir_stats["$dir"]=1
 
     clear_progress
-    log_success "Wrote: $output"
+    log_success "Wrote: $input ${BLUE}→${NC} $output"
     auto_stage_file "$output"
     return 0
 }
@@ -1276,7 +1412,7 @@ export_for_parallel() {
     export -f process_file process_file_inplace
     export -f apply_replacements apply_replacements_string
     export -f file_contains_chinese string_contains_chinese
-    export -f generate_output_filename translate_string translate_filename_inplace
+    export -f generate_output_filename translate_string translate_filename_inplace translate_path
     export -f check_overwrite make_temp_with_ext should_skip_file
     export -f has_supported_extension counterpart_exists
     export -f log_info log_error log_warn log_success log_write
@@ -1374,7 +1510,7 @@ total_file_count=${#input_files[@]}
 if [ "$INPLACE_MODE" = true ] && [ "$RECURSIVE_MODE" = true ] && [ "$NO_CONFIRM" = false ] && [ "$DRY_RUN" = false ]; then
     skip_confirm=false
 
-    if all_chinese_files_staged "${input_files[@]}"; then
+    if all_chinese_files_staged "${input_files[@}"; then
         log_success "✓ All Chinese files are git staged - skipping confirmation"
         skip_confirm=true
     fi
@@ -1397,7 +1533,6 @@ log_info "${CYAN}Processing ${#input_files[@]} file(s)...${NC}"
 # Process files.
 if [ "$PARALLEL_MODE" = true ] && [ ${#input_files[@]} -gt 1 ]; then
     run_parallel "${input_files[@]}"
-    # Note: counters don't work properly in parallel mode.
     log_info "\n${CYAN}Done.${NC} (parallel mode - see individual results above)"
 else
     for idx in "${!input_files[@]}"; do
@@ -1439,6 +1574,21 @@ else
     done
 
     clear_progress
+
+    # Rename directories in recursive in-place mode.
+    if [ "$INPLACE_MODE" = true ] && [ "$RECURSIVE_MODE" = true ]; then
+        processed_dirs=()
+        for arg in "${input_args[@]}"; do
+            [ -d "$arg" ] || continue
+            skip=false
+            for pd in "${processed_dirs[@]}"; do
+                [[ "$arg" == "$pd" || "$arg" == "$pd/"* ]] && skip=true && break
+            done
+            [ "$skip" = true ] && continue
+            processed_dirs+=("$arg")
+            rename_directories_recursive "$arg"
+        done
+    fi
 
     # Summary.
     echo ""
