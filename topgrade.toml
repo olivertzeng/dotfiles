@@ -65,6 +65,19 @@ enable_pip_review_local = true                   ###disabled by default
 greedy_cask = true
 autoremove = true
 
+[containers]
+# Specify the containers to ignore while updating (Wildcard supported)
+# ignored_containers = ["ghcr.io/rancher-sandbox/rancher-desktop/rdx-proxy:latest", "docker.io*"]
+# Specify the runtime to use for containers (default: "docker", allowed values: "docker", "podman")
+# runtime = "podman"
+
+# Run 'docker system prune' to clean up unused containers, networks, and build cache
+# (default: false)
+system_prune = true
+
+# Use sudo for updating containers. Necessary for non-rootless installs.
+# (default: false)
+# use_sudo = false
 
 [linux]
 # Arch Package Manager to use.
