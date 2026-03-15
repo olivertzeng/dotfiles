@@ -828,8 +828,8 @@ generate_output_filename() {
 		has_ext=false
 	fi
 
-	local patterns_tw=("zh_TW:zh_CN" "zh-TW:zh-CN" "zh_tw:zh_cn" "zh-tw:zh-cn" "_TW:_CN" "_tw:_cn" "-TW:-CN" "-tw:-cn" "TW:CN")
-	local patterns_cn=("zh_CN:zh_TW" "zh-CN:zh-TW" "zh_cn:zh_tw" "zh-cn:zh-tw" "_CN:_TW" "_cn:_tw" "-CN:-TW" "-cn:-tw" "CN:TW")
+	local patterns_tw=("zh_TW:zh_CN" "zh-TW:zh-CN" "zh_tw:zh_cn" "zh-tw:zh-cn" "_TW:_CN" "_tw:_cn" "-TW:-CN" "-tw:-cn" "rTW:rCN" "zh-Hant:zh-Hans" "zh_Hant:zh_Hans" "Hant:Hans" "TW:CN")
+	local patterns_cn=("zh_CN:zh_TW" "zh-CN:zh-TW" "zh_cn:zh_tw" "zh-cn:zh-tw" "_CN:_TW" "_cn:_tw" "-CN:-TW" "-cn:-tw" "rTW:rCN" "zh-Hans:zh-Hant" "zh_Hans:zh_Hant" "Hans:Hant" "TW:CN")
 
 	local patterns
 	[ "$reverse" = true ] && patterns=("${patterns_tw[@]}") || patterns=("${patterns_cn[@]}")

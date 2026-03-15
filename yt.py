@@ -213,6 +213,8 @@ def cleanup(work_dir: Path, vid: str | None = None) -> int:
     removed = 0
     targets = work_dir.glob(f"*{vid}*") if vid else work_dir.iterdir()
     for f in targets:
+        if f.is_file() and f.name.startswith("cover."):
+            continue
         if f.is_file() and any(f.name.endswith(e) for e in KILL_EXTS):
             try:
                 f.unlink()

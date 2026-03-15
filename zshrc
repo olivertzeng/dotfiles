@@ -101,7 +101,6 @@ alias push-music='adb shell rm -rf /storage/emulated/0/Download/Music/*;adb push
 alias r='bash ~/replace.sh'
 alias refresh='sudo reflector -c Taiwan -f 12 -n 12 -l 12 --download-timeout 60 --save /etc/pacman.d/mirrorlist'
 alias restart='docker compose down;docker compose pull;docker compose up -d'
-alias s='bash ~/shift.sh'
 alias t='topgrade -y --no-retry -c'
 alias v='nvim'
 alias vim='nvim'
