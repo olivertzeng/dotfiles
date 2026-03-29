@@ -425,8 +425,7 @@ def enforce_names(
 # Sync
 # ============================================================
 
-
-def sync(url: str) -> None:
+def sync(url: str, enable_sb: bool = False) -> None:
     work_dir = Path.cwd()
     removed = cleanup(work_dir)
     if removed:
@@ -600,66 +599,74 @@ def sync(url: str) -> None:
 
     # ── Phase 5: SponsorBlock ──────────────────────────────────
     vids_need_sb = list(local_map.keys())
-    vids_use_cache = []
-
-    console.log(
-        f"[dim]SponsorBlock: fetching {len(vids_need_sb)}, "
-        f"using cache for {len(vids_use_cache)}[/dim]"
-    )
-
     new_hashes: dict[str, str] = {}
     new_counts: dict[str, int] = {}
     sb_changed: list[str] = []
 
-    for vid in vids_use_cache:
-        new_hashes[vid] = old_hashes[vid]
-        new_counts[vid] = old_counts.get(vid, 0)
+    if not enable_sb:
+        console.log("[dim]SponsorBlock check disabled.[/dim]")
+        for vid in vids_need_sb:
+            new_hashes[vid] = old_hashes.get(vid, "")
+            new_counts[vid] = old_counts.get(vid, 0)
+    else:
+        vids_use_cache = []
 
-    if vids_need_sb:
-        with make_progress() as p:
-            task = p.add_task("SponsorBlock", total=len(vids_need_sb))
-            with ThreadPoolExecutor(max_workers=SB_CONCURRENCY) as pool:
-                futures = {pool.submit(do_sb, vid): vid for vid in vids_need_sb}
-                for fut in as_completed(futures):
-                    vid, h, count, err_msg = fut.result()
-                    title = vid_to_title.get(vid, vid)
+        console.log(
+            f"[dim]SponsorBlock: fetching {len(vids_need_sb)}, "
+            f"using cache for {len(vids_use_cache)}[/dim]"
+        )
 
-                    if h == "error":
-                        console.log(f"[red]SB error[/red]  {title} [dim]({err_msg})[/dim]")
-                        new_hashes[vid] = old_hashes.get(vid, "error")
-                        new_counts[vid] = old_counts.get(vid, 0)
+        for vid in vids_use_cache:
+            new_hashes[vid] = old_hashes[vid]
+            new_counts[vid] = old_counts.get(vid, 0)
 
-                    elif h == "no_segments":
-                        console.log(f"[dim]SB none   {title}[/dim]")
-                        new_hashes[vid] = "no_segments"
-                        new_counts[vid] = 0
+        if vids_need_sb:
+            with make_progress() as p:
+                task = p.add_task("SponsorBlock", total=len(vids_need_sb))
+                with ThreadPoolExecutor(max_workers=SB_CONCURRENCY) as pool:
+                    futures = {pool.submit(do_sb, vid): vid for vid in vids_need_sb}
+                    for fut in as_completed(futures):
+                        vid, h, count, err_msg = fut.result()
+                        title = vid_to_title.get(vid, vid)
 
-                    else:
-                        old_count = old_counts.get(vid, 0)
-                        diff = count - old_count
+                        if h == "error":
+                            console.log(
+                                f"[red]SB error[/red]  {title} [dim]({err_msg})[/dim]"
+                            )
+                            new_hashes[vid] = old_hashes.get(vid, "error")
+                            new_counts[vid] = old_counts.get(vid, 0)
 
-                        if vid in newly_downloaded or not old_hashes.get(vid):
-                            diff_str = f"[green]+{count}[/green]"
-                        elif diff > 0:
-                            diff_str = f"[yellow]+{diff}[/yellow]"
-                        elif diff < 0:
-                            diff_str = f"[red]{diff}[/red]"
+                        elif h == "no_segments":
+                            console.log(f"[dim]SB none   {title}[/dim]")
+                            new_hashes[vid] = "no_segments"
+                            new_counts[vid] = 0
+
                         else:
-                            diff_str = "[dim] =[/dim]"
+                            old_count = old_counts.get(vid, 0)
+                            diff = count - old_count
 
-                        console.log(f"[cyan]SB ok[/cyan] {diff_str}  {title}")
-                        new_hashes[vid] = h
-                        new_counts[vid] = count
+                            if vid in newly_downloaded or not old_hashes.get(vid):
+                                diff_str = f"[green]+{count}[/green]"
+                            elif diff > 0:
+                                diff_str = f"[yellow]+{diff}[/yellow]"
+                            elif diff < 0:
+                                diff_str = f"[red]{diff}[/red]"
+                            else:
+                                diff_str = "[dim] =[/dim]"
 
-                        if (
-                            vid not in newly_downloaded
-                            and old_hashes.get(vid)
-                            and old_hashes[vid] != h
-                        ):
-                            sb_changed.append(vid)
-                            console.log(f"[yellow]SB changed:[/yellow] {title}")
+                            console.log(f"[cyan]SB ok[/cyan] {diff_str}  {title}")
+                            new_hashes[vid] = h
+                            new_counts[vid] = count
 
-                    p.advance(task)
+                            if (
+                                vid not in newly_downloaded
+                                and old_hashes.get(vid)
+                                and old_hashes[vid] != h
+                            ):
+                                sb_changed.append(vid)
+                                console.log(f"[yellow]SB changed:[/yellow] {title}")
+
+                        p.advance(task)
 
     # ── Phase 6: Re-download SB-changed ───────────────────────
     if sb_changed:
@@ -725,15 +732,21 @@ def sync(url: str) -> None:
 # ============================================================
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    args = sys.argv[1:]
+    enable_sb = False
+    if "-s" in args:
+        enable_sb = True
+        args.remove("-s")
+
+    if len(args) == 0:
         cwd = Path.cwd().name
         url = DIR_ALIASES.get(cwd)
         if not url:
-            console.print("[red]Usage:[/red] ./yt.py [url|alias]")
+            console.print("[red]Usage:[/red] ./yt.py [-s] [url|alias]")
             sys.exit(1)
         console.log(f"[dim]Auto-detected: {cwd}[/dim]")
     else:
-        arg = sys.argv[1]
+        arg = args[0]
         if arg in ("-h", "--help"):
             print(__doc__)
             sys.exit(0)
@@ -745,7 +758,7 @@ if __name__ == "__main__":
             sys.exit(1)
 
     try:
-        sync(url)
+        sync(url, enable_sb=enable_sb)
     except KeyboardInterrupt:
         console.print("\n[yellow]Interrupted.[/yellow]")
         cleanup(Path.cwd())

@@ -45,7 +45,7 @@ source $zsh_plugins
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
-antidote load
+antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export ARCHFLAGS="-arch x86_64"
