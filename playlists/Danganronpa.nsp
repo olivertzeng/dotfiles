@@ -1,0 +1,55 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "ダンガンロンパ"
+      }
+    },
+    {
+      "contains": {
+        "title": "Danganronpa"
+      }
+    },
+    {
+      "contains": {
+        "title": "槍彈辯駁"
+      }
+    },
+    {
+      "contains": {
+        "title": "Vetrom"
+      }
+    },
+    {
+      "contains": {
+        "title": "希望ヶ峰"
+      }
+    },
+    {
+      "contains": {
+        "title": "Box 16"
+      }
+    },
+    {
+      "contains": {
+        "title": "超高校級"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Vetrom"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Danganronpa"
+      }
+    },
+    {
+      "contains": {
+        "title": "ナナミ"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

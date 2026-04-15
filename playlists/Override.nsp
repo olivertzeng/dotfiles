@@ -1,0 +1,20 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "オーバ"
+      }
+    },
+    {
+      "contains": {
+        "title": "rride"
+      }
+    },
+    {
+      "contains": {
+        "title": "ライド"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

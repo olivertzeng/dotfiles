@@ -1,0 +1,49 @@
+{
+  "any": [
+    {
+      "contains": {
+        "artist": "TimmyTurnersGrandDad"
+      }
+    },
+    {
+      "is": {
+        "artist": "Ripping Reapers"
+      }
+    },
+    {
+      "is": {
+        "artist": "VvvvvaVvvvvvr"
+      }
+    },
+    {
+      "all":[
+        {
+          "is": {
+            "artist": "옐로이"
+          }
+        },
+        {
+          "contains":{
+            "title": "mario"
+          }
+        }
+      ]
+    },
+    {
+      "is": {
+        "title": "동네 빌런한테 가르침 받는 아루 리믹스"
+      }
+    },
+    {
+      "is": {
+        "artist": "JivaHou_304"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Gunner"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

@@ -1,0 +1,15 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "モニタリング"
+      }
+    },
+    {
+      "contains": {
+        "title": "Monitoring"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

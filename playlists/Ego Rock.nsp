@@ -1,0 +1,24 @@
+{
+  "all": [
+    {
+      "isNot": {
+        "album": "kyuKurarin"
+      }
+    },
+    {
+      "any": [
+        {
+          "contains": {
+            "title": "ロック"
+          }
+        },
+        {
+          "contains": {
+            "title": "Ego Rock"
+          }
+        }
+      ]
+    }
+  ],
+  "sort": "-dateadded"
+}

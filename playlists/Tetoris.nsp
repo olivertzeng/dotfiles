@@ -1,0 +1,29 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "oris"
+      }
+    },
+    {
+      "all": [
+        {
+          "isNot": {
+            "title": "可愛くてごめん + クリスマス - HoneyWorks Piano arrange Ver. / Covered by A2"
+          }
+        },
+        {
+          "isNot": {
+            "title": "チルミルアリス"
+          }
+        },
+        {
+          "contains": {
+            "title": "リス"
+          }
+        }
+      ]
+    }
+  ],
+  "sort": "-dateadded"
+}

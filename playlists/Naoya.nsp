@@ -1,0 +1,50 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "直哉"
+      }
+    },
+    {
+      "contains": {
+        "title": "禪院"
+      }
+    },
+    {
+      "is": {
+        "title": "どぶくらりん"
+      }
+    },
+    {
+      "is": {
+        "title": "ドブカスタービーボーイ"
+      }
+    },
+    {
+      "is": {
+        "title": "人のマニアとかないんか？"
+      }
+    },
+    {
+      "is": {
+        "artist": "BiBi"
+      }
+    },
+    {
+      "is": {
+        "artist": "Dorcus"
+      }
+    },
+    {
+      "is": {
+        "artist": "해세지"
+      }
+    },
+    {
+      "is": {
+        "artist": "嫉妬太郎"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

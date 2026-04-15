@@ -1,0 +1,75 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "逆転"
+      }
+    },
+    {
+      "contains": {
+        "title": "Attorney"
+      }
+    },
+    {
+      "contains": {
+        "title": "異議あり"
+      }
+    },
+    {
+      "contains": {
+        "title": "Objection"
+      }
+    },
+    {
+      "contains": {
+        "title": "成歩堂"
+      }
+    },
+    {
+      "contains": {
+        "title": "Phoenix Wright"
+      }
+    },
+    {
+      "contains": {
+        "title": "Godot"
+      }
+    },
+    {
+      "contains": {
+        "title": "Pursuit"
+      }
+    },
+    {
+      "contains": {
+        "artist": "逆転裁判"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Ace Attorney"
+      }
+    },
+    {
+      "is": {
+        "title": "Om and On (OST Version) - Rift of the NecroDancer"
+      }
+    },
+    {
+      "contains": {
+        "title": "Cornered"
+      }
+    },
+    {
+      "contains": {
+        "title": "Turnabout"
+      }
+    },
+    {
+      "contains": {
+        "title": "역전"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

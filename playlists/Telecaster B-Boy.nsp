@@ -1,0 +1,24 @@
+{
+  "any":[
+    {
+      "contains": {
+        "title": "caster"
+      }
+    },
+    {
+      "contains": {
+        "title": "B-Boy"
+      }
+    },
+    {
+      "contains": {
+        "title": "テレキャスター"
+      }
+    },
+    {
+      "contains": {
+        "title": "ボーイ"
+      }
+    }
+  ]
+}

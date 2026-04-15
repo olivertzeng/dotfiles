@@ -10,9 +10,10 @@ ln -sf ~/dotfiles/shift.sh ~/
 ln -sf ~/dotfiles/topgrade.toml ~/.config
 ln -sf ~/dotfiles/yay.json ~/.config/yay/config.json
 ln -sf ~/dotfiles/yt-dlp ~/.config/yt-dlp/config
-ln -sf ~/dotfiles/yt.sh ~/
+ln -sf ~/dotfiles/yt.py ~/
 ln -sf ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 ln -sf ~/dotfiles/zshbookmarks ~/.zshbookmarks
 ln -sf ~/dotfiles/zshrc ~/.zshrc
+ln -sf ~/dotfiles/playlists ~/Music
 sudo ln -sf ~/dotfiles/makepkg.conf /etc/makepkg.conf
 sudo ln -sf ~/dotfiles/pacman.conf /etc/pacman.conf

@@ -1,0 +1,57 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "ライア"
+      }
+    },
+    {
+      "contains": {
+        "title": "댄서"
+      }
+    },
+    {
+      "contains": {
+        "title": "Liar"
+      }
+    },
+    {
+      "contains": {
+        "title": "ダンサー"
+      }
+    },
+    {
+      "all": [
+        {
+          "contains": {
+            "title": "Dancer"
+          }
+        },
+        {
+          "isNot": {
+            "title": "Om and On (OST Version) - Rift of the NecroDancer"
+          }
+        }
+      ]
+    },
+    {
+      "all":[
+        {
+          "is":{
+            "artist": "KasaneGunner"
+          }
+        },
+        {
+          "any":[
+            {
+              "is": {
+                "title": "We Are Number One - LazyTown: The Video Game"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sort": "-dateadded"
+}

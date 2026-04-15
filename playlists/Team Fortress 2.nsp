@@ -1,0 +1,131 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "TF2"
+      }
+    },
+    {
+      "contains": {
+        "title": "Team Fortress"
+      }
+    },
+    {
+      "contains": {
+        "artist": "TAWASI"
+      }
+    },
+    {
+      "all": [
+        {
+          "contains": {
+            "title": "Blu "
+          }
+        },
+        {
+          "notContains": {
+            "title": "Blu Ray"
+          }
+        }
+      ]
+    },
+    {
+      "contains": {
+        "title": "Spymiru"
+      }
+    },
+    {
+      "is": {
+        "title": "SEN-TRY Disco"
+      }
+    },
+    {
+      "contains": {
+        "title": "Demoman"
+      }
+    },
+    {
+      "contains": {
+        "title": "Scout"
+      }
+    },
+    {
+      "contains": {
+        "title": "Sniper"
+      }
+    },
+    {
+      "is": {
+        "title": "Sandwichmiru"
+      }
+    },
+    {
+      "contains": {
+        "title": "Sandvich"
+      }
+    },
+    {
+      "is": {
+        "title": "Snortumiru"
+      }
+    },
+    {
+      "is": {
+        "title": "Ubermiru"
+      }
+    },
+    {
+      "contains": {
+        "title": "SFM"
+      }
+    },
+    {
+      "all":[
+        {
+          "is":{
+            "artist": "SilvaGunner"
+          }
+        },
+        {
+          "any":[
+            {
+              "is":{
+                "title":"Flowering Night (US Version) - Touhou 9: Phantasmagoria of Flower View"
+              }
+            },
+            {
+              "is":{
+                "title":"Fire Emblem - Super Smash Bros. Brawl"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "all": [
+        {
+          "notContains": {
+            "title": "Spy x Family"
+          }
+        },
+        {
+          "notContains": {
+            "title": "SpyxFamily"
+          }
+        },
+        {
+          "contains": {
+            "title": "Spy"
+          }
+        },
+        {
+          "notContains": {
+            "title": "SPY×FAMILY"
+          }
+        }
+      ]
+    }
+  ],
+  "sort": "-dateadded"
+}

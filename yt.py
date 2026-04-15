@@ -4,6 +4,9 @@ yt.py - YouTube Playlist Downloader
 
 Dependencies:
     sudo pacman -S python-rich python-requests python-mutagen yt-dlp
+
+Download Options:
+  -s              Enable SponsorBlock detection
 """
 
 import hashlib

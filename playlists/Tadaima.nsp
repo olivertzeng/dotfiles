@@ -1,0 +1,24 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "!!!"
+      }
+    },
+    {
+      "contains": {
+        "title": "！！！"
+      }
+    },
+    {
+      "contains": {
+        "title": "ーっ"
+      }
+    },
+    {
+      "contains": {
+        "title": "Baqeela"
+      }
+    },
+  "sort": "-dateadded"
+}

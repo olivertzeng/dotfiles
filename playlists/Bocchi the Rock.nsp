@@ -1,0 +1,104 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "Bocchi"
+      }
+    },
+    {
+      "contains": {
+        "title": "結束バンド"
+      }
+    },
+    {
+      "contains": {
+        "title": "Kessoku"
+      }
+    },
+    {
+      "contains": {
+        "title": "後藤"
+      }
+    },
+    {
+      "contains": {
+        "artist": "結束バンド"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Kessoku"
+      }
+    },
+    {
+      "contains": {
+        "title": "Gotoh"
+      }
+    },
+    {
+      "contains": {
+        "title": "Gotou"
+      }
+    },
+    {
+      "contains": {
+        "title": "山田"
+      }
+    },
+    {
+      "contains": {
+        "title": "喜多"
+      }
+    },
+    {
+      "contains": {
+        "title": "虹夏"
+      }
+    },
+    {
+      "contains": {
+        "title": "ひとり"
+      }
+    },
+    {
+      "contains": {
+        "title": "ヒトーリン"
+      }
+    },
+    {
+      "contains": {
+        "title": "孤独摇滚"
+      }
+    },
+    {
+      "contains": {
+        "title": "孤獨搖滾"
+      }
+    },
+    {
+      "contains": {
+        "title": "봇치"
+      }
+    },
+    {
+      "is": {
+        "title": "GIVE ME SEASON 2"
+      }
+    },
+    {
+      "all": [
+        {
+          "notContains": {
+            "title": "きゅうくらぼっさ"
+          }
+        },
+        {
+          "contains": {
+            "title": "ぼ"
+          }
+        }
+      ]
+    }
+  ],
+  "sort": "-dateadded"
+}

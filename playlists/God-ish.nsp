@@ -1,0 +1,20 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "-ish"
+      }
+    },
+    {
+      "contains": {
+        "title": "ぽいな"
+      }
+    },
+    {
+      "contains": {
+        "title": "- ish"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

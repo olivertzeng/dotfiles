@@ -1,0 +1,180 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "東方"
+      }
+    },
+    {
+      "contains": {
+        "title": "miru "
+      }
+    },
+    {
+      "contains": {
+        "title": "Touhou"
+      }
+    },
+    {
+      "contains": {
+        "title": "幻想郷"
+      }
+    },
+    {
+      "contains": {
+        "title": "Bad Apple"
+      }
+    },
+    {
+      "contains": {
+        "title": "U.N.オーエン"
+      }
+    },
+    {
+      "contains": {
+        "title": "Night of Knights"
+      }
+    },
+    {
+      "contains": {
+        "title": "Nights of Nights"
+      }
+    },
+    {
+      "contains": {
+        "title": "ナイト・オブ・ナイツ"
+      }
+    },
+    {
+      "contains": {
+        "title": "Flowering Night"
+      }
+    },
+    {
+      "contains": {
+        "title": "Cirno"
+      }
+    },
+    {
+      "contains": {
+        "title": "チルノ"
+      }
+    },
+    {
+      "contains": {
+        "title": "Phantasmagoria"
+      }
+    },
+    {
+      "contains": {
+        "title": "Scarlet Devil"
+      }
+    },
+    {
+      "contains": {
+        "title": "紅魔"
+      }
+    },
+    {
+      "contains": {
+        "title": "Beloved Tomboyish"
+      }
+    },
+    {
+      "contains": {
+        "title": "Remilia"
+      }
+    },
+    {
+      "contains": {
+        "title": "咲夜"
+      }
+    },
+    {
+      "contains": {
+        "title": "霊夢"
+      }
+    },
+    {
+      "contains": {
+        "title": "魔理沙"
+      }
+    },
+    {
+      "contains": {
+        "title": "幽々子"
+      }
+    },
+    {
+      "contains": {
+        "title": "Marisa"
+      }
+    },
+    {
+      "contains": {
+        "title": "Reimu"
+      }
+    },
+    {
+      "contains": {
+        "artist": "東方"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Touhou"
+      }
+    },
+    {
+      "contains": {
+        "title": "miru"
+      }
+    },
+    {
+      "contains": {
+        "title": "U. N."
+      }
+    },
+    {
+      "contains": {
+        "title": "U.N."
+      }
+    },
+    {
+      "contains": {
+        "title": "最終鬼畜"
+      }
+    },
+    {
+      "contains": {
+        "title": "教室"
+      }
+    },
+    {
+      "contains": {
+        "title": "Perfect Math Class"
+      }
+    },
+    {
+      "is": {
+        "title": "きゅうさなりん"
+      }
+    },
+    {
+      "is": {
+        "title": "초 : 역전 · 오브 · 재판"
+      }
+    },
+    {
+      "contains": {
+        "title": "オブ・ナイツ"
+      }
+    },
+    {
+      "contains": {
+        "title": "ミル"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

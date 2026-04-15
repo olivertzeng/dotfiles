@@ -1,0 +1,30 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "まのさば"
+      }
+    },
+    {
+      "contains": {
+        "title": "魔裁"
+      }
+    },
+    {
+      "contains": {
+        "title": "Manosaba"
+      }
+    },
+    {
+      "contains": {
+        "title": "レイア"
+      }
+    },
+    {
+      "contains": {
+        "title": "エマ"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

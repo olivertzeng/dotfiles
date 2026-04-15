@@ -1,0 +1,16 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "Maximizer"
+      },
+      "contains": {
+        "title": "mathmizer"
+      },
+      "contains": {
+        "title": "マーシャル・マキシマイザー"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

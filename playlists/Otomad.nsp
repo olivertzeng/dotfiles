@@ -1,0 +1,819 @@
+{
+  "all": [
+    {
+      "notInPlaylist": {
+        "id": "XqJBmGRQmlOBgPQGQ6rfl8"
+      }
+    },
+    {
+      "any": [
+        {
+          "contains": {
+            "title": "⚡"
+          }
+        },
+        {
+          "contains": {
+            "title": "テ リ"
+          }
+        },
+        {
+          "contains": {
+            "title": "逸見"
+          }
+        },
+        {
+          "contains": {
+            "title": "最終鬼畜"
+          }
+        },
+        {
+          "contains": {
+            "title": "音MAD"
+          }
+        },
+        {
+          "contains": {
+            "title": "ytp"
+          }
+        },
+        {
+          "contains": {
+            "title": "TAWASI"
+          }
+        },
+        {
+          "contains": {
+            "title": "mathmizer"
+          }
+        },
+        {
+          "contains": {
+            "artist": "TAWASI"
+          }
+        },
+        {
+          "contains": {
+            "title": "miru"
+          }
+        },
+        {
+          "contains": {
+            "title": "放火"
+          }
+        },
+        {
+          "contains": {
+            "title": "ㄐ"
+          }
+        },
+        {
+          "contains": {
+            "title": "尊"
+          }
+        },
+        {
+          "contains": {
+            "title": "錫蘭"
+          }
+        },
+        {
+          "contains": {
+            "title": "Let's play"
+          }
+        },
+        {
+          "contains": {
+            "title": "Rhythm Heaven"
+          }
+        },
+        {
+          "is": {
+            "title": "두근 어! 질 (황정민 - 두근 어질)"
+          }
+        },
+        {
+          "is": {
+            "title": "Kyu-kurarin"
+          }
+        },
+        {
+          "is": {
+            "title": "テトリスに潰される重音テト"
+          }
+        },
+        {
+          "is": {
+            "artist": "我是泰哥"
+          }
+        },
+        {
+          "is": {
+            "artist": "梅川伊芙"
+          }
+        },
+        {
+          "is": {
+            "artist": "KETURU"
+          }
+        },
+        {
+          "is": {
+            "artist": "すいはん"
+          }
+        },
+        {
+          "is": {
+            "artist": "Tarako_Official"
+          }
+        },
+        {
+          "is": {
+            "artist": "OneThreeFive135"
+          }
+        },
+        {
+          "is": {
+            "artist": "zaqws"
+          }
+        },
+        {
+          "is": {
+            "artist": "꿀바람"
+          }
+        },
+        {
+          "is": {
+            "artist": "9MAO a.k.a. 玖毛"
+          }
+        },
+        {
+          "is": {
+            "artist": "옐로이"
+          }
+        },
+        {
+          "is": {
+            "artist": "Daon"
+          }
+        },
+        {
+          "is": {
+            "title": "Supermario RPG song by Kirby music"
+          }
+        },
+        {
+          "is": {
+            "title": "Oh Mah God-ish"
+          }
+        },
+        {
+          "contains": {
+            "title": "ゆゆ"
+          }
+        },
+        {
+          "contains": {
+            "title": "yuyu"
+          }
+        },
+        {
+          "contains": {
+            "title": "Windows"
+          }
+        },
+        {
+          "contains": {
+            "title": "Blend"
+          }
+        },
+        {
+          "is": {
+            "artist": "時限爆弾"
+          }
+        },
+        {
+          "is": {
+            "artist": "해세지"
+          }
+        },
+        {
+          "is": {
+            "artist": "Rysul"
+          }
+        },
+        {
+          "contains": {
+            "title": "합작"
+          }
+        },
+        {
+          "inPlaylist": {
+            "id": "oM70RkiEYEAjazJaXQBo2b"
+          }
+        },
+        {
+          "inPlaylist": {
+            "id": "TkLcT0cTCtyVP5f1nK2Dt5"
+          }
+        },
+        {
+          "inPlaylist": {
+            "id": "U7AOoTF3xO7W793y3DPr3T"
+          }
+        },
+        {
+          "inPlaylist": {
+            "id": "QyI5fpBGVS2HzFZqFk8dSy"
+          }
+        },
+        {
+          "inPlaylist": {
+            "id": "G1hTLjySLTNZ6tqTNKKE9Q"
+          }
+        },
+        {
+          "inPlaylist": {
+            "id": "d0fT0zl53Q1x3zPj3FOv59"
+          }
+        },
+        {
+          "all": [
+            {
+              "contains": {
+                "title": "合作"
+              }
+            },
+            {
+              "isNot": {
+                "title": "【DTM鯖合作】きゅうくらりん"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "inPlaylist": {
+                "id": "37oCbAUCrAFLLz260sUyzk"
+              }
+            },
+            {
+              "isNot": {
+                "artist": "Will Stetson"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "inPlaylist": {
+                "id": "JOHaxNJvHBlqA4fk0MRj2K"
+              }
+            },
+            {
+              "isNot": {
+                "artist": "RichaadEB"
+              }
+            },
+            {
+              "isNot": {
+                "artist": "COOL&CREATE"
+              }
+            },
+            {
+              "isNot": {
+                "artist": "beatMARIO"
+              }
+            },
+            {
+              "isNot": {
+                "title": "【ゆっくり霊夢が本気で歌う】きゅうくらりん / いよわ【UTAU_ust使用】"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "notContains": {
+                "title": "Telecaster B-Boy"
+              }
+            },
+            {
+              "any": [
+                {
+                  "contains": {
+                    "title": "Telecaster"
+                  }
+                },
+                {
+                  "contains": {
+                    "title": "B-Boy"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "notContains": {
+                "title": "テレキャスタービーボーイ"
+              }
+            },
+            {
+              "any": [
+                {
+                  "contains": {
+                    "title": "テレキャスター"
+                  }
+                },
+                {
+                  "contains": {
+                    "title": "ボーイ"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "notContains": {
+                "title": "神っぽいな"
+              }
+            },
+            {
+              "contains": {
+                "title": "ぽいな"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "notContains": {
+                "title": "God-ish"
+              }
+            },
+            {
+              "any": [
+                {
+                  "contains": {
+                    "title": "- ish"
+                  }
+                },
+                {
+                  "contains": {
+                    "title": "-ish"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "notContains": {
+                "title": "YO - KAI Disco"
+              }
+            },
+            {
+              "notContains": {
+                "title": "YO-KAI Disco"
+              }
+            },
+            {
+              "contains": {
+                "title": "Disco"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "isNot": {
+                "artist": "divydend"
+              }
+            },
+            {
+              "contains": {
+                "title": "beast"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "notContains": {
+                "title": "神っぽいな"
+              }
+            },
+            {
+              "contains": {
+                "title": "ぽいな"
+              }
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "テトリス"
+                  }
+                },
+                {
+                  "contains": {
+                    "title": "リス"
+                  }
+                },
+                {
+                  "isNot": {
+                    "title": "可愛くてごめん + クリスマス - HoneyWorks Piano arrange Ver. / Covered by A2"
+                  }
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "Tetoris"
+                  }
+                },
+                {
+                  "contains": {
+                    "title": "oris"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "Liar Dancer"
+                  }
+                },
+                {
+                  "isNot": {
+                    "title": "Om and On (OST Version) - Rift of the NecroDancer"
+                  }
+                },
+                {
+                  "any": [
+                    {
+                      "contains": {
+                        "title": "Liar"
+                      }
+                    },
+                    {
+                      "contains": {
+                        "title": "Dancer"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "ライアーダンサー"
+                  }
+                },
+                {
+                  "any": [
+                    {
+                      "contains": {
+                        "title": "ダンサー"
+                      }
+                    },
+                    {
+                      "contains": {
+                        "title": "ライアー"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "オーバーライド"
+                  }
+                },
+                {
+                  "any": [
+                    {
+                      "contains": {
+                        "title": "オーバ"
+                      }
+                    },
+                    {
+                      "contains": {
+                        "title": "ライド"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "ラグトレイン"
+                  }
+                },
+                {
+                  "contains": {
+                    "title": "ラグトレ"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "きゅうくらりん"
+                  }
+                },
+                {
+                  "contains": {
+                    "title": "りん"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "두근어질"
+                  }
+                },
+                {
+                  "notContains": {
+                    "title": "두근 어질"
+                  }
+                },
+                {
+                  "notContains": {
+                    "title": "두근, 아자"
+                  }
+                },
+                {
+                  "any": [
+                    {
+                      "contains": {
+                        "title": "두근"
+                      }
+                    },
+                    {
+                      "contains": {
+                        "title": "어질"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "any": [
+            {
+              "all": [
+                {
+                  "notContains": {
+                    "title": "kyuu-kurarin"
+                  }
+                },
+                {
+                  "notContains": {
+                    "title": "kyuukurarin"
+                  }
+                },
+                {
+                  "notContains": {
+                    "title": "kyukurarin"
+                  }
+                },
+                {
+                  "notContains": {
+                    "title": "kyu kurarin"
+                  }
+                },
+                {
+                  "notContains": {
+                    "title": "kyu-kurarin"
+                  }
+                },
+                {
+                  "contains": {
+                    "title": "arin"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "contains": {
+                "album": "kyuKurarin"
+              }
+            },
+            {
+              "notContains": {
+                "title": "kyu kurarin"
+              }
+            },
+            {
+              "notContains": {
+                "title": "kyuu-kurarin"
+              }
+            },
+            {
+              "notContains": {
+                "title": "kyukurarin"
+              }
+            },
+            {
+              "notContains": {
+                "title": "kyu-kurarin"
+              }
+            },
+            {
+              "notContains": {
+                "title": "きゅうくらりん"
+              }
+            },
+            {
+              "isNot": {
+                "artist": "towa"
+              }
+            },
+            {
+              "notContains": {
+                "title": "두근, 어질"
+              }
+            },
+            {
+              "notContains": {
+                "title": "두근, 아자"
+              }
+            },
+            {
+              "notContains": {
+                "title": "두근，어질"
+              }
+            },
+            {
+              "notContains": {
+                "title": "두근 어질"
+              }
+            },
+            {
+              "notContains": {
+                "title": "두근어질"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "contains": {
+                "title": "國動"
+              }
+            },
+            {
+              "notContains": {
+                "title": "還我國動(注意音量)(Volume Warning)"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "is": {
+                "artist": "SilvaGunner"
+              }
+            },
+            {
+              "any": [
+                {
+                  "is": {
+                    "title": "Dai Gyakuten Saiban 2 OST | 05 Naruhodou Ryuutarou ~ Objection!"
+                  }
+                },
+                {
+                  "is": {
+                    "title": "Ryutaro Naruhodo - Objection! - The Great Ace Attorney 2: Resolve"
+                  }
+                },
+                {
+                  "is": {
+                    "title": "A Prosecutor, Reborn - The Great Ace Attorney 2: Resolve"
+                  }
+                },
+                {
+                  "is": {
+                    "title": "Investigation - The Great Ace Attorney: Adventures"
+                  }
+                },
+                {
+                  "is": {
+                    "title": "Tobias Gregson - The Great Detective's Great Foe - The Great Ace Attorney: Adventures"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "inPlaylist": {
+                "id": "qF4wddVH3teLpwoLj6fLg1"
+              }
+            },
+            {
+              "isNot": {
+                "artist": "Simi and Chapchap"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "notContains": {
+                "title": "Green Hill Zone"
+              }
+            },
+            {
+              "contains": {
+                "title": "ZONE"
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "inPlaylist": {
+                "id": "3CNyaxTOlCjW5WX4FX8AxV"
+              }
+            },
+            {
+              "inPlaylist": {
+                "id": "gduXNLRs2s5fV9zzM8a2KZ"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sort": "-dateadded"
+}

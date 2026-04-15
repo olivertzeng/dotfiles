@@ -1,0 +1,110 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "Oshama"
+      }
+    },
+    {
+      "contains": {
+        "title": "Scramble"
+      }
+    },
+    {
+      "contains": {
+        "title": "Muse Dash"
+      }
+    },
+    {
+      "contains": {
+        "title": "maimai"
+      }
+    },
+    {
+      "contains": {
+        "title": "マイマイ"
+      }
+    },
+    {
+      "contains": {
+        "title": "チュウニズム"
+      }
+    },
+    {
+      "contains": {
+        "title": "CHUNITHM"
+      }
+    },
+    {
+      "contains": {
+        "title": "オンゲキ"
+      }
+    },
+    {
+      "contains": {
+        "title": "ONGEKI"
+      }
+    },
+    {
+      "contains": {
+        "title": "Arcaea"
+      }
+    },
+    {
+      "contains": {
+        "title": "Phigros"
+      }
+    },
+    {
+      "contains": {
+        "title": "プロセカ"
+      }
+    },
+    {
+      "contains": {
+        "title": "SDVX"
+      }
+    },
+    {
+      "contains": {
+        "title": "太鼓"
+      }
+    },
+    {
+      "contains": {
+        "title": "音ゲー"
+      }
+    },
+    {
+      "contains": {
+        "artist": "maimai"
+      }
+    },
+    {
+      "contains": {
+        "title": "TJ.hangneil"
+      }
+    },
+    {
+      "contains": {
+        "title": "sasakure.UK"
+      }
+    },
+    {
+      "contains": {
+        "title": "rintaro soma"
+      }
+    },
+    {
+      "is": {
+        "artist": "t+pazolite"
+      }
+    },
+    {
+      "is": {
+        "artist": "9MAO a.k.a. 玖毛"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

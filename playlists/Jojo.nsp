@@ -1,0 +1,40 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "ジョジョ"
+      }
+    },
+    {
+      "contains": {
+        "title": "JoJo"
+      }
+    },
+    {
+      "contains": {
+        "title": "JJBA"
+      }
+    },
+    {
+      "contains": {
+        "title": "bloody stream"
+      }
+    },
+    {
+      "contains": {
+        "title": "Giorno"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Nero"
+      }
+    },
+    {
+      "contains": {
+        "title": "露伴"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

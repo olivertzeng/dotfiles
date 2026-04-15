@@ -1,0 +1,50 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": " Ruma "
+      }
+    },
+    {
+      "contains": {
+        "title": "ruma_win"
+      }
+    },
+    {
+      "is": {
+        "title": "ナオヤ／ぜんいんベア"
+      }
+    },
+    {
+      "is": {
+        "title": "【音MAD】ドア / 岸辺露伴"
+      }
+    },
+    {
+      "is": {
+        "title": "【コメ付き】ロハン"
+      }
+    },
+    {
+      "is": {
+        "title": "【音MAD】ラブ／UNDERTALE"
+      }
+    },
+    {
+      "is": {
+        "title": "【音MAD】エマ ／ あぶりビン"
+      }
+    },
+    {
+      "is": {
+        "title": "クルー / かいぎでペア"
+      }
+    },
+    {
+      "contains": {
+        "title": "ルマ"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

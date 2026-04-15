@@ -1,0 +1,38 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "Rabbit hole"
+      }
+    },
+    {
+      "contains": {
+        "title": "ラビットホール"
+      }
+    },
+    {
+      "all":[
+        {
+          "is":{
+            "artist": "SilvaGunner"
+          }
+        },
+        {
+          "any":[
+            {
+              "is": {
+                "title": "Rainbow Road (In-Game Version) - Mario Kart DS"
+              }
+            },
+            {
+              "is": {
+                "title": "Boss (JP Mix) - Kirby 64: The Crystal Shards"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sort": "-dateadded"
+}

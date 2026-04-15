@@ -1,0 +1,30 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "English cover"
+      }
+    },
+    {
+      "contains": {
+        "title": "English ver"
+      }
+    },
+    {
+      "contains": {
+        "title": "Eng ver"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Will Stetson"
+      }
+    },
+    {
+      "contains": {
+        "artist": "rachie"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

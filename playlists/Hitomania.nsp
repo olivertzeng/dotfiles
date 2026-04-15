@@ -1,0 +1,25 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "hito"
+      }
+    },
+    {
+      "contains": {
+        "title": "mania"
+      }
+    },
+    {
+      "contains": {
+        "title": "人マ"
+      }
+    },
+    {
+      "contains": {
+        "title": "ニア"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

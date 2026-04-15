@@ -1,0 +1,50 @@
+{
+  "any": [
+    {
+      "contains": {
+        "artist": "重音"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Teto"
+      }
+    },
+    {
+      "contains": {
+        "title": "重 テ"
+      }
+    },
+    {
+      "contains": {
+        "artist": "Kasane"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "ZZb9O29A5y483Anp797Ah4"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "OTKvnIn1HNd0Crv6YZKusU"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "iR5KaSBAjxN7XSIT2BqZGl"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "r5MfAIaU9rjlhSjIrRovU2"
+      }
+    },
+    {
+      "contains": {
+        "title": "Kasane"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

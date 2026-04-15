@@ -1,0 +1,40 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "ピアノ"
+      }
+    },
+    {
+      "contains": {
+        "title": "弾いてみた"
+      }
+    },
+    {
+      "contains": {
+        "title": "Date with Tsurugi"
+      }
+    },
+    {
+      "contains": {
+        "title": "Coffee Cats"
+      }
+    },
+    {
+      "contains": {
+        "title": "piano"
+      }
+    },
+    {
+      "is": {
+        "artist": "캇파캇파"
+      }
+    },
+    {
+      "is": {
+        "artist": "White Notes"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

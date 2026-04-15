@@ -1,0 +1,60 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "DECO*27"
+      }
+    },
+    {
+      "contains": {
+        "title": "DECO27"
+      }
+    },
+    {
+      "contains": {
+        "artist": "DECO*27"
+      }
+    },
+    {
+      "contains": {
+        "artist": "DECO27"
+      }
+    },
+    {
+      "contains": {
+        "title": "Ultimate Senpai"
+      }
+    },
+    {
+      "contains": {
+        "title": "ンパイ"
+      }
+    },
+    {
+      "contains": {
+        "title": "アルティメット"
+      }
+    },
+    {
+      "contains": {
+        "title": "デビルじゃないもん"
+      }
+    },
+    {
+      "contains": {
+        "title": "(not) a devil"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "cXpuwwkiduqyOUJ4YDSasz"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "Ts3YZSEQsjChMeCaL4k6h9"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}
