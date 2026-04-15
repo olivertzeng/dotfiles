@@ -2,12 +2,12 @@
   "any": [
     {
       "contains": {
-        "title": "스피키"
+        "title": "title"
       }
     },
     {
-      "contains": {
-        "title": "스핔이"
+      "is": {
+        "title": "title"
       }
     }
   ],

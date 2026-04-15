@@ -169,16 +169,6 @@
         },
         {
           "contains": {
-            "title": "ゆゆ"
-          }
-        },
-        {
-          "contains": {
-            "title": "yuyu"
-          }
-        },
-        {
-          "contains": {
             "title": "Windows"
           }
         },
