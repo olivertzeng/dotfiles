@@ -439,7 +439,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
 
     # ── Fetch playlist ─────────────────────────────────────────
     console.log("[cyan]Fetching playlist...[/cyan]")
-    ok, out = run(["yt-dlp", "--flat-playlist", "-j", url])
+    ok, out = run(["yt-dlp", "--ignore-config", "--flat-playlist", "-j", url])
     if not ok:
         console.log(f"[red]Failed to fetch playlist:\n{out}[/red]")
         sys.exit(1)
@@ -526,7 +526,42 @@ def sync(url: str, enable_sb: bool = False) -> None:
     # ── Identify missing ───────────────────────────────────────
     missing = [s for s in remote_songs if s.id not in local_map]
     console.log(f"[dim]Local: {len(local_map)} | Missing: {len(missing)}[/dim]")
-
+    # ── Fetch missing artist/description metadata ─────────────
+    need_meta = [s for s in remote_songs if not s.artist or s.artist == "Unknown"]
+    if need_meta:
+        console.log(f"[cyan]Fetching metadata for {len(need_meta)} songs...[/cyan]")
+    
+        def _fetch_meta(song: RemoteSong) -> None:
+            ok, out = run(
+                ["yt-dlp", "--ignore-config", "-j", "--no-download",
+                 f"https://www.youtube.com/watch?v={song.id}"],
+                timeout=30,
+            )
+            if not ok:
+                return
+            try:
+                d = json.loads(out.strip().split("\n")[-1])
+                artist = d.get("uploader", d.get("channel", ""))
+                if artist and artist.endswith(" - Topic"):
+                    artist = artist[:-8]
+                if artist:
+                    song.artist = artist
+                upload_date = d.get("upload_date", "")
+                if len(upload_date) >= 4:
+                    song.upload_year = upload_date[:4]
+                desc = d.get("description", "")
+                if desc:
+                    song.description = desc
+            except Exception:
+                pass
+    
+        with make_progress() as p:
+            task = p.add_task("Metadata", total=len(need_meta))
+            with ThreadPoolExecutor(max_workers=PARALLEL_DOWNLOADS) as pool:
+                futs = {pool.submit(_fetch_meta, s): s for s in need_meta}
+                for fut in as_completed(futs):
+                    fut.result()
+                    p.advance(task)
     # ── Phase 1: Download ──────────────────────────────────────
     newly_downloaded: set[str] = set()
 
