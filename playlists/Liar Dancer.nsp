@@ -2,11 +2,6 @@
   "any": [
     {
       "contains": {
-        "title": "ライア"
-      }
-    },
-    {
-      "contains": {
         "title": "댄서"
       }
     },
@@ -17,8 +12,42 @@
     },
     {
       "contains": {
+        "title": "舞者"
+      }
+    },
+    {
+      "contains": {
         "title": "ダンサー"
       }
+    },
+    {
+      "is": {
+        "title": "デデデーヘイカー【音MAD】"
+      }
+    },
+    {
+      "is": {
+        "title": "(ﾟ∀ﾟ)o彡゜らいあー！だんさー！"
+      }
+    },
+    {
+      "all": [
+        {
+          "contains": {
+            "title": "ライ"
+          }
+        },
+        {
+          "notContains": {
+            "title": "メズマライ"
+          }
+        },
+        {
+          "notContains": {
+            "title": "ライド"
+          }
+        }
+      ]
     },
     {
       "all": [

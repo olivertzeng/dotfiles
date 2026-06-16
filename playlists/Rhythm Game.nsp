@@ -7,6 +7,11 @@
     },
     {
       "contains": {
+        "title": "FREEDOM"
+      }
+    },
+    {
+      "contains": {
         "title": "Scramble"
       }
     },
@@ -103,6 +108,16 @@
     {
       "is": {
         "artist": "9MAO a.k.a. 玖毛"
+      }
+    },
+    {
+      "is": {
+        "title": "Garigari Samushi - larva (Official MV)"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "j2mpaZE4Q510iddlwEBUxE"
       }
     }
   ],

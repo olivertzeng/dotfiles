@@ -1,23 +1,32 @@
 {
-  "any": [
+  "all": [
     {
-      "contains": {
-        "title": "Yuyu"
-      }
+      "any": [
+        {
+          "contains": {
+            "title": "Yuyu"
+          }
+        },
+        {
+          "contains": {
+            "title": "shiki"
+          }
+        },
+        {
+          "contains": {
+            "title": "ゆゆ"
+          }
+        },
+        {
+          "is": {
+            "title": "Wahaha-!"
+          }
+        }
+      ]
     },
     {
-      "contains": {
-        "title": "shiki"
-      }
-    },
-    {
-      "contains": {
-        "title": "ゆゆ"
-      }
-    },
-    {
-      "is": {
-        "title": "Wahaha-!"
+      "notInPlaylist": {
+        "id": "XqJBmGRQmlOBgPQGQ6rfl8"
       }
     }
   ],

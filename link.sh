@@ -8,7 +8,6 @@ ln -sf ~/dotfiles/nvim ~/.config
 ln -sf ~/dotfiles/pip.conf ~/.config/pip
 ln -sf ~/dotfiles/playlists ~/Music
 ln -sf ~/dotfiles/replace.sh ~/
-ln -sf ~/dotfiles/shift.sh ~/
 ln -sf ~/dotfiles/topgrade.toml ~/.config
 ln -sf ~/dotfiles/yay.json ~/.config/yay/config.json
 ln -sf ~/dotfiles/yt-dlp ~/.config/yt-dlp/config

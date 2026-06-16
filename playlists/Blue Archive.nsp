@@ -102,11 +102,91 @@
     },
     {
       "contains": {
+        "title": "ブルアカ"
+      }
+    },
+    {
+      "contains": {
+        "title": "ブルーアーカイブ"
+      }
+    },
+    {
+      "contains": {
+        "title": "ムツキ"
+      }
+    },
+    {
+      "contains": {
+        "title": "コユキ"
+      }
+    },
+    {
+      "contains": {
+        "title": "Yoster"
+      }
+    },
+    {
+      "contains": {
+        "title": "HIGH5LANDER"
+      }
+    },
+    {
+      "contains": {
+        "title": "Aoba"
+      }
+    },
+    {
+      "contains": {
+        "title": "カリフォ"
+      }
+    },
+    {
+      "contains": {
+        "title": "便利屋"
+      }
+    },
+    {
+      "contains": {
+        "title": "OMG It's"
+      }
+    },
+    {
+      "contains": {
         "title": "Unwelcome"
       }
     },
     {
       "is": {
+        "title": "싸이의 예고장 ~오빠의 저택과 강남이 머무는 곳~"
+      }
+    },
+    {
+      "is": {
+        "title": "Mini Game - The Legend of Zelda: Ocarina of Time"
+      }
+    },
+    {
+      "is": {
+        "title": "【合作単品】きゅうくらりんっすよ"
+      }
+    },
+    {
+      "is": {
+        "title": "Slider (In-Game Version) - Super Mario 64"
+      }
+    },
+    {
+      "is": {
+        "title": "Circus (Mix Called My Phone) - Five Nights at Freddy's"
+      }
+    },
+    {
+      "is": {
+        "title": "Wii Moonview Highway (3.0.0 Update) - Mario Kart 8 Deluxe"
+      }
+    },
+    {
+      "contains": {
         "title": "Blue-kurarin"
       }
     },

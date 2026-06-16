@@ -1,0 +1,48 @@
+{
+  "all": [
+    {
+      "any": [
+        {
+          "contains": {
+            "title": "りん"
+          }
+        },
+        {
+          "all": [
+            {
+              "contains": {
+                "title": "arin"
+              }
+            },
+            {
+              "notContains": {
+                "title": "Ocarina"
+              }
+            }
+          ]
+        },
+        {
+          "contains": {
+            "title": "두근"
+          }
+        },
+        {
+          "contains": {
+            "title": "어질"
+          }
+        },
+        {
+          "contains": {
+            "album": "kyuKurarin"
+          }
+        }
+      ]
+    },
+    {
+      "inPlaylist": {
+        "id": "15y7A88jgDuD2ENuJE011M"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}
