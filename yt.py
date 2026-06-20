@@ -439,7 +439,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
 
     # ── Fetch playlist ─────────────────────────────────────────
     console.log("[cyan]Fetching playlist...[/cyan]")
-    ok, out = run(["yt-dlp", "--flat-playlist", "-j", url])
+    ok, out = run(["yt-dlp", "-j", "--ignore-config", url])
     if not ok:
         console.log(f"[red]Failed to fetch playlist:\n{out}[/red]")
         sys.exit(1)
