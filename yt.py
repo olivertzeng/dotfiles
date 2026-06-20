@@ -3,10 +3,10 @@
 yt.py - YouTube Playlist Downloader
 
 Dependencies:
-    sudo pacman -S python-rich python-requests python-mutagen yt-dlp
+sudo pacman -S python-rich python-requests python-mutagen yt-dlp
 
 Download Options:
-  -s              Enable SponsorBlock detection
+-s Enable SponsorBlock detection
 """
 
 import hashlib
@@ -30,7 +30,6 @@ from rich.progress import (BarColumn, MofNCompleteColumn, Progress,
 # ============================================================
 # Config
 # ============================================================
-
 PARALLEL_DOWNLOADS = 4
 SB_CONCURRENCY = 16
 SB_API_DELAY = 0.05
@@ -54,14 +53,13 @@ DIR_ALIASES: dict[str, str] = {
     "kyuKurarin": ALIASES["kyuKurarin"],
 }
 
-# Per-playlist creation year. Falls back to current year if not specified.
 PLAYLIST_YEAR: dict[str, str] = {
     "https://www.youtube.com/playlist?list=PLNv1Xy2Vg8K1kjniRx00Tbtqh7Ob30m5v": "2024",
     "https://www.youtube.com/playlist?list=PLNv1Xy2Vg8K2foVHjRnuc3t44TGfeo0Ft": "2023",
     "https://www.youtube.com/playlist?list=PLNv1Xy2Vg8K33VK5QZdyZy6OUsLljItgp": "2025",
 }
 
-ID_RE = re.compile(r"\[([a-zA-Z0-9_-]{11})\]")
+ID_RE = re.compile(r"\[([a-zA-Z0-9_-]{11})]")
 sb_sem = BoundedSemaphore(SB_CONCURRENCY)
 
 console = Console(highlight=False)
@@ -69,49 +67,41 @@ console = Console(highlight=False)
 # ============================================================
 # Description Cleaner
 # ============================================================
-
-# Patterns to strip from YouTube descriptions
 _DESC_JUNK_RE = re.compile(
     r"("
-    r"https?://\S+"  # URLs
-    r"|#\S+"  # hashtags
-    r"|subscribe\b.*"  # subscribe begging (case-insensitive)
-    r"|チャンネル登録.*"  # JP subscribe begging
-    r"|↓.*?↓"  # arrow-enclosed promo blocks
-    r"|━+.*?━+"  # decorated separators
-    r"|─+.*?─+"  # another separator style
-    r"|＝+.*?＝+"  # JP equals separators
-    r"|▼.*?▼"  # triangle-enclosed blocks
-    r"|♪\s*iTunes.*"  # iTunes promo
-    r"|♪\s*Spotify.*"  # Spotify promo
-    r"|♪\s*Apple Music.*"  # Apple Music promo
-    r"|follow\s+me\b.*"  # follow me lines
-    r"|フォローしてね.*"  # JP follow me
-    r"|please\s+like\b.*"  # like begging
-    r"|高評価.*"  # JP like begging
-    r"|🔔.*"  # notification bell spam
+    r"https?://\S+"
+    r"|#\S+"
+    r"|subscribe\b.*"
+    r"|チャンネル登録.*"
+    r"|↓.*?↓"
+    r"|━+.*?━+"
+    r"|─+.*?─+"
+    r"|＝+.*?＝+"
+    r"|▼.*?▼"
+    r"|♪\s*iTunes.*"
+    r"|♪\s*Spotify.*"
+    r"|♪\s*Apple Music.*"
+    r"|follow\s+me\b.*"
+    r"|フォローしてね.*"
+    r"|please\s+like\b.*"
+    r"|高評価.*"
+    r"|🔔.*"
     r")",
     re.IGNORECASE | re.DOTALL,
 )
 
 _MULTI_NEWLINE_RE = re.compile(r"\n{3,}")
 
-
 def clean_description(raw: str) -> str:
-    """Strip URLs, hashtags, subscribe/follow spam, and promo blocks."""
     if not raw:
         return ""
     cleaned = _DESC_JUNK_RE.sub("", raw)
-    # Collapse excessive blank lines
     cleaned = _MULTI_NEWLINE_RE.sub("\n\n", cleaned)
     return cleaned.strip()
-
 
 # ============================================================
 # Data
 # ============================================================
-
-
 @dataclass
 class RemoteSong:
     id: str
@@ -121,16 +111,12 @@ class RemoteSong:
     upload_year: str = ""
     description: str = ""
 
-
 # ============================================================
 # Utilities
 # ============================================================
-
-
 def extract_id(filename: str) -> str | None:
     m = ID_RE.search(filename)
     return m.group(1) if m else None
-
 
 def scan_dir(work_dir: Path) -> dict[str, Path]:
     result = {}
@@ -142,9 +128,7 @@ def scan_dir(work_dir: Path) -> dict[str, Path]:
             result[vid] = f
     return result
 
-
 def scan_and_clean(work_dir: Path, remote_ids: set[str]) -> dict[str, Path]:
-    """Scan .m4a files, remove duplicates (same ID), remove orphans (no ID or not in playlist)."""
     id_to_files: dict[str, list[Path]] = {}
     no_id_files: list[Path] = []
 
@@ -197,7 +181,6 @@ def scan_and_clean(work_dir: Path, remote_ids: set[str]) -> dict[str, Path]:
 
     return result
 
-
 TEMP_EXTS: frozenset[str] = frozenset(
     {
         ".temp.m4a",
@@ -210,7 +193,6 @@ TEMP_EXTS: frozenset[str] = frozenset(
 )
 ART_EXTS: frozenset[str] = frozenset({".jpg", ".jpeg", ".webp", ".png"})
 KILL_EXTS = TEMP_EXTS | ART_EXTS
-
 
 def cleanup(work_dir: Path, vid: str | None = None) -> int:
     removed = 0
@@ -226,7 +208,6 @@ def cleanup(work_dir: Path, vid: str | None = None) -> int:
                 pass
     return removed
 
-
 def run(cmd: list[str], timeout: int = TIMEOUT) -> tuple[bool, str]:
     import subprocess
 
@@ -237,7 +218,6 @@ def run(cmd: list[str], timeout: int = TIMEOUT) -> tuple[bool, str]:
         return False, "timed out"
     except Exception as e:
         return False, str(e)
-
 
 def make_progress() -> Progress:
     return Progress(
@@ -250,19 +230,15 @@ def make_progress() -> Progress:
         console=console,
     )
 
-
 # ============================================================
 # Thumbnail
 # ============================================================
-
-
 def has_thumbnail(path: Path) -> bool:
     try:
         audio = MP4(path)
         return "covr" in audio.tags and len(audio.tags["covr"]) > 0
     except Exception:
         return False
-
 
 def fetch_thumbnail(vid: str, work_dir: Path) -> Path | None:
     urls = [
@@ -282,7 +258,6 @@ def fetch_thumbnail(vid: str, work_dir: Path) -> Path | None:
             continue
     return None
 
-
 def embed_thumbnail(path: Path, thumb_path: Path) -> bool:
     try:
         audio = MP4(path)
@@ -295,12 +270,75 @@ def embed_thumbnail(path: Path, thumb_path: Path) -> bool:
     except Exception:
         return False
 
+# ============================================================
+# Metadata Extraction  (NEW)
+# ============================================================
+def _read_info_json(song: RemoteSong, work_dir: Path) -> RemoteSong:
+    """Read .info.json written by yt-dlp, update song fields, delete the file."""
+    for f in work_dir.glob("*.info.json"):
+        if f"[{song.id}]" not in f.name:
+            continue
+        try:
+            with open(f) as fh:
+                d = json.loads(fh.read())
+            artist = d.get("uploader", d.get("channel", ""))
+            if artist.endswith(" - Topic"):
+                artist = artist[:-8]
+            if artist:
+                song.artist = artist
+            upload_date = d.get("upload_date", "")
+            if len(upload_date) >= 4:
+                song.upload_year = upload_date[:4]
+            desc = d.get("description", "")
+            if desc:
+                song.description = desc
+            title = d.get("title", "")
+            if title:
+                song.title = title
+        except Exception:
+            pass
+        finally:
+            try:
+                f.unlink()
+            except OSError:
+                pass
+        break
+    return song
+
+def _fetch_metadata(song: RemoteSong) -> RemoteSong:
+    """Fetch full metadata for one video (no download)."""
+    url = f"https://www.youtube.com/watch?v={song.id}"
+    ok, out = run(["yt-dlp", "-j", "--skip-download", url], timeout=30)
+    if not ok or not out.strip():
+        return song
+    for line in reversed(out.strip().split("\n")):
+        line = line.strip()
+        if not line.startswith("{"):
+            continue
+        try:
+            d = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        artist = d.get("uploader", d.get("channel", ""))
+        if artist.endswith(" - Topic"):
+            artist = artist[:-8]
+        if artist:
+            song.artist = artist
+        upload_date = d.get("upload_date", "")
+        if len(upload_date) >= 4:
+            song.upload_year = upload_date[:4]
+        desc = d.get("description", "")
+        if desc:
+            song.description = desc
+        title = d.get("title", "")
+        if title:
+            song.title = title
+        break
+    return song
 
 # ============================================================
 # Tasks
 # ============================================================
-
-
 def do_download(
     song: RemoteSong, album: str, work_dir: Path
 ) -> tuple[RemoteSong, bool, str]:
@@ -317,10 +355,13 @@ def do_download(
         "%(title)s [%(id)s].%(ext)s",
         "--no-mtime",
         "--no-embed-thumbnail",
-        "--no-write-info-json",
+        "--write-info-json",           # CHANGED: was --no-write-info-json
         url,
     ]
     ok, out = run(cmd)
+
+    if ok:
+        song = _read_info_json(song, work_dir)   # NEW: extract metadata
     cleanup(work_dir, song.id)
 
     if ok:
@@ -329,8 +370,12 @@ def do_download(
             return song, False, "File not found after download"
         return song, True, ""
 
+    # Fallback: archive.org
     cmd[-1] = f"https://web.archive.org/web/{url}"
     ok, out = run(cmd)
+
+    if ok:
+        song = _read_info_json(song, work_dir)   # NEW
     cleanup(work_dir, song.id)
 
     if ok:
@@ -339,7 +384,6 @@ def do_download(
             return song, False, "File not found after archive download"
     return song, ok, out
 
-
 def do_metadata(
     path: Path,
     song: RemoteSong,
@@ -347,7 +391,6 @@ def do_metadata(
     album_year: str,
     thumb_path: Path | None = None,
 ) -> bool:
-    """Write M4A tags. Uses album_year (playlist creation year) for the date field."""
     try:
         audio = MP4(path)
         if audio.tags is None:
@@ -368,7 +411,6 @@ def do_metadata(
         return True
     except Exception:
         return False
-
 
 def do_sb(vid: str) -> tuple[str, str, int, str]:
     cats = '["sponsor","selfpromo","interaction","intro","outro","preview","music_offtopic","filler"]'
@@ -392,12 +434,9 @@ def do_sb(vid: str) -> tuple[str, str, int, str]:
         except Exception as e:
             return vid, "error", 0, str(e)
 
-
 # ============================================================
 # Rename
 # ============================================================
-
-
 def enforce_names(
     remote_songs: list[RemoteSong],
     local_map: dict[str, Path],
@@ -423,23 +462,20 @@ def enforce_names(
         console.log(f"[green]Renamed {renamed} files[/green]")
     return local_map
 
-
 # ============================================================
 # Sync
 # ============================================================
-
 def sync(url: str, enable_sb: bool = False) -> None:
     work_dir = Path.cwd()
     removed = cleanup(work_dir)
     if removed:
         console.log(f"[dim]Cleaned {removed} temp files[/dim]")
 
-    # Resolve album year from config, fall back to current year
     album_year = PLAYLIST_YEAR.get(url, str(datetime.now().year))
 
-    # ── Fetch playlist ─────────────────────────────────────────
+    # ── Fetch playlist (structure only) ────────────────────
     console.log("[cyan]Fetching playlist...[/cyan]")
-    ok, out = run(["yt-dlp", "-j", "--ignore-config", url])
+    ok, out = run(["yt-dlp", "--flat-playlist", "-j", url])
     if not ok:
         console.log(f"[red]Failed to fetch playlist:\n{out}[/red]")
         sys.exit(1)
@@ -457,30 +493,18 @@ def sync(url: str, enable_sb: bool = False) -> None:
             idx = d.get("playlist_index")
             title = d.get("title", "Unknown")
             if vid and idx:
-                # Extract artist from uploader/channel field
-                artist = d.get("uploader", d.get("channel", "Unknown"))
-                # Strip trailing " - Topic" from YouTube auto-generated channels
-                if artist.endswith(" - Topic"):
-                    artist = artist[:-8]
-                # Extract upload year from YYYYMMDD format
-                upload_date = d.get("upload_date", "")
-                upload_year = upload_date[:4] if len(upload_date) >= 4 else ""
-                desc = d.get("description", "")
-
                 remote_songs.append(
                     RemoteSong(
                         id=vid,
                         track=int(idx),
                         title=title,
-                        artist=artist,
-                        upload_year=upload_year,
-                        description=desc,
+                        # artist/description/upload_year 先留空，後面回填
                     )
                 )
         except Exception:
             continue
 
-    # ── Deduplicate by video ID (keep first occurrence) ────────
+    # ── Deduplicate ────────────────────────────────────────
     seen_ids: set[str] = set()
     unique_songs: list[RemoteSong] = []
     duplicates: list[RemoteSong] = []
@@ -494,40 +518,56 @@ def sync(url: str, enable_sb: bool = False) -> None:
     if duplicates:
         console.log(f"[yellow]Skipping {len(duplicates)} duplicate(s):[/yellow]")
         for d in duplicates:
-            console.log(f"[dim]  - Track {d.track}: {d.title} [{d.id}][/dim]")
+            console.log(f"[dim] - Track {d.track}: {d.title} [{d.id}][/dim]")
         remote_songs = unique_songs
 
-    # ── Squash track numbers (always consecutive from 1) ────────
+    # ── Squash track numbers ───────────────────────────────
     for i, song in enumerate(remote_songs):
         song.track = i + 1
 
     vid_to_title: dict[str, str] = {s.id: s.title for s in remote_songs}
     console.log(f"[green]Playlist:[/green] {album_name} ({len(remote_songs)} songs)")
 
-    # ── Load old index ─────────────────────────────────────────
+    # ── Load old index (cache + SB hashes) ─────────────────  CHANGED
     old_hashes: dict[str, str] = {}
     old_counts: dict[str, int] = {}
+    old_meta: dict[str, dict] = {}
     index_path = work_dir / INDEX_FILE
 
     if index_path.exists():
         try:
             with open(index_path) as f:
                 for s in json.load(f).get("songs", []):
-                    if "id" in s:
-                        old_hashes[s["id"]] = s.get("sb_hash", "")
-                        old_counts[s["id"]] = s.get("sb_count", 0)
+                    if "id" not in s:
+                        continue
+                    old_hashes[s["id"]] = s.get("sb_hash", "")
+                    old_counts[s["id"]] = s.get("sb_count", 0)
+                    old_meta[s["id"]] = s
         except Exception:
             pass
 
-    # ── Clean duplicates and orphans ───────────────────────────
+    # ── Backfill metadata from cached index ────────────────  NEW
+    for song in remote_songs:
+        cached = old_meta.get(song.id, {})
+        cached_artist = cached.get("artist", "")
+        if cached_artist and cached_artist != "Unknown":
+            song.artist = cached_artist
+        cached_desc = cached.get("description", "")
+        if cached_desc:
+            song.description = cached_desc
+        cached_year = cached.get("upload_year", "")
+        if cached_year:
+            song.upload_year = cached_year
+
+    # ── Clean duplicates and orphans ───────────────────────
     remote_ids = {s.id for s in remote_songs}
     local_map = scan_and_clean(work_dir, remote_ids)
 
-    # ── Identify missing ───────────────────────────────────────
+    # ── Identify missing ───────────────────────────────────
     missing = [s for s in remote_songs if s.id not in local_map]
     console.log(f"[dim]Local: {len(local_map)} | Missing: {len(missing)}[/dim]")
 
-    # ── Phase 1: Download ──────────────────────────────────────
+    # ── Phase 1: Download (also grabs metadata via info.json)
     newly_downloaded: set[str] = set()
 
     if missing:
@@ -546,13 +586,39 @@ def sync(url: str, enable_sb: bool = False) -> None:
                     else:
                         last = err.splitlines()[-1] if err else "unknown"
                         console.log(
-                            f"[red]Failed:[/red] {song.title}\n  [dim]{last}[/dim]"
+                            f"[red]Failed:[/red] {song.title}\n [dim]{last}[/dim]"
                         )
                     p.advance(task)
 
         local_map = scan_and_clean(work_dir, remote_ids)
 
-    # ── Phase 2: Thumbnails ────────────────────────────────────
+    # ── Phase 1.5: Fetch metadata for songs still missing artist  NEW
+    needs_meta = [
+        s for s in remote_songs
+        if s.id in local_map and (not s.artist or s.artist == "Unknown")
+    ]
+
+    if needs_meta:
+        console.log(
+            f"[cyan]Fetching metadata for {len(needs_meta)} songs with missing artist...[/cyan]"
+        )
+        with make_progress() as p:
+            task = p.add_task("Metadata fetch", total=len(needs_meta))
+            with ThreadPoolExecutor(max_workers=PARALLEL_DOWNLOADS) as pool:
+                futures = {
+                    pool.submit(_fetch_metadata, s): s for s in needs_meta
+                }
+                for fut in as_completed(futures):
+                    song = fut.result()
+                    if song.artist and song.artist != "Unknown":
+                        console.log(
+                            f"[green]Got artist:[/green] {song.title} → {song.artist}"
+                        )
+                    else:
+                        console.log(f"[dim]No artist: {song.title}[/dim]")
+                    p.advance(task)
+
+    # ── Phase 2: Thumbnails ────────────────────────────────
     thumb_tasks: list[tuple[Path, str]] = []
     for song in remote_songs:
         if song.id not in local_map:
@@ -577,7 +643,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
                     console.log(f"[dim]No thumbnail: {vid}[/dim]")
                 p.advance(task)
 
-    # ── Phase 3: Metadata (ALL files, not just new) ────────────
+    # ── Phase 3: Metadata (ALL files) ──────────────────────
     meta_songs = [s for s in remote_songs if s.id in local_map]
 
     if meta_songs:
@@ -597,10 +663,10 @@ def sync(url: str, enable_sb: bool = False) -> None:
                 for _ in as_completed(futs):
                     p.advance(task)
 
-    # ── Phase 4: Rename ────────────────────────────────────────
+    # ── Phase 4: Rename ────────────────────────────────────
     local_map = enforce_names(remote_songs, local_map, work_dir)
 
-    # ── Phase 5: SponsorBlock ──────────────────────────────────
+    # ── Phase 5: SponsorBlock ──────────────────────────────
     vids_need_sb = list(local_map.keys())
     new_hashes: dict[str, str] = {}
     new_counts: dict[str, int] = {}
@@ -634,13 +700,13 @@ def sync(url: str, enable_sb: bool = False) -> None:
 
                         if h == "error":
                             console.log(
-                                f"[red]SB error[/red]  {title} [dim]({err_msg})[/dim]"
+                                f"[red]SB error[/red] {title} [dim]({err_msg})[/dim]"
                             )
                             new_hashes[vid] = old_hashes.get(vid, "error")
                             new_counts[vid] = old_counts.get(vid, 0)
 
                         elif h == "no_segments":
-                            console.log(f"[dim]SB none   {title}[/dim]")
+                            console.log(f"[dim]SB none {title}[/dim]")
                             new_hashes[vid] = "no_segments"
                             new_counts[vid] = 0
 
@@ -657,7 +723,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
                             else:
                                 diff_str = "[dim] =[/dim]"
 
-                            console.log(f"[cyan]SB ok[/cyan] {diff_str}  {title}")
+                            console.log(f"[cyan]SB ok[/cyan] {diff_str} {title}")
                             new_hashes[vid] = h
                             new_counts[vid] = count
 
@@ -671,7 +737,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
 
                         p.advance(task)
 
-    # ── Phase 6: Re-download SB-changed ───────────────────────
+    # ── Phase 6: Re-download SB-changed ───────────────────
     if sb_changed:
         console.log(
             f"[yellow]Re-downloading {len(sb_changed)} SB-changed songs...[/yellow]"
@@ -696,7 +762,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
         local_map = scan_and_clean(work_dir, remote_ids)
         local_map = enforce_names(remote_songs, local_map, work_dir)
 
-    # ── Phase 7: Save index ────────────────────────────────────
+    # ── Phase 7: Save index ────────────────────────────────  CHANGED
     final_songs = []
     for s in remote_songs:
         if s.id in local_map:
@@ -705,6 +771,8 @@ def sync(url: str, enable_sb: bool = False) -> None:
                     "id": s.id,
                     "track": s.track,
                     "artist": s.artist,
+                    "upload_year": s.upload_year,
+                    "description": s.description,       # NEW
                     "file": local_map[s.id].name,
                     "sb_hash": new_hashes.get(s.id),
                     "sb_count": new_counts.get(s.id, 0),
@@ -729,11 +797,9 @@ def sync(url: str, enable_sb: bool = False) -> None:
         f"[bold green]Sync complete![/bold green] {len(final_songs)} songs indexed."
     )
 
-
 # ============================================================
 # Entry
 # ============================================================
-
 if __name__ == "__main__":
     args = sys.argv[1:]
     enable_sb = False
