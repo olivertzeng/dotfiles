@@ -121,3 +121,5 @@ export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="$PATH:/home/olivertzeng/fount/path"
+alias gan-mode='echo "0" | sudo tee /sys/devices/system/cpu/cpufreq/boost >/dev/null && echo "GaN mode ON"'
+alias ac-mode='echo "1" | sudo tee /sys/devices/system/cpu/cpufreq/boost >/dev/null && echo "AC mode ON"'
