@@ -5,13 +5,19 @@ account.apple.com##.ribbon-content-wrapper
 apcs.guide##.dark\:text-yellow-100.dark\:bg-yellow-800.text-yellow-900.text-center.p-2.bg-yellow-200.border-origin-gray.border-b
 app.humanornot.ai##.pt-3.hon-wordtune-block.w100.mt-2
 artsandculture.google.com##.iMnvWc
+chat.7279744.xyz##.acss-f6p68u.lobe-flex > .lobe-flex > div.lobe-flex:nth-of-type(3) > .lobe-flex
+chat.7279744.xyz##[href="/image"]
+pornhub.com##.abAlertShown
 console.cloud.google.com###free-trial-banner
 ddlc.moe##.plus-banner
 dictionary.cambridge.org###topNavBar
 dictionary.cambridge.org##.lmt-10.lt2s.hfr-s
 dictionary.cambridge.org##.login-promo-block.lmb-25.lpt-20.lp-15.bo.pr
 dictionary.cambridge.org##.pr0.pl0.pb0.py.pf
+discord.com##.content_d125d2 > li.container_e45859.channel__972a0:nth-of-type(1)
 discord.com##.images-dark.theme-darker.theme-dark.notice__29487
+discord.com##.wrapper__553bf > .container_e45859.channel__972a0 > .linkButton__972a0.interactive__972a0.interactive_bf202d > .link__972a0
+discord.com##div:nth-of-type(3) > .container_e45859.channel__972a0
 dm.reddit.com##.premium-banner
 dotfyle.com###subscribe
 dotfyle.com##.mt-8.gap-4.sm\:px-4.px-4.sm\:mt-4.w-full.xl\:max-w-7xl.max-w-full.flex-col.flex
@@ -41,7 +47,7 @@ duckduckgo.com##li.zcm__item:nth-of-type(4)
 duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(2)
 duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(4)
 duckduckgo.com##section.sideMenu_section__SRgeu:nth-of-type(5)
-en.wikipedia.org##.vector-sitenotice-container
+wikipedia.org##.vector-sitenotice-container
 github.com###sponsor-profile-button
 github.com##.AppHeader-CopilotChat
 github.com##.BlobViewHeader-module__Box_3--c1yoS > .prc-Button-IconButton-fyge7.prc-Button-ButtonBase-9n-Xk
@@ -89,6 +95,7 @@ mail.proton.me##li.mt-4.navigation-link-header-group--expandable.navigation-link
 medium.com##.rq.rp.ro.m
 meet.jit.si###moderated-meetings
 meet.jit.si##.welcome-cards-container
+monkeytype.com##.w-full.z-1000.left-0.top-0.fixed
 mzh.moegirl.org.cn##.n-message-container--top.n-message-container
 mzh.moegirl.org.cn##.n-notification-container--top-right.n-notification-container--scrollable.n-notification-container
 mzh.moegirl.org.cn##.toolbar-inner-container
@@ -135,6 +142,7 @@ www.edx.org##.banner-display.position-relative.sitewide-banner
 www.edx.org##.xpert_chatbot
 www.facebook.com###mount_0_0_aI > div > div:nth-of-type(1) > .x1ja2u2z.x1n2onr6.x9f619 > div:nth-of-type(2)
 www.facebook.com##.x1u8a7rm.x17qophe.xixxii4.x1ye3gou.x1s14bel.xn6708d.x1xy6bms.xds687c.x9f619.xayqjjm.x1ey2m1c.x2bj2ny.x193iq5w.x2lah0s.xdt5ytf.x78zum5
+www.freecodecamp.org##.banner
 www.google.com###gbwa > .gb_f > .gb_d
 www.google.com##.FpfXM.zp6Lyf
 www.google.com##.SSwjIe.KxwPGc
@@ -146,6 +154,8 @@ www.instagram.com##.x1nhvcw1.x1oa3qoh.x1qjc9v5.xqjyukv.xdt5ytf.x2lah0s.x1c4vz4f.
 www.instagram.com##.xdy9tzy > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6
 www.instagram.com##.xh8yej3.x1iyjqo2 > div > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6 > ._a6hd.x1a2a7pz.xggy1nq.x1hl2dhg.x16tdsg8.xkhd6sd.x18d9i69.x4uap5.xexx8yu.x1mh8g0r.xat24cr.x11i5rnm.xdj266r.xe8uvvx.xt0psk2.x1ypdohk.x9f619.xm0m39n.x1qhh985.xcfux6l.x972fbf.x17r0tee.x1sy0etr.xd10rxx.x1ejq31n.xjbqb8w.x1i10hfl > .x9jhf4c.x30kzoy.xgqcy7u.x1lq5wgf.x1wj20lx.x12ldp4w.x11hdxyr.xs3sg5q.x9k3k5o.x1dejxi8.xdoji71.xzauu7c.x1lhsz42.x10djquj.x172qv1o.xif99yt.x1dn74xm.x159b3zp.x80pfx3.x1ye3gou.xsag5q8.xn6708d.xz9dl7a.x12dmmrz.x7nr27j.x6pnmvc.xo237n4.xjpr12u.xr9ek0c.x3nfvp2.x9f619
 www.instagram.com##div:nth-of-type(7) > .x1n2onr6 > .x1qrby5j.x7ja8zs.x1t2pt76.x1lytzrv.xedcshv.xarpa2k.x3igimt.x12ejxvf.xaigb6o.x1beo9mf.xv2umb2.x1jfb8zj.x1h9r5lt.x1h91t0o.x4k7w5x > .x1n2onr6
+www.khanacademy.org###donate-banner
+www.khanacademy.org##._10otmayb
 www.legis-pedia.com###policy-alert
 www.mediafire.com##.dl-box.ads > p
 www.mediafire.com##.lifetime-promo
