@@ -75,9 +75,6 @@ learning.edx.org##.mb-4.card.small.upgrade-notification
 lichess.org##.site-title-nav__donate
 limetorrents.torrentbay.st##[href="https://gamestoday.org/"]
 localhost##div.container:nth-of-type(3)
-m.youtube.com##.standalone-collection-badge a[href^="/hashtag/"]
-m.youtube.com##ytm-video-description-header-renderer button-view-model a[href^="/hashtag/"]
-m.youtube.com##ytm-video-description-music-section-renderer
 mail.google.com###gbwa > .gb_f > .gb_d
 mail.google.com##.aUx
 mail.google.com##.t6.gb_ne.gb_ke.gb_me
@@ -177,7 +174,6 @@ www.twitch.tv##.tw-root--theme-light.eya-dcy.fYOaHn.ScLayoutCssVars-sc-1pn65j5-0
 www.twitch.tv##.tw-root--theme-light.eya-dcy.iarCNd.ScLayoutCssVars-sc-1pn65j5-0.Layout-sc-1xcs6mc-0
 www.twitch.tv##div.side-nav-section.dcyYPL.Layout-sc-1xcs6mc-0:nth-of-type(3)
 www.twitch.tv##div.side-nav-section.dcyYPL.Layout-sc-1xcs6mc-0:nth-of-type(4)
-www.youtube.com###copyright
 x.com##.gt2-legacy-profile-automated
 x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-14lw9ot.css-175oi2r
 x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-kemksi.css-175oi2r
