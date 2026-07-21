@@ -178,32 +178,6 @@ www.twitch.tv##.tw-root--theme-light.eya-dcy.iarCNd.ScLayoutCssVars-sc-1pn65j5-0
 www.twitch.tv##div.side-nav-section.dcyYPL.Layout-sc-1xcs6mc-0:nth-of-type(3)
 www.twitch.tv##div.side-nav-section.dcyYPL.Layout-sc-1xcs6mc-0:nth-of-type(4)
 www.youtube.com###copyright
-www.youtube.com###description #info a[href^="/hashtag/"]
-www.youtube.com###description .ytd-watch-metadata #items:has(.ytd-video-description-music-section-renderer)
-www.youtube.com###donation-shelf
-www.youtube.com###flexible-item-buttons > yt-button-view-model.ytd-menu-renderer.style-scope:nth-of-type(1)
-www.youtube.com###guide-links-primary
-www.youtube.com###guide-links-secondary
-www.youtube.com###redux-sort-chip
-www.youtube.com###super-title
-www.youtube.com##+js(aeld, dblclick)
-www.youtube.com##.super-title
-www.youtube.com##.ytp-paid-content-overlay-link
-www.youtube.com##.ytp-suggested-action-badge-expanded
-www.youtube.com##yt-smartimation > *:not(.smartimation__content)
-www.youtube.com##ytd-app:style(--ytd-app-fullerscreen-scrollbar-width: -1px !important;)
-www.youtube.com##ytd-browse ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"])
-www.youtube.com##ytd-browse ytd-rich-item-renderer:has(#video-title-link[href*="&start_radio=1"])
-www.youtube.com##ytd-browse ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"])
-www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-video-renderer ytd-thumbnail-overlay-time-status-renderer[overlay-style="UPCOMING"]:upward(ytd-item-section-renderer)
-www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(2)
-www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(4)
-www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(5)
-www.youtube.com##ytd-player div.videowall-endscreen a[data-is-list=true]
-www.youtube.com##ytd-reel-shelf-renderer
-www.youtube.com##ytd-search ytd-radio-renderer
-www.youtube.com##ytd-video-meta-block + ytd-badge-supported-renderer
-www.youtube.com##ytd-watch-next-secondary-results-renderer ytd-compact-radio-renderer
 x.com##.gt2-legacy-profile-automated
 x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-14lw9ot.css-175oi2r
 x.com##.r-1ny4l3l.r-1adg3ll.css-175oi2r > .css-175oi2r > .r-kemksi.css-175oi2r
@@ -217,8 +191,4 @@ x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6
 x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(8)
 x.com##a.r-1loqt21.r-1ny4l3l.r-13qz1uu.r-cnw61z.r-1habvwh.r-16y2uox.r-eqz5dr.r-6koalj.css-175oi2r:nth-of-type(9)
 x.com##div.r-cpa5s6.r-14tvyh0.css-175oi2r:nth-of-type(3)
-youtube.com##.ytp-button.branding-img-container
-youtube.com##.ytp-pause-overlay
-youtube.com##.ytp-quality-menu .ytp-premium-label:upward(.ytp-menuitem)
 zh.wikipedia.org##.vector-sitenotice-container
-||youtube.com/youtubei/v1/updated_metadata
