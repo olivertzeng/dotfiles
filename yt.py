@@ -3,15 +3,16 @@
 yt.py - YouTube Playlist Downloader
 
 Dependencies:
-sudo pacman -S python-rich python-requests python-mutagen yt-dlp
+    sudo pacman -S python-rich python-requests python-mutagen yt-dlp
 
 Download Options:
--s Enable SponsorBlock detection
+    -s  Enable SponsorBlock detection
 """
 
 import hashlib
 import json
 import re
+import shutil
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -64,40 +65,6 @@ sb_sem = BoundedSemaphore(SB_CONCURRENCY)
 
 console = Console(highlight=False)
 
-# ============================================================
-# Description Cleaner
-# ============================================================
-_DESC_JUNK_RE = re.compile(
-    r"("
-    r"https?://\S+"
-    r"|#\S+"
-    r"|subscribe\b.*"
-    r"|チャンネル登録.*"
-    r"|↓.*?↓"
-    r"|━+.*?━+"
-    r"|─+.*?─+"
-    r"|＝+.*?＝+"
-    r"|▼.*?▼"
-    r"|♪\s*iTunes.*"
-    r"|♪\s*Spotify.*"
-    r"|♪\s*Apple Music.*"
-    r"|follow\s+me\b.*"
-    r"|フォローしてね.*"
-    r"|please\s+like\b.*"
-    r"|高評価.*"
-    r"|🔔.*"
-    r")",
-    re.IGNORECASE | re.DOTALL,
-)
-
-_MULTI_NEWLINE_RE = re.compile(r"\n{3,}")
-
-def clean_description(raw: str) -> str:
-    if not raw:
-        return ""
-    cleaned = _DESC_JUNK_RE.sub("", raw)
-    cleaned = _MULTI_NEWLINE_RE.sub("\n\n", cleaned)
-    return cleaned.strip()
 
 # ============================================================
 # Data
@@ -111,6 +78,115 @@ class RemoteSong:
     upload_year: str = ""
     description: str = ""
 
+
+# ============================================================
+# Trash & Keep System
+# ============================================================
+def load_keep(album_dir: Path) -> set[str]:
+    """Load the .keep whitelist for an album directory.
+
+    The .keep file contains one YouTube video ID per line.
+    Lines starting with '#' are treated as comments.
+    Full YouTube URLs are also accepted and parsed automatically.
+    """
+    keep_file = album_dir / ".keep"
+    if not keep_file.exists():
+        return set()
+    ids: set[str] = set()
+    for line in keep_file.read_text(encoding="utf-8").splitlines():
+        line = line.split("#", 1)[0].strip()
+        if not line:
+            continue
+        if "youtube.com" in line or "youtu.be" in line:
+            match = re.search(r"(?:v=|/)([a-zA-Z0-9_-]{11})", line)
+            if match:
+                ids.add(match.group(1))
+        elif re.fullmatch(r"[a-zA-Z0-9_-]{11}", line):
+            ids.add(line)
+    return ids
+
+
+def add_to_keep(album_dir: Path, video_id: str, title: str = "") -> None:
+    """Append a video ID to the album's .keep whitelist (idempotent)."""
+    existing = load_keep(album_dir)
+    if video_id in existing:
+        return
+    keep_file = album_dir / ".keep"
+    with keep_file.open("a", encoding="utf-8") as f:
+        comment = f"  # {title}" if title else ""
+        f.write(f"{video_id}{comment}\n")
+    console.print(f"  [green]+ Added {video_id} to .keep[/green]")
+
+
+def _load_trash_manifest(trash_dir: Path) -> set[str]:
+    """Load the set of video IDs that have been soft-deleted."""
+    manifest = trash_dir / ".manifest"
+    if not manifest.exists():
+        return set()
+    return {
+        line.strip()
+        for line in manifest.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    }
+
+
+def _save_trash_manifest(trash_dir: Path, ids: set[str]) -> None:
+    """Persist the trash manifest to disk."""
+    manifest = trash_dir / ".manifest"
+    trash_dir.mkdir(parents=True, exist_ok=True)
+    manifest.write_text("\n".join(sorted(ids)) + "\n" if ids else "", encoding="utf-8")
+
+
+def move_to_trash(file_path: Path, trash_dir: Path) -> None:
+    """Soft-delete: move a file to .trash/ and record its ID in manifest."""
+    trash_dir.mkdir(parents=True, exist_ok=True)
+    dest = trash_dir / file_path.name
+    shutil.move(str(file_path), str(dest))
+
+    vid = extract_id(file_path.name)
+    if vid:
+        manifest = _load_trash_manifest(trash_dir)
+        manifest.add(vid)
+        _save_trash_manifest(trash_dir, manifest)
+
+
+def detect_restored(work_dir: Path, trash_dir: Path, remote_ids: set[str]) -> None:
+    """Auto-detect files restored from .trash/ back to an album folder.
+
+    If a file in work_dir has an ID recorded in the trash manifest AND
+    that ID is not in the current remote playlist, the user must have
+    manually restored it → auto-add to .keep so it won't be trashed again.
+    """
+    manifest = _load_trash_manifest(trash_dir)
+    if not manifest:
+        return
+
+    updated = set(manifest)
+
+    for vid in list(manifest):
+        # If the video is back in the playlist, just clean up the manifest
+        if vid in remote_ids:
+            updated.discard(vid)
+            continue
+
+        # Check if a file with this ID exists in the current album dir
+        matches = [f for f in work_dir.glob("*.m4a") if f"[{vid}]" in f.name]
+        if matches:
+            title = matches[0].stem.split(f" [{vid}]")[0]
+            console.print(
+                f"  [cyan]♻ Restored from trash: {matches[0].name} "
+                f"→ auto-adding to .keep[/cyan]"
+            )
+            add_to_keep(work_dir, vid, title)
+            updated.discard(vid)
+            # Remove leftover copy in .trash/ if it still exists
+            for tf in trash_dir.glob(f"*[{vid}]*"):
+                if tf.is_file():
+                    tf.unlink(missing_ok=True)
+
+    _save_trash_manifest(trash_dir, updated)
+
+
 # ============================================================
 # Utilities
 # ============================================================
@@ -118,17 +194,22 @@ def extract_id(filename: str) -> str | None:
     m = ID_RE.search(filename)
     return m.group(1) if m else None
 
-def scan_dir(work_dir: Path) -> dict[str, Path]:
-    result = {}
-    for f in work_dir.glob("*.m4a"):
-        if ".temp." in f.name or ".part" in f.name:
-            continue
-        vid = extract_id(f.name)
-        if vid:
-            result[vid] = f
-    return result
 
-def scan_and_clean(work_dir: Path, remote_ids: set[str]) -> dict[str, Path]:
+def scan_and_clean(
+    work_dir: Path,
+    remote_ids: set[str],
+    keep_ids: set[str] | None = None,
+    trash_dir: Path | None = None,
+) -> dict[str, Path]:
+    """Scan work_dir for .m4a files; trash orphans/duplicates, return valid map.
+
+    Files not in the remote playlist are moved to .trash/ unless their ID
+    appears in keep_ids.  Duplicates (same ID, multiple files) keep only
+    the first sorted file; extras are trashed.
+    """
+    if keep_ids is None:
+        keep_ids = set()
+
     id_to_files: dict[str, list[Path]] = {}
     no_id_files: list[Path] = []
 
@@ -146,40 +227,57 @@ def scan_and_clean(work_dir: Path, remote_ids: set[str]) -> dict[str, Path]:
     result: dict[str, Path] = {}
     removed = 0
 
+    # Files with no parseable video ID → trash
     for f in no_id_files:
-        console.log(f"[yellow]No ID, removing:[/yellow] {f.name}")
+        console.log(f"[yellow]No ID, trashing:[/yellow] {f.name}")
         try:
-            f.unlink()
+            if trash_dir:
+                move_to_trash(f, trash_dir)
+            else:
+                f.unlink()
             removed += 1
         except OSError:
             pass
 
     for vid, files in id_to_files.items():
         if vid not in remote_ids:
+            # ── Protected by .keep → skip entirely ──
+            if vid in keep_ids:
+                console.log(f"[green]⛔ Protected by .keep:[/green] {files[0].name}")
+                continue
+            # ── Not protected → soft-delete ──
             for f in files:
-                console.log(f"[yellow]Not in playlist, removing:[/yellow] {f.name}")
+                console.log(f"[yellow]Not in playlist, trashing:[/yellow] {f.name}")
                 try:
-                    f.unlink()
+                    if trash_dir:
+                        move_to_trash(f, trash_dir)
+                    else:
+                        f.unlink()
                     removed += 1
                 except OSError:
                     pass
         elif len(files) == 1:
             result[vid] = files[0]
         else:
+            # Duplicates: keep first (sorted), trash the rest
             files.sort()
             result[vid] = files[0]
             for f in files[1:]:
-                console.log(f"[yellow]Duplicate ID {vid}, removing:[/yellow] {f.name}")
+                console.log(f"[yellow]Duplicate ID {vid}, trashing:[/yellow] {f.name}")
                 try:
-                    f.unlink()
+                    if trash_dir:
+                        move_to_trash(f, trash_dir)
+                    else:
+                        f.unlink()
                     removed += 1
                 except OSError:
                     pass
 
     if removed:
-        console.log(f"[yellow]Removed {removed} duplicate/orphan files[/yellow]")
+        console.log(f"[yellow]Cleaned {removed} file(s) → .trash/[/yellow]")
 
     return result
+
 
 TEMP_EXTS: frozenset[str] = frozenset(
     {
@@ -194,7 +292,9 @@ TEMP_EXTS: frozenset[str] = frozenset(
 ART_EXTS: frozenset[str] = frozenset({".jpg", ".jpeg", ".webp", ".png"})
 KILL_EXTS = TEMP_EXTS | ART_EXTS
 
+
 def cleanup(work_dir: Path, vid: str | None = None) -> int:
+    """Remove temp/art files (hard delete — these are build artifacts)."""
     removed = 0
     targets = work_dir.glob(f"*{vid}*") if vid else work_dir.iterdir()
     for f in targets:
@@ -208,6 +308,7 @@ def cleanup(work_dir: Path, vid: str | None = None) -> int:
                 pass
     return removed
 
+
 def run(cmd: list[str], timeout: int = TIMEOUT) -> tuple[bool, str]:
     import subprocess
 
@@ -218,6 +319,7 @@ def run(cmd: list[str], timeout: int = TIMEOUT) -> tuple[bool, str]:
         return False, "timed out"
     except Exception as e:
         return False, str(e)
+
 
 def make_progress() -> Progress:
     return Progress(
@@ -230,6 +332,7 @@ def make_progress() -> Progress:
         console=console,
     )
 
+
 # ============================================================
 # Thumbnail
 # ============================================================
@@ -239,6 +342,7 @@ def has_thumbnail(path: Path) -> bool:
         return "covr" in audio.tags and len(audio.tags["covr"]) > 0
     except Exception:
         return False
+
 
 def fetch_thumbnail(vid: str, work_dir: Path) -> Path | None:
     urls = [
@@ -258,6 +362,7 @@ def fetch_thumbnail(vid: str, work_dir: Path) -> Path | None:
             continue
     return None
 
+
 def embed_thumbnail(path: Path, thumb_path: Path) -> bool:
     try:
         audio = MP4(path)
@@ -270,8 +375,9 @@ def embed_thumbnail(path: Path, thumb_path: Path) -> bool:
     except Exception:
         return False
 
+
 # ============================================================
-# Metadata Extraction  (NEW)
+# Metadata Extraction
 # ============================================================
 def _read_info_json(song: RemoteSong, work_dir: Path) -> RemoteSong:
     """Read .info.json written by yt-dlp, update song fields, delete the file."""
@@ -305,6 +411,7 @@ def _read_info_json(song: RemoteSong, work_dir: Path) -> RemoteSong:
         break
     return song
 
+
 def _fetch_metadata(song: RemoteSong) -> RemoteSong:
     """Fetch full metadata for one video (no download)."""
     url = f"https://www.youtube.com/watch?v={song.id}"
@@ -336,6 +443,7 @@ def _fetch_metadata(song: RemoteSong) -> RemoteSong:
         break
     return song
 
+
 # ============================================================
 # Tasks
 # ============================================================
@@ -355,13 +463,13 @@ def do_download(
         "%(title)s [%(id)s].%(ext)s",
         "--no-mtime",
         "--no-embed-thumbnail",
-        "--write-info-json",           # CHANGED: was --no-write-info-json
+        "--write-info-json",
         url,
     ]
     ok, out = run(cmd)
 
     if ok:
-        song = _read_info_json(song, work_dir)   # NEW: extract metadata
+        song = _read_info_json(song, work_dir)
     cleanup(work_dir, song.id)
 
     if ok:
@@ -375,7 +483,7 @@ def do_download(
     ok, out = run(cmd)
 
     if ok:
-        song = _read_info_json(song, work_dir)   # NEW
+        song = _read_info_json(song, work_dir)
     cleanup(work_dir, song.id)
 
     if ok:
@@ -384,6 +492,7 @@ def do_download(
             return song, False, "File not found after archive download"
     return song, ok, out
 
+
 def do_metadata(
     path: Path,
     song: RemoteSong,
@@ -391,17 +500,26 @@ def do_metadata(
     album_year: str,
     thumb_path: Path | None = None,
 ) -> bool:
+    """Write metadata tags to an m4a file.
+
+    The comment field (\xa9cmt) is set to the YouTube video URL
+    for easy reference instead of the raw video description.
+    """
     try:
         audio = MP4(path)
         if audio.tags is None:
             audio.add_tags()
+
+        video_url = f"https://www.youtube.com/watch?v={song.id}"
+
         audio.tags["\xa9nam"] = song.title
         audio.tags["\xa9ART"] = song.artist
         audio.tags["\xa9alb"] = album
         audio.tags["aART"] = "olivertzeng"
         audio.tags["trkn"] = [(song.track, 0)]
         audio.tags["\xa9day"] = album_year
-        audio.tags["\xa9cmt"] = clean_description(song.description)
+        audio.tags["\xa9cmt"] = video_url
+
         if thumb_path and thumb_path.exists():
             with open(thumb_path, "rb") as f:
                 audio.tags["covr"] = [
@@ -412,9 +530,15 @@ def do_metadata(
     except Exception:
         return False
 
+
 def do_sb(vid: str) -> tuple[str, str, int, str]:
-    cats = '["sponsor","selfpromo","interaction","intro","outro","preview","music_offtopic","filler"]'
-    url = f"https://sponsor.ajay.app/api/skipSegments?videoID={vid}&categories={cats}"
+    cats = (
+        '["sponsor","selfpromo","interaction","intro","outro",'
+        '"preview","music_offtopic","filler"]'
+    )
+    url = (
+        f"https://sponsor.ajay.app/api/skipSegments" f"?videoID={vid}&categories={cats}"
+    )
     with sb_sem:
         time.sleep(SB_API_DELAY)
         try:
@@ -434,6 +558,7 @@ def do_sb(vid: str) -> tuple[str, str, int, str]:
         except Exception as e:
             return vid, "error", 0, str(e)
 
+
 # ============================================================
 # Rename
 # ============================================================
@@ -447,7 +572,8 @@ def enforce_names(
         if song.id not in local_map:
             continue
         old_path = local_map[song.id]
-        safe = re.sub(r'[\\/*?:"<>|]', "", song.title)
+        safe_title = song.title or "Unknown"
+        safe = re.sub(r'[\\/*?:"<>|]', "", safe_title)
         new_name = f"{song.track:03d} - {safe} [{song.id}].m4a"
         new_path = work_dir / new_name
         if old_path == new_path:
@@ -462,11 +588,14 @@ def enforce_names(
         console.log(f"[green]Renamed {renamed} files[/green]")
     return local_map
 
+
 # ============================================================
 # Sync
 # ============================================================
 def sync(url: str, enable_sb: bool = False) -> None:
     work_dir = Path.cwd()
+    trash_dir = work_dir.parent / ".trash"
+
     removed = cleanup(work_dir)
     if removed:
         console.log(f"[dim]Cleaned {removed} temp files[/dim]")
@@ -491,16 +620,9 @@ def sync(url: str, enable_sb: bool = False) -> None:
                 album_name = d["playlist_title"]
             vid = d.get("id")
             idx = d.get("playlist_index")
-            title = d.get("title", "Unknown")
+            title = d.get("title") or "Unknown"
             if vid and idx:
-                remote_songs.append(
-                    RemoteSong(
-                        id=vid,
-                        track=int(idx),
-                        title=title,
-                        # artist/description/upload_year 先留空，後面回填
-                    )
-                )
+                remote_songs.append(RemoteSong(id=vid, track=int(idx), title=title))
         except Exception:
             continue
 
@@ -528,7 +650,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
     vid_to_title: dict[str, str] = {s.id: s.title for s in remote_songs}
     console.log(f"[green]Playlist:[/green] {album_name} ({len(remote_songs)} songs)")
 
-    # ── Load old index (cache + SB hashes) ─────────────────  CHANGED
+    # ── Load old index (cache + SB hashes) ─────────────────
     old_hashes: dict[str, str] = {}
     old_counts: dict[str, int] = {}
     old_meta: dict[str, dict] = {}
@@ -546,7 +668,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
         except Exception:
             pass
 
-    # ── Backfill metadata from cached index ────────────────  NEW
+    # ── Backfill metadata from cached index ────────────────
     for song in remote_songs:
         cached = old_meta.get(song.id, {})
         cached_artist = cached.get("artist", "")
@@ -559,15 +681,23 @@ def sync(url: str, enable_sb: bool = False) -> None:
         if cached_year:
             song.upload_year = cached_year
 
-    # ── Clean duplicates and orphans ───────────────────────
+    # ── Detect files restored from .trash/ ─────────────────
     remote_ids = {s.id for s in remote_songs}
-    local_map = scan_and_clean(work_dir, remote_ids)
+    detect_restored(work_dir, trash_dir, remote_ids)
+
+    # ── Load .keep whitelist (after detect_restored may have updated it)
+    keep_ids = load_keep(work_dir)
+    if keep_ids:
+        console.log(f"[dim].keep whitelist: {len(keep_ids)} IDs[/dim]")
+
+    # ── Clean duplicates and orphans ───────────────────────
+    local_map = scan_and_clean(work_dir, remote_ids, keep_ids, trash_dir)
 
     # ── Identify missing ───────────────────────────────────
     missing = [s for s in remote_songs if s.id not in local_map]
     console.log(f"[dim]Local: {len(local_map)} | Missing: {len(missing)}[/dim]")
 
-    # ── Phase 1: Download (also grabs metadata via info.json)
+    # ── Phase 1: Download ─────────────────────────────────
     newly_downloaded: set[str] = set()
 
     if missing:
@@ -586,33 +716,34 @@ def sync(url: str, enable_sb: bool = False) -> None:
                     else:
                         last = err.splitlines()[-1] if err else "unknown"
                         console.log(
-                            f"[red]Failed:[/red] {song.title}\n [dim]{last}[/dim]"
+                            f"[red]Failed:[/red] {song.title}" f"\n [dim]{last}[/dim]"
                         )
                     p.advance(task)
 
-        local_map = scan_and_clean(work_dir, remote_ids)
+        local_map = scan_and_clean(work_dir, remote_ids, keep_ids, trash_dir)
 
-    # ── Phase 1.5: Fetch metadata for songs still missing artist  NEW
+    # ── Phase 1.5: Fetch metadata for songs missing artist ─
     needs_meta = [
-        s for s in remote_songs
+        s
+        for s in remote_songs
         if s.id in local_map and (not s.artist or s.artist == "Unknown")
     ]
 
     if needs_meta:
         console.log(
-            f"[cyan]Fetching metadata for {len(needs_meta)} songs with missing artist...[/cyan]"
+            f"[cyan]Fetching metadata for {len(needs_meta)} "
+            f"songs with missing artist...[/cyan]"
         )
         with make_progress() as p:
             task = p.add_task("Metadata fetch", total=len(needs_meta))
             with ThreadPoolExecutor(max_workers=PARALLEL_DOWNLOADS) as pool:
-                futures = {
-                    pool.submit(_fetch_metadata, s): s for s in needs_meta
-                }
+                futures = {pool.submit(_fetch_metadata, s): s for s in needs_meta}
                 for fut in as_completed(futures):
                     song = fut.result()
                     if song.artist and song.artist != "Unknown":
                         console.log(
-                            f"[green]Got artist:[/green] {song.title} → {song.artist}"
+                            f"[green]Got artist:[/green] "
+                            f"{song.title} → {song.artist}"
                         )
                     else:
                         console.log(f"[dim]No artist: {song.title}[/dim]")
@@ -678,7 +809,8 @@ def sync(url: str, enable_sb: bool = False) -> None:
             new_hashes[vid] = old_hashes.get(vid, "")
             new_counts[vid] = old_counts.get(vid, 0)
     else:
-        vids_use_cache = []
+        # NOTE: cache logic placeholder — currently re-fetches all
+        vids_use_cache: list[str] = []
 
         console.log(
             f"[dim]SponsorBlock: fetching {len(vids_need_sb)}, "
@@ -700,7 +832,8 @@ def sync(url: str, enable_sb: bool = False) -> None:
 
                         if h == "error":
                             console.log(
-                                f"[red]SB error[/red] {title} [dim]({err_msg})[/dim]"
+                                f"[red]SB error[/red] {title} "
+                                f"[dim]({err_msg})[/dim]"
                             )
                             new_hashes[vid] = old_hashes.get(vid, "error")
                             new_counts[vid] = old_counts.get(vid, 0)
@@ -740,7 +873,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
     # ── Phase 6: Re-download SB-changed ───────────────────
     if sb_changed:
         console.log(
-            f"[yellow]Re-downloading {len(sb_changed)} SB-changed songs...[/yellow]"
+            f"[yellow]Re-downloading {len(sb_changed)} " f"SB-changed songs...[/yellow]"
         )
         to_redownload = [s for s in remote_songs if s.id in sb_changed]
 
@@ -759,10 +892,10 @@ def sync(url: str, enable_sb: bool = False) -> None:
                         console.log(f"[red]Redownload failed:[/red] {song.title}")
                     p.advance(task)
 
-        local_map = scan_and_clean(work_dir, remote_ids)
+        local_map = scan_and_clean(work_dir, remote_ids, keep_ids, trash_dir)
         local_map = enforce_names(remote_songs, local_map, work_dir)
 
-    # ── Phase 7: Save index ────────────────────────────────  CHANGED
+    # ── Phase 7: Save index ────────────────────────────────
     final_songs = []
     for s in remote_songs:
         if s.id in local_map:
@@ -772,7 +905,7 @@ def sync(url: str, enable_sb: bool = False) -> None:
                     "track": s.track,
                     "artist": s.artist,
                     "upload_year": s.upload_year,
-                    "description": s.description,       # NEW
+                    "description": s.description,
                     "file": local_map[s.id].name,
                     "sb_hash": new_hashes.get(s.id),
                     "sb_count": new_counts.get(s.id, 0),
@@ -794,8 +927,9 @@ def sync(url: str, enable_sb: bool = False) -> None:
         )
 
     console.log(
-        f"[bold green]Sync complete![/bold green] {len(final_songs)} songs indexed."
+        f"[bold green]Sync complete![/bold green] " f"{len(final_songs)} songs indexed."
     )
+
 
 # ============================================================
 # Entry
