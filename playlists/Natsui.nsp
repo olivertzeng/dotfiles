@@ -1,0 +1,39 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "暑"
+      }
+    },
+    {
+      "contains": {
+        "title": "호시노"
+      }
+    },
+    {
+      "contains": {
+        "title": "動いてないのに"
+      }
+    },
+    {
+      "is": {
+        "title": "ヒカラビルホシノ"
+      }
+    },
+    {
+      "all": [
+        {
+          "notContains": {
+            "title": "虹夏"
+          }
+        },
+        {
+          "contains": {
+            "title": "夏"
+          }
+        }
+      ]
+    }
+  ],
+  "sort": "-dateadded"
+}

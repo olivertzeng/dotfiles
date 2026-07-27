@@ -7,12 +7,22 @@
     },
     {
       "contains": {
+        "title": "도즈"
+      }
+    },
+    {
+      "contains": {
         "title": "rride"
       }
     },
     {
       "contains": {
         "title": "ライド"
+      }
+    },
+    {
+      "is": {
+        "title": "[합작단품] 츠루기 - 오버 록"
       }
     }
   ],

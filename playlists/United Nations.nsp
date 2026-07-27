@@ -2,22 +2,17 @@
   "any": [
     {
       "contains": {
-        "title": "English"
+        "title": "U. N."
       }
     },
     {
       "contains": {
-        "title": "Eng ver"
+        "title": "U.N."
       }
     },
     {
       "contains": {
-        "artist": "Will Stetson"
-      }
-    },
-    {
-      "contains": {
-        "artist": "rachie"
+        "title": "最終鬼畜"
       }
     }
   ],

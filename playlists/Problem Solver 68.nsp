@@ -2,37 +2,37 @@
   "any": [
     {
       "contains": {
-        "title": "まのさば"
+        "title": "ムツキ"
       }
     },
     {
       "contains": {
-        "title": "魔裁"
+        "title": "ノリノリ"
       }
     },
     {
       "contains": {
-        "title": "Manosaba"
+        "title": "カリフォ"
       }
     },
     {
       "contains": {
-        "title": "レイア"
+        "title": "便利屋"
       }
     },
     {
       "contains": {
-        "title": "エマ"
+        "title": "アル"
+      }
+    },
+    {
+      "contains": {
+        "title": "Unwelcome"
       }
     },
     {
       "is": {
-        "title": "ビンを炙ったら【炙りビン】になるよ！"
-      }
-    },
-    {
-      "is": {
-        "title": "シェリハンチェンソー"
+        "title": "ライアールダンサー"
       }
     }
   ],

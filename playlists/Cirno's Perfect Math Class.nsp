@@ -2,22 +2,17 @@
   "any": [
     {
       "contains": {
-        "title": "English"
+        "title": "教室"
       }
     },
     {
       "contains": {
-        "title": "Eng ver"
+        "title": "Beloved Tomboyish"
       }
     },
     {
       "contains": {
-        "artist": "Will Stetson"
-      }
-    },
-    {
-      "contains": {
-        "artist": "rachie"
+        "title": "Perfect Math Class"
       }
     }
   ],

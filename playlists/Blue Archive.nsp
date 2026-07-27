@@ -17,67 +17,12 @@
     },
     {
       "contains": {
-        "title": "ムツキ"
-      }
-    },
-    {
-      "contains": {
-        "title": "才羽"
-      }
-    },
-    {
-      "contains": {
-        "title": "モモイ"
-      }
-    },
-    {
-      "contains": {
-        "title": "Momoi"
-      }
-    },
-    {
-      "contains": {
-        "title": "ノリノリ"
-      }
-    },
-    {
-      "contains": {
         "title": "Archive"
       }
     },
     {
       "contains": {
-        "title": "陽 光 彩 虹 小 白 馬"
-      }
-    },
-    {
-      "contains": {
-        "title": "Sunshine, Rainbow, White Pony"
-      }
-    },
-    {
-      "contains": {
-        "title": "ALL MY FELLAS"
-      }
-    },
-    {
-      "contains": {
-        "title": "阳光彩虹小马"
-      }
-    },
-    {
-      "contains": {
         "title": "枕がデ"
-      }
-    },
-    {
-      "contains": {
-        "title": "Tsurugi"
-      }
-    },
-    {
-      "contains": {
-        "title": "모모이"
       }
     },
     {
@@ -112,11 +57,6 @@
     },
     {
       "contains": {
-        "title": "ムツキ"
-      }
-    },
-    {
-      "contains": {
         "title": "コユキ"
       }
     },
@@ -147,11 +87,6 @@
     },
     {
       "contains": {
-        "title": "OMG It's"
-      }
-    },
-    {
-      "contains": {
         "title": "Unwelcome"
       }
     },
@@ -162,22 +97,7 @@
     },
     {
       "is": {
-        "title": "Mini Game - The Legend of Zelda: Ocarina of Time"
-      }
-    },
-    {
-      "is": {
         "title": "【合作単品】きゅうくらりんっすよ"
-      }
-    },
-    {
-      "is": {
-        "title": "Slider (In-Game Version) - Super Mario 64"
-      }
-    },
-    {
-      "is": {
-        "title": "Circus (Mix Called My Phone) - Five Nights at Freddy's"
       }
     },
     {
@@ -188,11 +108,6 @@
     {
       "contains": {
         "title": "Blue-kurarin"
-      }
-    },
-    {
-      "is": {
-        "title": "죽음 어질"
       }
     },
     {
@@ -208,6 +123,26 @@
     {
       "is": {
         "title": "ライアールダンサー"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "2jcDRuWhmVu2lbon6CtONY"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "sSNQvnXR0rmINpoaL0qiG3"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "5daMKRA7PS9n4JfpDpzMEu"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "zDV4UzgpdubrFtnHxSaXft"
       }
     }
   ],

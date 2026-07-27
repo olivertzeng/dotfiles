@@ -7,11 +7,6 @@
     },
     {
       "contains": {
-        "title": "miru "
-      }
-    },
-    {
-      "contains": {
         "title": "Touhou"
       }
     },
@@ -23,36 +18,6 @@
     {
       "contains": {
         "title": "Bad Apple"
-      }
-    },
-    {
-      "contains": {
-        "title": "U.N.オーエン"
-      }
-    },
-    {
-      "contains": {
-        "title": "Night of Knights"
-      }
-    },
-    {
-      "contains": {
-        "title": "Nights of Nights"
-      }
-    },
-    {
-      "contains": {
-        "title": "ナイト・オブ・ナイツ"
-      }
-    },
-    {
-      "contains": {
-        "title": "Flowering Night"
-      }
-    },
-    {
-      "contains": {
-        "title": "Cirno"
       }
     },
     {
@@ -73,11 +38,6 @@
     {
       "contains": {
         "title": "紅魔"
-      }
-    },
-    {
-      "contains": {
-        "title": "Beloved Tomboyish"
       }
     },
     {
@@ -127,32 +87,7 @@
     },
     {
       "contains": {
-        "title": "miru"
-      }
-    },
-    {
-      "contains": {
-        "title": "U. N."
-      }
-    },
-    {
-      "contains": {
-        "title": "U.N."
-      }
-    },
-    {
-      "contains": {
-        "title": "最終鬼畜"
-      }
-    },
-    {
-      "contains": {
-        "title": "教室"
-      }
-    },
-    {
-      "contains": {
-        "title": "Perfect Math Class"
+        "title": "Cirno"
       }
     },
     {
@@ -178,6 +113,26 @@
     {
       "contains": {
         "title": "ミル"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "v8k9CFwgDHiSFQM9ziaM25"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "hU0h0fGlf6ztD1lT6gur2T"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "DXBW0BDYXoxu5vbwhteOfP"
+      }
+    },
+    {
+      "inPlaylist": {
+        "id": "pioRgH2ZLDtVjSTxi5dduq"
       }
     }
   ],

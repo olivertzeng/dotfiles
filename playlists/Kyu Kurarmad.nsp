@@ -1,48 +1,302 @@
 {
-  "all": [
-    {
-      "any": [
-        {
-          "contains": {
-            "title": "りん"
-          }
-        },
-        {
-          "all": [
-            {
-              "contains": {
-                "title": "arin"
-              }
-            },
-            {
-              "notContains": {
-                "title": "Ocarina"
-              }
+  "any": [
+      {
+        "all": [
+          {
+            "notContains": {
+              "title": "きゅうくらりん"
             }
-          ]
-        },
-        {
-          "contains": {
-            "title": "두근"
+          },
+          {
+            "notContains": {
+              "title": "きゅびずむ"
+            }
+          },
+          {
+            "notContains": {
+              "title": "きゅびびびびずむ"
+            }
+          },
+          {
+            "any": [
+              {
+                "contains": {
+                  "title": "きゅ"
+                }
+              },
+              {
+                "contains": {
+                  "title": "りん"
+                }
+              }
+            ]
           }
-        },
-        {
-          "contains": {
-            "title": "어질"
+        ]
+      },
+      {
+        "all": [
+          {
+            "notContains": {
+              "title": "두근, 어질"
+            }
+          },
+          {
+            "notContains": {
+              "title": "두근, 아자"
+            }
+          },
+          {
+            "notContains": {
+              "title": "두근，어질"
+            }
+          },
+          {
+            "notContains": {
+              "title": "두근 어질"
+            }
+          },
+          {
+            "notContains": {
+              "title": "두근어질"
+            }
+          },
+          {
+            "any": [
+              {
+                "contains": {
+                  "title": "두근"
+                }
+              },
+              {
+                "contains": {
+                  "title": "어질"
+                }
+              }
+            ]
           }
-        },
-        {
-          "contains": {
-            "album": "kyuKurarin"
+        ]
+      },
+      {
+        "any": [
+          {
+            "all": [
+              {
+                "notContains": {
+                  "title": "kyu - kurarin"
+                }
+              },
+              {
+                "notContains": {
+                  "title": "kyuu-kurarin"
+                }
+              },
+              {
+                "notContains": {
+                  "title": "kyuukurarin"
+                }
+              },
+              {
+                "notContains": {
+                  "title": "kyukurarin"
+                }
+              },
+              {
+                "notContains": {
+                  "title": "kyu kurarin"
+                }
+              },
+              {
+                "notContains": {
+                  "title": "kyu-kurarin"
+                }
+              },
+              {
+                "notContains": {
+                  "title": "kyu, kurarin"
+                }
+              },
+              {
+                "contains": {
+                  "title": "rari"
+                }
+              }
+            ]
           }
+        ]
+      },
+      {
+        "is": {
+        	"title": "Magarin"
         }
-      ]
-    },
-    {
-      "inPlaylist": {
-        "id": "15y7A88jgDuD2ENuJE011M"
+      },
+      {
+        "is": {
+        	"title": "22 - きゅうくらりん"
+        }
+      },
+      {
+        "is": {
+        	"title": "【合作単品】きゅうくらりんっすよ"
+        }
+      },
+      {
+        "is": {
+        	"title": "ループザきゅうくらりん / Looping the kyu-kurarin"
+        }
+      },
+      {
+        "is": {
+        	"title": "きゅうくらりんを可愛く歌える理由"
+        }
+      },
+      {
+        "is": {
+        	"title": "ぎたひろいん"
+        }
+      },
+      {
+        "is": {
+        	"title": "두근 어! 질 (황정민 - 두근 어질)"
+        }
+      },
+      {
+        "is": {
+        	"title": "10 きゅうくらりん 映像"
+        }
+      },
+      {
+        "is": {
+        	"title": "6月3日ﾆﾁﾖｳﾋﾞﾆ!"
+        }
+      },
+      {
+        "is": {
+        	"title": "きゅうくらりん64"
+        }
+      },
+      {
+        "is": {
+        	"title": "대사나열연습2"
+        }
+      },
+      {
+        "is": {
+        	"title": "맹구라링"
+        }
+      },
+      {
+        "is": {
+        	"title": "Kyu Kurarin Crazy Error Collab | 1080p60"
+        }
+      },
+      {
+        "is": {
+        	"title": "두근어질 코유키"
+        }
+      },
+      {
+        "is": {
+        	"title": "【힐리아】캐릭터가 말하듯이 불러본│두근어질 COVER"
+        }
+      },
+      {
+        "is": {
+        	"title": "Kyu-Kurarin | Rhythm Heaven Custom Remix (Heaven Studio)"
+        }
+      },
+      {
+        "is": {
+        	"title": "小学生が考えたきゅうくらりん"
+        }
+      },
+      {
+        "is": {
+        	"title": "Dr.きゅうくらりん"
+        }
+      },
+      {
+        "is": {
+        	"title": "きゅうくらりん / いよわ feat.可不 【リズム天国MAD】"
+        }
+      },
+      {
+        "is": {
+        	"title": "ああ　負債溜まっちまうよ"
+        }
+      },
+      {
+        "is": {
+        	"title": "【マッシュアップ】『きゅうくらりん』×『星界ちゃんと可不ちゃんのおつかい合騒曲』【VOCAMASH】"
+        }
+      },
+      {
+        "is": {
+        	"title": "비비 두근어질"
+        }
+      },
+      {
+        "is": {
+        	"title": "(백업) 스핔이 - 물걸레질 (두근어질)"
+        }
+      },
+      {
+        "is": {
+        	"title": "Naoya Zen'in - Kyu-kurarin"
+        }
+      },
+      {
+        "is": {
+        	"title": "ああ　化石になっちまうお"
+        }
+      },
+      {
+        "is": {
+        	"title": "【音MAD】中ドラ2ん"
+        }
+      },
+      {
+        "is": {
+        	"title": "きゅうくらくさりん【ナヒーダ×きゅうくらりん】"
+        }
+      },
+      {
+        "is": {
+        	"title": "【小小廢生日合作】7-小小廢害羞的心跳不已💗"
+        }
+      },
+      {
+        "is": {
+        	"title": "Kyu-kurarin - maimai でらっくす FESTiVAL"
+        }
+      },
+      {
+        "all": [
+          {
+            "is": {
+              "title": "Kyu - kurarin"
+            }
+          },
+          {
+            "is": {
+              "artist": "10"
+            }
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "is": {
+              "title": "두근 어질"
+            }
+          },
+          {
+            "is": {
+              "artist": "생쥐"
+            }
+          }
+        ]
       }
-    }
   ],
   "sort": "-dateadded"
 }

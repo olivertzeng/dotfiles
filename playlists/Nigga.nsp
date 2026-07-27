@@ -1,0 +1,80 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "Nigga"
+      }
+    },
+    {
+      "contains": {
+        "title": "Nigger"
+      }
+    },
+    {
+      "contains": {
+        "title": "才羽"
+      }
+    },
+    {
+      "contains": {
+        "title": "モモイ"
+      }
+    },
+    {
+      "contains": {
+        "title": "Momoi"
+      }
+    },
+    {
+      "contains": {
+        "title": "陽 光 彩 虹 小 白 馬"
+      }
+    },
+    {
+      "contains": {
+        "title": "Sunshine, Rainbow, White Pony"
+      }
+    },
+    {
+      "contains": {
+        "title": "ALL MY FELLAS"
+      }
+    },
+    {
+      "contains": {
+        "title": "阳光彩虹小马"
+      }
+    },
+    {
+      "contains": {
+        "title": "모모이"
+      }
+    },
+    {
+      "contains": {
+        "title": "OMG It's"
+      }
+    },
+    {
+      "is": {
+        "title": "Mini Game - The Legend of Zelda: Ocarina of Time"
+      }
+    },
+    {
+      "is": {
+        "title": "Slider (In-Game Version) - Super Mario 64"
+      }
+    },
+    {
+      "is": {
+        "title": "Circus (Mix Called My Phone) - Five Nights at Freddy's"
+      }
+    },
+    {
+      "is": {
+        "title": "죽음 어질"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}
