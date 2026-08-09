@@ -1,4 +1,5 @@
 hash -d c="/home/${USER}/homework/c"
+hash -d ca="/home/${USER}/docker/caddy"
 hash -d cpp="/home/${USER}/homework/cpp"
 hash -d d="/home/${USER}/Downloads"
 hash -d dock="/home/${USER}/docker"
