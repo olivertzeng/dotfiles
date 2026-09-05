@@ -6,10 +6,13 @@ Dependencies:
     sudo pacman -S python-rich python-requests python-mutagen yt-dlp ffmpeg
 
 Options:
-    -c, --check         Check existing songs for SponsorBlock changes AND missing lyrics
+    -c, --check         Check existing songs for SponsorBlock changes, missing lyrics,
+                        AND missing/corrupt thumbnails
     --check-sb          Check existing songs for SponsorBlock changes only
     --check-lyrics      Check existing songs for missing lyrics only
+    --check-thumbnail   Check existing songs for missing/corrupt thumbnails only
     --wipe-lyrics       Delete all .lrc files and embedded lyrics, then re-fetch for all songs
+    --wipe-thumbnail    Strip all embedded thumbnails and re-embed for all songs
 """
 
 import hashlib
@@ -280,15 +283,29 @@ TEMP_EXTS: frozenset[str] = frozenset(
 ART_EXTS: frozenset[str] = frozenset({".jpg", ".jpeg", ".webp", ".png"})
 KILL_EXTS = TEMP_EXTS | ART_EXTS
 
+# Filenames that must never be deleted (album covers, folder art, etc.)
+# Case-insensitive matching is applied in cleanup()
+PROTECTED_IMAGES: frozenset[str] = frozenset({
+    "cover.png",
+    "cover.jpg",
+})
+
+KILL_EXTS = TEMP_EXTS | ART_EXTS
 
 def cleanup(work_dir: Path, vid: str | None = None) -> int:
     """Remove temp/art files (hard delete — these are build artifacts)."""
     removed = 0
     targets = work_dir.glob(f"*{vid}*") if vid else work_dir.iterdir()
     for f in targets:
-        if f.is_file() and f.name.startswith("cover."):
+        if not f.is_file():
             continue
-        if f.is_file() and any(f.name.endswith(e) for e in KILL_EXTS):
+        # Protect files starting with "cover." (original rule)
+        if f.name.startswith("cover."):
+            continue
+        # Protect explicitly named album covers (case-insensitive)
+        if f.name.lower() in PROTECTED_IMAGES:
+            continue
+        if any(f.name.endswith(e) for e in KILL_EXTS):
             try:
                 f.unlink()
                 removed += 1
@@ -625,6 +642,20 @@ def wipe_all_lyrics(work_dir: Path) -> None:
     console.print(f"  Cleared embedded lyrics from {m4a_count} .m4a file(s)")
     console.print("[green]Lyrics wiped. They will be re-fetched during sync.[/green]")
 
+def wipe_all_thumbnails(work_dir: Path) -> None:
+    """Strip all embedded thumbnails from all .m4a files so they are re-embedded on next sync."""
+    wiped = 0
+    for m4a_file in work_dir.glob("*.m4a"):
+        try:
+            audio = MP4(m4a_file)
+            if audio.tags and "covr" in audio.tags:
+                del audio.tags["covr"]
+                audio.save()
+                wiped += 1
+        except Exception:
+            pass
+    console.print(f"  Stripped thumbnails from {wiped} .m4a file(s)")
+    console.print("[green]Thumbnails wiped. They will be re-embedded during sync.[/green]")
 
 # ============================================================
 # Metadata Extraction
@@ -814,7 +845,7 @@ def enforce_names(
 # ============================================================
 # Sync
 # ============================================================
-def sync(url: str, check_sb: bool = False, check_lyrics: bool = False) -> None:
+def sync(url: str, check_sb: bool = False, check_lyrics: bool = False, check_thumbnail: bool = False) -> None:
     work_dir = Path.cwd()
     trash_dir = work_dir.parent / ".trash"
 
@@ -922,6 +953,9 @@ def sync(url: str, check_sb: bool = False, check_lyrics: bool = False) -> None:
     missing = [s for s in remote_songs if s.id not in local_map]
     console.log(f"[dim]Local: {len(local_map)} | Missing: {len(missing)}[/dim]")
 
+    # Initialize before Phase 3
+    sb_changed: list[str] = []
+    sb_changed_set: set[str] = set()
     # -- Phase 1: Download --
     newly_downloaded: set[str] = set()
 
@@ -973,10 +1007,13 @@ def sync(url: str, check_sb: bool = False, check_lyrics: bool = False) -> None:
                         console.log(f"[dim]No artist: {song.title}[/dim]")
                     p.advance(task)
 
-    # -- Phase 3: Thumbnails --
+    # -- Phase 3: Thumbnails (newly downloaded songs) --
     thumb_tasks: list[tuple[Path, str]] = []
     for song in remote_songs:
         if song.id not in local_map:
+            continue
+        is_new = song.id in newly_downloaded
+        if not is_new and not check_thumbnail:
             continue
         path = local_map[song.id]
         if not has_thumbnail(path):
@@ -1027,7 +1064,8 @@ def sync(url: str, check_sb: bool = False, check_lyrics: bool = False) -> None:
     new_hashes: dict[str, str] = {}
     new_counts: dict[str, int] = {}
     sb_changed: list[str] = []
-
+    sb_changed_set = set(sb_changed)
+    always_check = newly_downloaded | sb_changed_set
     # Carry forward old data for songs not being checked
     for vid in local_map:
         if vid not in vids_check_sb:
@@ -1109,12 +1147,36 @@ def sync(url: str, check_sb: bool = False, check_lyrics: bool = False) -> None:
 
         local_map = scan_and_clean(work_dir, remote_ids, keep_ids, trash_dir)
         local_map = enforce_names(remote_songs, local_map, work_dir)
+    # -- Phase 7b: Re-embed thumbnails for SB-redownloaded songs --
+    # These songs went through do_download() again (--no-embed-thumbnail),
+    # so their thumbnails were stripped and need to be re-fetched.
+    sb_thumb_tasks = [
+        (local_map[vid], vid)
+        for vid in sb_changed_set
+        if vid in local_map and not has_thumbnail(local_map[vid])
+    ]
 
+    if sb_thumb_tasks:
+        console.log(
+            f"[cyan]Re-embedding thumbnails for {len(sb_thumb_tasks)} "
+            f"SB-redownloaded songs...[/cyan]"
+        )
+        with make_progress() as p:
+            task = p.add_task("Thumbnails (SB)", total=len(sb_thumb_tasks))
+            for path, vid in sb_thumb_tasks:
+                thumb = fetch_thumbnail(vid, work_dir)
+                if thumb:
+                    if embed_thumbnail(path, thumb):
+                        console.log(f"[green]Thumbnail (SB):[/green] {path.name}")
+                    else:
+                        console.log(f"[red]Embed failed:[/red] {path.name}")
+                    thumb.unlink(missing_ok=True)
+                else:
+                    console.log(f"[dim]No thumbnail: {vid}[/dim]")
+                p.advance(task)
     # -- Phase 8: Lyrics --
     # Placed after SB re-download so re-downloaded files also get lyrics.
     # New songs: always. Existing songs: only with --check-lyrics or -c.
-    sb_changed_set = set(sb_changed)
-    always_check = newly_downloaded | sb_changed_set
 
     if check_lyrics:
         lyric_candidates = [s for s in remote_songs if s.id in local_map]
@@ -1197,13 +1259,16 @@ if __name__ == "__main__":
     args = sys.argv[1:]
     check_sb = False
     check_lyrics = False
+    check_thumbnail = False
     wipe_lyrics = False
+    wipe_thumbnail = False
 
-    # -c / --check is a shorthand for both --check-sb and --check-lyrics
+    # -c / --check is a shorthand for --check-sb, --check-lyrics, AND --check-thumbnail
     for flag in ("-c", "--check"):
         if flag in args:
             check_sb = True
             check_lyrics = True
+            check_thumbnail = True
             args.remove(flag)
 
     if "--check-sb" in args:
@@ -1214,9 +1279,17 @@ if __name__ == "__main__":
         check_lyrics = True
         args.remove("--check-lyrics")
 
+    if "--check-thumbnail" in args:
+        check_thumbnail = True
+        args.remove("--check-thumbnail")
+
     if "--wipe-lyrics" in args:
         wipe_lyrics = True
         args.remove("--wipe-lyrics")
+
+    if "--wipe-thumbnail" in args:
+        wipe_thumbnail = True
+        args.remove("--wipe-thumbnail")
 
     if len(args) == 0:
         cwd = Path.cwd().name
@@ -1240,15 +1313,18 @@ if __name__ == "__main__":
             console.print(f"[red]Unknown alias or URL:[/red] {arg}")
             sys.exit(1)
 
-    # If --wipe-lyrics was passed, clear all lyrics before syncing
     if wipe_lyrics:
         console.log("[yellow]Wiping all lyrics...[/yellow]")
         wipe_all_lyrics(Path.cwd())
-        # Force check_lyrics so the sync phase re-fetches lyrics for everything
         check_lyrics = True
 
+    if wipe_thumbnail:                                      # NEW
+        console.log("[yellow]Wiping all thumbnails...[/yellow]")
+        wipe_all_thumbnails(Path.cwd())
+        check_thumbnail = True                              # force re-embed on sync
+
     try:
-        sync(url, check_sb=check_sb, check_lyrics=check_lyrics)
+        sync(url, check_sb=check_sb, check_lyrics=check_lyrics, check_thumbnail=check_thumbnail)
     except KeyboardInterrupt:
         console.print("\n[yellow]Interrupted.[/yellow]")
         cleanup(Path.cwd())
