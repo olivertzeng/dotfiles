@@ -755,30 +755,22 @@ def do_download(
     return song, False, out
 
 
-def do_metadata(
-    path: Path,
-    song: RemoteSong,
-    album: str,
-    album_year: str,
-) -> bool:
-    """Write metadata tags to an m4a file.
-
-    The comment field is set to the YouTube video URL for easy reference.
-    """
+def do_metadata(path: Path, song: RemoteSong, album: str, album_year: str) -> bool:
     try:
         audio = MP4(path)
         if audio.tags is None:
             audio.add_tags()
 
-        audio.tags["\xa9nam"] = song.title
-        audio.tags["\xa9ART"] = song.artist
-        audio.tags["\xa9alb"] = album
-        audio.tags["aART"] = "olivertzeng"
-        audio.tags["trkn"] = [(song.track, 0)]
-        audio.tags["\xa9day"] = album_year
-        audio.tags["\xa9cmt"] = f"https://www.youtube.com/watch?v={song.id}"
+        audio.tags["\xa9nam"] = [song.title]
+        audio.tags["\xa9ART"] = [song.artist]
+        audio.tags["\xa9alb"] = [album]
+        audio.tags["aART"]    = ["olivertzeng"]
+        audio.tags["trkn"]    = [(song.track, 0)]
+        audio.tags["\xa9day"] = [album_year]
+        audio.tags["\xa9cmt"] = [f"https://www.youtube.com/watch?v={song.id}"]
 
         audio.save()
+        path.touch()   # Force mtime update so Navidrome re-reads tags on next scan
         return True
     except Exception:
         return False

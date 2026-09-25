@@ -67,6 +67,7 @@ export EDITOR=nvim
 alias -g -- --help-all='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias adb="adb -s 59271FDCR0074X"
 alias addon="zip -r -FS extension.zip * --exclude '*.git*'"
 alias airplay="uxplay -p -fps 60 -s 2560x1600@60"
 alias bat='bat --color=always'
@@ -95,7 +96,7 @@ alias lt='eza -T'
 alias man='batman'
 alias n='cd ~/.config/nvim/lua'
 alias open='xdg-open'
-alias p='nvim ~/.config/nvim/lua/core/plugins.lua'
+alias p='nvim ~/.config/nvim/lua/plugins.lua'
 alias pull-music=' adb pull /storage/emulated/0/Download/Music ~/'
 alias push-music='adb shell rm -rf /storage/emulated/0/Download/Music/*;adb push ~/Music/* /storage/emulated/0/Download/Music'
 alias r='bash ~/replace.sh'

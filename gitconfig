@@ -4,6 +4,7 @@
 [core]
 	editor = nvim
 	quotepath = off
+	gitProxy = 
 [diff]
 	tool = batdiff
 [help]
@@ -23,3 +24,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[http]
+	postBuffer = 524288000
+[network "protocol"]
+	ipv4 = true
