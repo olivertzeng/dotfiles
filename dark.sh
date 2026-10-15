@@ -1,2 +1,2 @@
 #!/bin/bash
-plasma-apply-cursortheme "Bocchi The Cursor 4" >/dev/null 2>&1
+plasma-apply-cursortheme "Doro" >/dev/null 2>&1

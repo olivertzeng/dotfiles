@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 HISTFILE=~/.zsh_history
@@ -30,12 +30,12 @@ autoload -Uz $fpath[-1]/antidote
 
 # Generate static file in a subshell when .zsh_plugins.txt is updated.
 if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
-  (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
+    (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
 fi
 
 # completions
 if [ -d $HOME/.zsh/comp ]; then
-  export fpath="$HOME/.zsh/comp:$fpath"
+    export fpath="$HOME/.zsh/comp:$fpath"
 fi
 
 # Source your static plugins file.
