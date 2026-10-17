@@ -1,9 +1,0 @@
-[Unit]
-Description=用來清理pacman的快取
-
-[Timer]
-OnCalendar=daily
-Persistent=true
-
-[Install]
-WantedBy=multi-user.target
