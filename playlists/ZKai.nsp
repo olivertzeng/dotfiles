@@ -1,0 +1,24 @@
+{
+  "any": [
+    { "contains": { "title": "Zkai" } },
+    { "contains": { "title": "Z-kai" } },
+    { "contains": { "title": "Z会" } },
+    { "contains": { "title": "hoa" } },
+    { "contains": { "title": "勉強" } },
+    { "contains": { "title": "benkyou" } },
+    { "contains": { "title": "campus" } },
+    { "contains": { "title": "kiraida" } },
+    { "contains": { "title": "亀井" } },
+    { "contains": { "title": "高坂" } },
+    { "contains": { "title": "拓馬" } },
+    { "contains": { "title": "キライ" } },
+    { "contains": { "title": "浪人" } },
+    { "is": { "title": "うましかのこのこのここしたんたん" } },
+    { "is": { "title": "沒" } },
+    { "is": { "title": "合作単品】YU-JI Disco" } },
+    { "is": { "artist": "ふぁみん" } },
+    { "is": { "title": "ﾅｲﾂﾀﾝﾋﾟﾝ" } },
+    { "is": { "title": "CPS." } }
+  ],
+  "sort": "-dateadded"
+}

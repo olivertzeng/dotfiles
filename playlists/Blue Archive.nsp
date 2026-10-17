@@ -82,12 +82,27 @@
     },
     {
       "contains": {
-        "title": "便利屋"
+        "title": "호시노"
+      }
+    },
+    {
+      "contains": {
+        "title": "プリンを"
+      }
+    },
+    {
+      "contains": {
+        "title": "二つも食べちゃいます"
       }
     },
     {
       "contains": {
         "title": "Unwelcome"
+      }
+    },
+    {
+      "is": {
+        "title": "【館長】Operation☆DOTABATA!"
       }
     },
     {
@@ -125,26 +140,11 @@
         "title": "ライアールダンサー"
       }
     },
-    {
-      "inPlaylist": {
-        "id": "2jcDRuWhmVu2lbon6CtONY"
-      }
-    },
-    {
-      "inPlaylist": {
-        "id": "sSNQvnXR0rmINpoaL0qiG3"
-      }
-    },
-    {
-      "inPlaylist": {
-        "id": "5daMKRA7PS9n4JfpDpzMEu"
-      }
-    },
-    {
-      "inPlaylist": {
-        "id": "zDV4UzgpdubrFtnHxSaXft"
-      }
-    }
+    { "is": { "title": "Hoaharu" } },
+    { "inPlaylist": { "id": "x41mj1xsUcTsTEEpzKU2d0" } },
+    { "inPlaylist": { "id": "m68eEKRLIkhMZgaFNpa7j4" } },
+    { "inPlaylist": { "id": "XMimBaQDIZW96kBRzOeMHJ" } },
+    { "inPlaylist": { "id": "06lIAJMjjoIeQQTchDWZrq" } }
   ],
   "sort": "-dateadded"
 }

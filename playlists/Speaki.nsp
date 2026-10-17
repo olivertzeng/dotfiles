@@ -2,6 +2,11 @@
   "any": [
     {
       "contains": {
+        "title": "Speaki"
+      }
+    },
+    {
+      "contains": {
         "title": "스피키"
       }
     },

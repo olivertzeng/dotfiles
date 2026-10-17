@@ -29,10 +29,6 @@
         }
       ]
     },
-    {
-      "contains": {
-        "title": "Spymiru"
-      }
     },
     {
       "is": {
@@ -71,12 +67,42 @@
     },
     {
       "is": {
+        "title": "Pissumiru"
+      }
+    },
+    {
+      "is": {
         "title": "Sandwichmiru"
       }
     },
     {
       "contains": {
         "title": "Sandvich"
+      }
+    },
+    {
+      "is": {
+        "title": "Engimiru"
+      }
+    },
+    {
+      "is": {
+        "title": "Meet the Machine"
+      }
+    },
+    {
+      "is": {
+        "title": "He's Right Behind Me, Isn't He?"
+      }
+    },
+    {
+      "is": {
+        "title": "DOCTOR-ASSISTED TRAUMA"
+      }
+    },
+    {
+      "is": {
+        "title": "Bonkumiru"
       }
     },
     {

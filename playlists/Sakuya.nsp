@@ -19,7 +19,8 @@
       "contains": {
         "title": "Flowering Night"
       }
-    }
+    },
+    { "is": { "title": "ﾅｲﾂﾀﾝﾋﾟﾝ" } }
   ],
   "sort": "-dateadded"
 }
