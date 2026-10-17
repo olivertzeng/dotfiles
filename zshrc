@@ -18,34 +18,20 @@ setopt autocd
 setopt interactive_comments
 autoload -Uz compinit
 compinit
-# Set the name of the static .zsh plugins file antidote will generate.
-zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
 
-# Ensure you have a .zsh_plugins.txt file where you can add plugins.
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
 [[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
 
-# Lazy-load antidote.
-fpath+=(${ZDOTDIR:-~}/.antidote)
-autoload -Uz $fpath[-1]/antidote
+source '/usr/share/zsh-antidote/antidote.zsh'
 
-# Generate static file in a subshell when .zsh_plugins.txt is updated.
-if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
-    (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
-fi
+antidote load
 
-# completions
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 if [ -d $HOME/.zsh/comp ]; then
     export fpath="$HOME/.zsh/comp:$fpath"
 fi
-
-# Source your static plugins file.
-source $zsh_plugins
-
-# source antidote
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-
-# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
-antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export ARCHFLAGS="-arch x86_64"
@@ -122,5 +108,3 @@ export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="$PATH:/home/olivertzeng/fount/path"
-alias gan-mode='echo "0" | sudo tee /sys/devices/system/cpu/cpufreq/boost >/dev/null && echo "GaN mode ON"'
-alias ac-mode='echo "1" | sudo tee /sys/devices/system/cpu/cpufreq/boost >/dev/null && echo "AC mode ON"'

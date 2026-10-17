@@ -1,9 +1,7 @@
-activate-linux
 aur-auto-vote-git
 directx-headers-git
 downgrade
 fcitx5-mcbopomofo-git
-kcm-grub2-git
 konsave
 mkinitcpio-firmware
 topgrade
