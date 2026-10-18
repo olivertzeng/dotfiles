@@ -47,7 +47,9 @@ export PIPENV_VERBOSITY=-1
 export RUNEWIDTH_EASTASIAN=0
 export SUDO_PROMPT=" 密碼勒？？？"
 export USE_CCACHE=1
-export EDITOR=nvim
+export EDITOR="nvim"
+export VISUAL="nvim"
+export SUDO_EDITOR="nvim"
 
 # some more aliases
 alias -g -- --help-all='-h 2>&1 | bat --language=help --style=plain'
