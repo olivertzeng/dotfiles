@@ -28,3 +28,5 @@
 	postBuffer = 524288000
 [network "protocol"]
 	ipv4 = true
+[url "https://github.7279744.xyz/"]
+	insteadOf = https://github.com/
