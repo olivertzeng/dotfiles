@@ -1,4 +1,3 @@
-ln -sf ~/dotfiles/Example.nsp ~/
 ln -sf ~/dotfiles/clang-format ~/.clang-format
 ln -sf ~/dotfiles/dark.sh ~/
 ln -sf ~/dotfiles/gitconfig ~/.gitconfig
@@ -15,6 +14,5 @@ ln -sf ~/dotfiles/yt.py ~/
 ln -sf ~/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
 ln -sf ~/dotfiles/zshbookmarks ~/.zshbookmarks
 ln -sf ~/dotfiles/zshrc ~/.zshrc
-sudo ln -sf ~/dotfiles/dl-github /usr/bin/dl-github
 sudo ln -sf ~/dotfiles/makepkg.conf /etc/makepkg.conf
 sudo ln -sf ~/dotfiles/pacman.conf /etc/pacman.conf
