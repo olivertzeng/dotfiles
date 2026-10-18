@@ -22,7 +22,7 @@ compinit
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
 [[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
 
-source '/usr/share/zsh-antidote/antidote.zsh'
+source "$HOME/.antidote/antidote.zsh"
 
 antidote load
 
@@ -91,12 +91,10 @@ macchina
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-export PATH="$PATH:/home/olivertzeng/.local/bin:/usr/lib/qt6/bin/"
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+export PATH="$PATH:/home/$USER/.local/bin:/usr/lib/qt6/bin/"
 source ~/.zshsecrets
-export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH="$PATH:/home/olivertzeng/fount/path"
+export PATH="$PATH:/home/$USER/fount/path"
