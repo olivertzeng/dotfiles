@@ -104,3 +104,4 @@ source ~/.zshsecrets
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="$PATH:/home/$USER/fount/path"
+alias sudo='sudo env PATH="$PATH"'
