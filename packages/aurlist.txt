@@ -12,9 +12,6 @@ gcfscape
 karp
 koi
 konsave
-librewolf-autoconfig-prefs
-librewolf-extension-plasma-integration-bin
-librewolf-hellfire-bin
 maple-mono-nf-cn
 minecraft-plymouth-theme-git
 needrestart

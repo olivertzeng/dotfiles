@@ -53,6 +53,7 @@ export EDITOR=nvim
 alias -g -- --help-all='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias a="aria2c"
 alias adb="adb -s 59271FDCR0074X"
 alias addon="zip -r -FS extension.zip * --exclude '*.git*'"
 alias airplay="uxplay -p -fps 60 -s 2560x1600@60"

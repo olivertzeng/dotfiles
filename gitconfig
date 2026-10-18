@@ -4,7 +4,7 @@
 [core]
 	editor = nvim
 	quotepath = off
-	gitProxy = 
+	gitProxy =
 [diff]
 	tool = batdiff
 [help]
@@ -12,10 +12,10 @@
 [pull]
 	rebase = false
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 [color]
 	ui = auto
@@ -28,5 +28,3 @@
 	postBuffer = 524288000
 [network "protocol"]
 	ipv4 = true
-[url "https://github.7279744.xyz/"]
-	insteadOf = https://github.com/
