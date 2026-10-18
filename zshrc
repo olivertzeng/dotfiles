@@ -100,6 +100,7 @@ macchina
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 export PATH="$PATH:/home/$USER/.local/bin:/usr/lib/qt6/bin/"
+export PATH=$PATH:/usr/sbin:/sbin
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 source ~/.zshsecrets
 export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"

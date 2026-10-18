@@ -867,7 +867,7 @@ def sync(url: str, check_sb: bool = False, check_lyrics: bool = False, check_thu
             if album_name == "Unknown Album" and d.get("playlist_title"):
                 album_name = d["playlist_title"]
             vid = d.get("id")
-            idx = d.get("playlist_index")
+            idx = d.get("playlist_index") or d.get("index")
             title = d.get("title") or "Unknown"
             if vid and idx:
                 remote_songs.append(RemoteSong(id=vid, track=int(idx), title=title))

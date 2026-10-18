@@ -97,6 +97,7 @@ macchina
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 export PATH="$PATH:/home/$USER/.local/bin:/usr/lib/qt6/bin/"
+export PATH=$PATH:/usr/sbin:/sbin
 source ~/.zshsecrets
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
