@@ -62,7 +62,11 @@ alias clla='clear;eza --icons -la'
 alias cllt='clear;eza --icons -T'
 alias cllt='clear;eza --icons -lT'
 alias cp='cp -v'
+alias dcd='docker compose down'
+alias dcl='docker compose logs -f'
+alias dcu='docker compose up -d'
 alias diff='batdiff'
+alias dps='docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
 alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias gclr="git clean -xfd"

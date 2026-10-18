@@ -69,7 +69,6 @@ alias diff='batdiff'
 alias du='duf'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias gclr="git clean -xfd"
-alias grub-update='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias ivm='nvim'
 alias kf='konsole --fullscreen'
 alias l='eza --icons always'
