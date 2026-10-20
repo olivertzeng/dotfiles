@@ -97,7 +97,7 @@ alias vm='nvim'
 alias vmi='nvim'
 alias yt='python3 ~/yt.py'
 
-macchina
+fastfetch
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
