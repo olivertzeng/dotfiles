@@ -1,3 +1,5 @@
+fastfetch
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -96,8 +98,6 @@ alias vim='nvim'
 alias vm='nvim'
 alias vmi='nvim'
 alias yt='python3 ~/yt.py'
-
-fastfetch
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
