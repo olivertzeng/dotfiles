@@ -44,6 +44,7 @@ exfatprogs
 extra-cmake-modules
 eza
 f2fs-tools
+fastfetch
 fcitx5-chewing
 fcitx5-chinese-addons
 fcitx5-configtool
@@ -107,7 +108,6 @@ logrotate
 lsb-release
 lsscsi
 lvm2
-macchina
 mdadm
 merkuro
 mesa-utils
@@ -171,6 +171,7 @@ rtkit
 s-nail
 scrcpy
 screen
+sddm
 sg3_utils
 skopeo
 sl
