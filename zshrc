@@ -39,7 +39,8 @@ PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export ARCHFLAGS="-arch x86_64"
 export BAT_THEME="gruvbox-dark"
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
-export CCACHE_EXEC=/usr/bin/ccache
+export CCACHE_EXEC=/bin/ccache
+export EDITOR="nvim"
 export GOPATH="$HOME/go"
 export LANG=zh_TW.UTF-8
 export LC_CTYPE="zh_TW.UTF-8"
@@ -47,11 +48,11 @@ export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:$GOPATH/bin:$HOME/.cargo/bin"
 export PIPENV_VERBOSITY=-1
 export RUNEWIDTH_EASTASIAN=0
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-tpm-agent.sock"
+export SUDO_EDITOR="nvim"
 export SUDO_PROMPT=" 密碼勒？？？"
 export USE_CCACHE=1
-export EDITOR="nvim"
 export VISUAL="nvim"
-export SUDO_EDITOR="nvim"
 
 # some more aliases
 alias -g -- --help-all='-h 2>&1 | bat --language=help --style=plain'
