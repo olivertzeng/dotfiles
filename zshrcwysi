@@ -107,3 +107,4 @@ source ~/.zshsecrets
 
 export PATH="$PATH:/home/$USER/fount/path"
 alias sudo='sudo env PATH="$PATH"'
+eval "$(direnv hook bash)"

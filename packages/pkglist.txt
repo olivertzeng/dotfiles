@@ -127,6 +127,7 @@ nss-mdns
 ntp
 nyancat
 obs-studio
+okular
 onefetch
 onlyoffice-bin
 openbsd-netcat
