@@ -112,4 +112,4 @@ export QTWEBENGINE_RESOURCES_PATH="/usr/lib/qt/libexec/QtWebEngineProcess"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PATH="$PATH:/home/$USER/fount/path"
-eval "$(direnv hook bash)"
+eval "$(direnv hook zsh)"
