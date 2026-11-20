@@ -11,6 +11,51 @@
       }
     },
     {
+      "is": {
+        "title": "Pop Star (US Version) - Kirby 64: The Crystal Shards"
+      }
+    },
+    {
+      "is": {
+        "title": "Hey! Look at me, Ma'yim Mayim"
+      }
+    },
+    {
+      "is": {
+        "title": "surprise_butsecks_(technohandzup_2012_supermix)"
+      }
+    },
+    {
+      "is": {
+        "title": "Title Theme (Beta Mix) - Crazy Frog Racer 2"
+      }
+    },
+    {
+      "is": {
+        "title": "Oppression (Beta Mix) - Cave Story"
+      }
+    },
+    {
+      "is": {
+        "title": "Password (Mega Man 2) (PC Version) - Mega Man Legacy Collection"
+      }
+    },
+    {
+      "is": {
+        "title": "Troika Retro - Tetris DS (THQ) (Unreleased)"
+      }
+    },
+    {
+      "is": {
+        "title": "A Mood Like This (And That Mood Is Wacky)"
+      }
+    },
+    {
+      "is": {
+        "title": "Bulletcore"
+      }
+    },
+    {
       "contains": {
         "artist": "TAWASI"
       }
@@ -28,7 +73,6 @@
           }
         }
       ]
-    },
     },
     {
       "is": {

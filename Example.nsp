@@ -1,15 +1,7 @@
 {
   "any": [
-    {
-      "contains": {
-        "title": "title"
-      }
-    },
-    {
-      "is": {
-        "title": "title"
-      }
-    }
+    { "contains": { "title": "title" } },
+    { "is": { "title": "title" } }
   ],
   "sort": "-dateadded"
 }

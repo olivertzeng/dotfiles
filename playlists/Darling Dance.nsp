@@ -1,0 +1,30 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "ダンス"
+      }
+    },
+    {
+      "contains": {
+        "title": "Darling"
+      }
+    },
+    {
+      "is": {
+        "title": "【音MAD】Stalin Dance  Kairiki Hitler feat. Bruno Ganz"
+      }
+    },
+    {
+      "is": {
+        "title": "Windows Dance"
+      }
+    },
+    {
+      "is": {
+        "title": "Tsurugi Dance"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

@@ -1,0 +1,15 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "without"
+      }
+    },
+    {
+      "contains": {
+        "title": "radical galaxy"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

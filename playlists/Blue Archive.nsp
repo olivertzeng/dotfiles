@@ -2,6 +2,16 @@
   "any": [
     {
       "contains": {
+        "title": "天童"
+      }
+    },
+    {
+      "contains": {
+        "title": "シナリオできた"
+      }
+    },
+    {
+      "contains": {
         "title": "ありす"
       }
     },
@@ -97,7 +107,7 @@
     },
     {
       "contains": {
-        "title": "Unwelcome"
+        "title": "nwelcome"
       }
     },
     {

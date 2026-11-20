@@ -1,0 +1,10 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "宣言"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

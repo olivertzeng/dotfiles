@@ -1,0 +1,9 @@
+{
+  "any": [
+    { "contains": { "title": "クンナー" } },
+    { "is": { "title": "QUNNA" } },
+    { "is": { "title": "カレーっぽいナ！" } },
+    { "is": { "title": "Rumaste" } }
+  ],
+  "sort": "-dateadded"
+}

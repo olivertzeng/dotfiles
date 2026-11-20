@@ -1,0 +1,15 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "マイムマイム"
+      }
+    },
+    {
+      "contains": {
+        "title": "Mayim"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

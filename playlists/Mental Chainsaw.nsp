@@ -1,0 +1,15 @@
+{
+  "any": [
+    {
+      "contains": {
+        "title": "チェンソー"
+      }
+    },
+    {
+      "is": {
+        "title": "title"
+      }
+    }
+  ],
+  "sort": "-dateadded"
+}

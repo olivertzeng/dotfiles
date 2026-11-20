@@ -1,0 +1,9 @@
+{
+  "any": [
+      "all": [
+        { "notContains": { "title": "たまいだ" } },
+        { "contains": { "title": "たま" } }
+      ]
+  ],
+  "sort": "-dateadded"
+}

@@ -1,50 +1,14 @@
 {
   "any": [
-    {
-      "contains": {
-        "title": "直哉"
-      }
-    },
-    {
-      "contains": {
-        "title": "禪院"
-      }
-    },
-    {
-      "contains": {
-        "title": "マニアとかないんか？"
-      }
-    },
-    {
-      "is": {
-        "title": "どぶくらりん"
-      }
-    },
-    {
-      "is": {
-        "title": "ドブカスタービーボーイ"
-      }
-    },
-    {
-      "is": {
-        "artist": "BiBi"
-      }
-    },
-    {
-      "is": {
-        "artist": "Dorcus"
-      }
-    },
-    {
-      "is": {
-        "artist": "해세지"
-      }
-    },
-    {
-      "is": {
-        "artist": "嫉妬太郎"
-      }
-    }
+    { "contains": { "title": "直哉" } },
+    { "contains": { "title": "禪院" } },
+    { "contains": { "title": "とかないんか" } },
+    { "is": { "title": "どぶくらりん" } },
+    { "is": { "title": "ドブカスタービーボーイ" } },
+    { "is": { "artist": "BiBi" } },
+    { "is": { "artist": "Dorcus" } },
+    { "is": { "artist": "해세지" } },
+    { "is": { "artist": "嫉妬太郎" } }
   ],
   "sort": "-dateadded"
 }
