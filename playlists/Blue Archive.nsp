@@ -1,161 +1,41 @@
 {
   "any": [
-    {
-      "contains": {
-        "title": "天童"
-      }
-    },
-    {
-      "contains": {
-        "title": "シナリオできた"
-      }
-    },
-    {
-      "contains": {
-        "title": "ありす"
-      }
-    },
-    {
-      "contains": {
-        "title": "アリス"
-      }
-    },
-    {
-      "contains": {
-        "title": "ヒナ"
-      }
-    },
-    {
-      "contains": {
-        "title": "Archive"
-      }
-    },
-    {
-      "contains": {
-        "title": "枕がデ"
-      }
-    },
-    {
-      "contains": {
-        "title": "코유키"
-      }
-    },
-    {
-      "contains": {
-        "title": "Mika"
-      }
-    },
-    {
-      "contains": {
-        "title": "Pixel_Time"
-      }
-    },
-    {
-      "contains": {
-        "title": "Usagi Flap"
-      }
-    },
-    {
-      "contains": {
-        "title": "ブルアカ"
-      }
-    },
-    {
-      "contains": {
-        "title": "ブルーアーカイブ"
-      }
-    },
-    {
-      "contains": {
-        "title": "コユキ"
-      }
-    },
-    {
-      "contains": {
-        "title": "Yoster"
-      }
-    },
-    {
-      "contains": {
-        "title": "HIGH5LANDER"
-      }
-    },
-    {
-      "contains": {
-        "title": "Aoba"
-      }
-    },
-    {
-      "contains": {
-        "title": "カリフォ"
-      }
-    },
-    {
-      "contains": {
-        "title": "호시노"
-      }
-    },
-    {
-      "contains": {
-        "title": "プリンを"
-      }
-    },
-    {
-      "contains": {
-        "title": "二つも食べちゃいます"
-      }
-    },
-    {
-      "contains": {
-        "title": "nwelcome"
-      }
-    },
-    {
-      "is": {
-        "title": "【館長】Operation☆DOTABATA!"
-      }
-    },
-    {
-      "is": {
-        "title": "싸이의 예고장 ~오빠의 저택과 강남이 머무는 곳~"
-      }
-    },
-    {
-      "is": {
-        "title": "【合作単品】きゅうくらりんっすよ"
-      }
-    },
-    {
-      "is": {
-        "title": "Wii Moonview Highway (3.0.0 Update) - Mario Kart 8 Deluxe"
-      }
-    },
-    {
-      "contains": {
-        "title": "Blue-kurarin"
-      }
-    },
-    {
-      "is": {
-        "title": "Magarin"
-      }
-    },
-    {
-      "is": {
-        "title": "おじかんいただくらりん"
-      }
-    },
-    {
-      "is": {
-        "title": "ライアールダンサー"
-      }
-    },
-    { "is": { "title": "Hoaharu" } },
-    { "is": { "author": "saklz" } },
-    { "inPlaylist": { "id": "x41mj1xsUcTsTEEpzKU2d0" } },
-    { "inPlaylist": { "id": "m68eEKRLIkhMZgaFNpa7j4" } },
+    { "contains": { "title": "Aoba" } },
+    { "contains": { "title": "Archive" } },
+    { "contains": { "title": "Blue-kurarin" } },
+    { "contains": { "title": "HIGH5LANDER" } },
+    { "contains": { "title": "Mika" } },
+    { "contains": { "title": "Pixel_Time" } },
+    { "contains": { "title": "Usagi Flap" } },
+    { "contains": { "title": "Yoster" } },
+    { "contains": { "title": "nwelcome" } },
+    { "contains": { "title": "ありす" } },
+    { "contains": { "title": "アリス" } },
+    { "contains": { "title": "カリフォ" } },
+    { "contains": { "title": "コユキ" } },
+    { "contains": { "title": "シナリオできた" } },
+    { "contains": { "title": "ヒナ" } },
+    { "contains": { "title": "ブルアカ" } },
+    { "contains": { "title": "ブルーアーカイブ" } },
+    { "contains": { "title": "プリンを" } },
+    { "contains": { "title": "二つも食べちゃいます" } },
+    { "contains": { "title": "天童" } },
+    { "contains": { "title": "枕がデ" } },
+    { "contains": { "title": "코유키" } },
+    { "contains": { "title": "호시노" } },
+    { "inPlaylist": { "id": "06lIAJMjjoIeQQTchDWZrq" } },
     { "inPlaylist": { "id": "XMimBaQDIZW96kBRzOeMHJ" } },
-    { "inPlaylist": { "id": "06lIAJMjjoIeQQTchDWZrq" } }
+    { "inPlaylist": { "id": "m68eEKRLIkhMZgaFNpa7j4" } },
+    { "inPlaylist": { "id": "x41mj1xsUcTsTEEpzKU2d0" } },
+    { "is": { "author": "saklz" } },
+    { "is": { "title": "Hoaharu" } },
+    { "is": { "title": "Magarin" } },
+    { "is": { "title": "Wii Moonview Highway (3.0.0 Update) - Mario Kart 8 Deluxe" } },
+    { "is": { "title": "【合作単品】きゅうくらりんっすよ" } },
+    { "is": { "title": "【館長】Operation☆DOTABATA!" } },
+    { "is": { "title": "おじかんいただくらりん" } },
+    { "is": { "title": "ライアールダンサー" } },
+    { "is": { "title": "싸이의 예고장 ~오빠의 저택과 강남이 머무는 곳~" } }
   ],
   "sort": "-dateadded"
 }
